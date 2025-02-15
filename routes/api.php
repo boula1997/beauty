@@ -23,6 +23,7 @@ use App\Http\Controllers\API\SettingController;
 use App\Http\Controllers\API\PartnerController;
 use App\Http\Controllers\API\TeamController;
 use App\Http\Controllers\API\VaccancyController;
+use App\Http\Controllers\API\VideoController;
 use App\Http\Requests\API\ComplainRequest;
 use App\Http\Requests\API\VaccancyRequest;
 
@@ -75,6 +76,9 @@ Route::group(['middleware' => ['apiLocalization','cors']], function () {
     Route::get('/faqs', [FaqController::class, 'index']);
     Route::get('/faq/{id}', [FaqController::class, 'show']);
 
+    Route::get('/videos', [VideoController::class, 'index']);
+    Route::get('/video/{id}', [VideoController::class, 'show']);
+
     Route::get('/complains', [ComplainController::class, 'index']);
     Route::get('/complain/{id}', [ComplainController::class, 'show']);
 
@@ -126,4 +130,3 @@ Route::delete('/complain/{id}',[ComplainController::class,'delete']);
 Route::post('/vaccancy',[VaccancyController::class,'store']);
 Route::put('/vaccancy/{id}',[VaccancyController::class,'update']);
 Route::delete('/vaccancy/{id}',[VaccancyController::class,'delete']);
-
