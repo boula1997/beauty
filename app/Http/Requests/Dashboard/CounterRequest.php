@@ -23,7 +23,7 @@ class CounterRequest extends FormRequest
 
 
         $rules = [
-            'count' =>  'required',
+            'count' =>  'required|numeric',
         ];
         foreach (config('translatable.locales') as $locale) {
             $rules += [$locale . '.title' => ['required', 'string']];

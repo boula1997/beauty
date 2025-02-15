@@ -15,7 +15,7 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="title-header option-title">
-                                        <h5>{{ __('general.show') }} {{ __('general.products') }}</h5>
+                                        <h5>{{ __('general.show') }} {{ __('general.counters') }}</h5>
                                     </div>
                                     <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                                         @foreach (config('translatable.locales') as $key => $locale)
@@ -32,41 +32,27 @@
                                         @foreach (config('translatable.locales') as $key => $locale)
                                             <div class="tab-pane fade show @if ($key == 0) active @endif"
                                                 id="pills-{{ $locale }}" role="tabpanel">
-                                                <!-- normal input -->
-                                                <div class="mb-4 row align-items-center">
-                                                    <div class="col-sm-6"> <label
-                                                            class="form-label-title mb-0">{{ __('general.title') }}</label>
-                                                        <p class="bg-show p-2 mt-2">{{ $product->translate($locale)->title }}</p>
-                                                    </div>
-                                                </div>
-
-                                                <!-- normal input -->
-                                                <div class="mb-4 row align-items-center">
-                                                    <div class="col-sm-6"> <label
-                                                            class="form-label-title mb-0">{{ __('general.subtitle') }}</label>
-                                                        <p class="bg-show p-2 mt-2">{{ $product->translate($locale)->subtitle }}</p>
-                                                    </div>
-                                                </div>
-
-                                                <!-- normal input -->
-                                                <div class="mb-4 row align-items-center">
-                                                    <div class="col-sm-6"> <label
-                                                            class="form-label-title mb-0">{{ __('general.description') }}</label>
-                                                        <p class="bg-show p-2 mt-2">{!! $product->translate($locale)->description !!}</p>
+                                                <!-- Normal title input -->
+                                                <div class="col-sm-12"> 
+                                                    <div class="mb-4 row align-items-center">
+                                                        <label
+                                                            class="form-label-title col-sm-3 mb-0">{{ __('general.title') }} -
+                                                            @lang('general.' . $locale)</label>
+                                                        <p class="col-sm-9">{{  $counter->translate($locale)->title}}</p>
                                                     </div>
                                                 </div>
 
                                             </div>
                                         @endforeach
                                     </div>
-
-                                    <!-- normal input -->
-                                    <div class="mb-4 row align-items-center">
-                                        <div class="col-sm-6"> <label
-                                                class="form-label-title mb-0">{{ __('general.image') }}</label> <img
-                                                class="bg-show p-2 mt-2" width="300" height="300"
-                                                src="{{ $product->image }}" alt=""> </div>
+                                    <div class="col-sm-12"> 
+                                        <div class="mb-4 row align-items-center">
+                                            <label
+                                                class="form-label-title col-sm-3 mb-0">{{ __('general.count') }}</label>
+                                            <p class="col-sm-9">{{ $counter->count }}</p>
+                                        </div>
                                     </div>
+
                                 </div>
                             </div>
                         </div>

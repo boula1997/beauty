@@ -1,5 +1,5 @@
 @extends('admin.components.form')
-@section('form_action', route('products.update', $product->id))
+@section('form_action', route('counters.update', $counter->id))
 @section('form_type', 'POST')
 @section('fields_content')
     @method('put')
@@ -45,54 +45,25 @@
                                                             name="{{ $locale . '[title]' }}"
                                                             placeholder="{{ __('general.title') }}"
                                                             class="form-control @error('title') invalid @enderror @error($locale . '.title') is-invalid @enderror"
-                                                            value="{{ old($locale . '.title', $product->translate($locale)->title) }}"> </div>
-                                                </div>
-
-                                                <!-- Normal title input -->
-                                                <div class="mb-4 row align-items-center"> <label
-                                                        class="form-label-title col-sm-3 mb-0">{{ __('general.subtitle') }}
-                                                        - @lang('general.' . $locale)<span class="text-danger"> * </span></label>
-                                                    <div class="col-sm-9"> <input type="text"
-                                                            name="{{ $locale . '[subtitle]' }}"
-                                                            placeholder="{{ __('general.subtitle') }}"
-                                                            class="form-control @error('subtitle') invalid @enderror @error($locale . '.subtitle') is-invalid @enderror"
-                                                            value="{{ old($locale . '.subtitle', $product->translate($locale)->subtitle) }}">
-                                                    </div>
-                                                </div>
-
-                                                <!-- Normal title input -->
-                                                <div class="mb-4 row align-items-center"> <label
-                                                        class="form-label-title col-sm-3 mb-0">{{ __('general.description') }}
-                                                        - @lang('general.' . $locale)<span class="text-danger"> * </span></label>
-                                                    <div class="col-sm-9">
-                                                        <textarea rows="100" class="summernote @error($locale . '.description') is-invalid @enderror"
-                                                            name="{{ $locale . '[description]' }}"> {!! old($locale . '.description', $product->translate($locale)->description) !!} </textarea>
-                                                    </div>
+                                                            value="{{ old($locale . '.title', $counter->translate($locale)->title) }}"> </div>
                                                 </div>
 
                                             </div>
                                         @endforeach
                                     </div>
-
-                                    {{-- Image Input --}} 
-                                    <div class="row">
-                                        <div class="col-md-6"> @include('admin.components.image', [
-                                            'label' => __('general.image'),
-                                            'value' => old('image', $product->image),
-                                            'name' => 'image',
-                                            'id' => 'kt_image_3',
-                                            'accept' => 'image/*',
-                                            'required' => true,
-                                        ]) </div>
-
-                                        <div class="col-md-6">
-                                            @include('admin.components.icon', [
-                                                'label' => 'icon',
-                                                'required' => true,
-                                                'value' => 'fas fa-desktop',
-                                            ])
-
+                                    <div class="col-md-12">
+                                        <div class="mb-4 row align-items-center"> 
+                                            <label
+                                                class="form-label-title col-sm-3 mb-0">{{ __('general.count') }}
+                                            </label>
+                                            <div class="col-sm-9"> <input type="text"
+                                                    name="count"
+                                                    placeholder="{{ __('general.count') }}"
+                                                    class="form-control @error('count') invalid @enderror @error('count') is-invalid @enderror"
+                                                    value="{{ old('count',$counter->count) }}">
+                                            </div>
                                         </div>
+                                    </div>
                                     </div>
                                 </div>
                                 <div class="card-submit-button">

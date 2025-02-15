@@ -76,27 +76,16 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="mb-4 row align-items-center"> 
-                                            <label
-                                                class="form-label-title col-sm-3 mb-0">{{ __('general.identifier') }}
-                                            </label>
-                                            <div class="col-sm-9"> <input type="text"
-                                                    name="identifier"
-                                                    placeholder="{{ __('general.identifier') }}"
-                                                    class="form-control @error('identifier') invalid @enderror @error('identifier') is-invalid @enderror"
-                                                    value="{{ old('identifier', $page->identifier) }}">
-                                            </div>
-                                        </div>
-
-                                            {{-- <div class="form-group"> <label>{{ __('general.identifier') }} <span
-                                                        class="text-danger"> * </span></label>
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend"> <span class="input-group-text"><i
-                                                                class="fas fa-pen"></i></span> </div> <input type="text"
-                                                        name="identifier" placeholder="{{ __('general.identifier') }}"
-                                                        class="form-control pl-1 min-h-30px @error('identifier') is-invalid @enderror"
-                                                        value="{{ old('identifier',$page->identifier) }}">
+                                                <label
+                                                    class="form-label-title col-sm-3 mb-0">{{ __('general.identifier') }}
+                                                </label>
+                                                <div class="col-sm-9"> <input type="text"
+                                                        name="identifier"
+                                                        placeholder="{{ __('general.identifier') }}"
+                                                        class="form-control @error('identifier') invalid @enderror @error('identifier') is-invalid @enderror"
+                                                        value="{{ old('identifier', $page->identifier) }}">
                                                 </div>
-                                            </div> --}}
+                                            </div>
                                         </div>
                                     </div>
                                     @include('admin.components.images',$images)
