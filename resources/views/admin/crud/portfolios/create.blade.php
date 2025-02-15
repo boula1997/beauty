@@ -8,8 +8,6 @@
         <!-- New portfolio Add Start -->
         <div class="container-fluid">
 
-
-
             <div class="row theme-form ">
                 <div class="col-12">
 
@@ -48,62 +46,20 @@
                                                             value="{{ old($locale . '.title') }}"> </div>
                                                 </div>
 
-                                                <!-- Normal title input -->
-                                                <div class="mb-4 row align-items-center"> <label
-                                                        class="form-label-title col-sm-3 mb-0">{{ __('general.subtitle') }}
-                                                        - @lang('general.' . $locale)<span class="text-danger"> * </span></label>
-                                                    <div class="col-sm-9"> <input type="text"
-                                                            name="{{ $locale . '[subtitle]' }}"
-                                                            placeholder="{{ __('general.subtitle') }}"
-                                                            class="form-control @error('subtitle') invalid @enderror @error($locale . '.subtitle') is-invalid @enderror"
-                                                            value="{{ old($locale . '.subtitle') }}"> </div>
-                                                </div>
-
-                                                <!-- Normal title input -->
-                                                <div class="mb-4 row align-items-center"> <label
-                                                        class="form-label-title col-sm-3 mb-0">{{ __('general.description') }}
-                                                        - @lang('general.' . $locale)<span class="text-danger"> * </span></label>
-                                                    <div class="col-sm-9">
-                                                        <textarea rows="100" class="summernote @error($locale . '.description') is-invalid @enderror"
-                                                            name="{{ $locale . '[description]' }}"> {!! old($locale . '.description') !!} </textarea>
-                                                    </div>
-                                                </div>
-
                                             </div>
                                         @endforeach
                                     </div>
-
-                                    {{-- Image Input --}} <div class="row">
-                                        <div class="col-md-6"> @include('admin.components.image', [
-                                            'label' => __('general.image'),
-                                            'value' => old('image'),
-                                            'name' => 'image',
-                                            'id' => 'kt_image_3',
-                                            'accept' => 'image/*',
-                                            'required' => true,
-                                        ]) </div>
-
-                                        <div class="col-md-6">
-                                            @include('admin.components.icon', [
-                                                'label' => 'icon',
-                                                'required' => true,
-                                                'value' => 'fas fa-desktop',
-                                            ])
-
-                                        </div>
-                                    </div>
                                 </div>
-
-                                <div class="card-submit-button">
-                                    <button class="btn btn-animation ms-auto" type="submit">{{__('general.submit')}}</button>
-                                </div>
+                            </div>
+                            @include('admin.components.images')
+                            <div class="card-submit-button">
+                                <button class="btn btn-animation ms-auto" type="submit">{{__('general.submit')}}</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- New portfolio Add End -->
     </div>
 
 @endsection

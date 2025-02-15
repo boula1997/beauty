@@ -32,41 +32,36 @@
                                         @foreach (config('translatable.locales') as $key => $locale)
                                             <div class="tab-pane fade show @if ($key == 0) active @endif"
                                                 id="pills-{{ $locale }}" role="tabpanel">
-                                                <!-- normal input -->
-                                                <div class="mb-4 row align-items-center">
-                                                    <div class="col-sm-6"> <label
-                                                            class="form-label-title mb-0">{{ __('general.title') }}</label>
-                                                        <p class="bg-show p-2 mt-2">{{ $portfolio->translate($locale)->title }}</p>
+
+                                                  <!-- Normal title input -->
+                                                <div class="col-sm-12"> 
+                                                    <div class="mb-4 row align-items-center">
+                                                        <label
+                                                            class="form-label-title col-sm-3 mb-0">{{ __('general.title') }} -
+                                                            @lang('general.' . $locale)</label>
+                                                        <p class="col-sm-9">{{  $portfolio->translate($locale)->title}}</p>
                                                     </div>
                                                 </div>
-
-                                                <!-- normal input -->
-                                                <div class="mb-4 row align-items-center">
-                                                    <div class="col-sm-6"> <label
-                                                            class="form-label-title mb-0">{{ __('general.subtitle') }}</label>
-                                                        <p class="bg-show p-2 mt-2">{{ $portfolio->translate($locale)->subtitle }}</p>
-                                                    </div>
-                                                </div>
-
-                                                <!-- normal input -->
-                                                <div class="mb-4 row align-items-center">
-                                                    <div class="col-sm-6"> <label
-                                                            class="form-label-title mb-0">{{ __('general.description') }}</label>
-                                                        <p class="bg-show p-2 mt-2">{!! $portfolio->translate($locale)->description !!}</p>
-                                                    </div>
-                                                </div>
-
                                             </div>
                                         @endforeach
                                     </div>
 
-                                    <!-- normal input -->
-                                    <div class="mb-4 row align-items-center">
-                                        <div class="col-sm-6"> <label
-                                                class="form-label-title mb-0">{{ __('general.image') }}</label> <img
-                                                class="bg-show p-2 mt-2" width="300" height="300"
-                                                src="{{ $portfolio->image }}" alt=""> </div>
+                                     
+                                     <!-- normal input -->
+                                     <div class="mb-4 row align-items-center">
+                                        <div class="col-sm-12"> <label
+                                                class="form-label-title mb-0">{{ __('general.images') }}</label>
+                                                <br>
+                                                @foreach ($images as $image)
+                                                    @if (isset($image->id))
+                                                        <img
+                                                        class="bg-show p-2 mt-2" width="100" height="100"
+                                                        src="{{ $image->url}}" alt=""> 
+                                                    @endif
+                                                @endforeach
+                                        </div>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
