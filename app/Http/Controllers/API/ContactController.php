@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ContactResource;
+use App\Http\Resources\PageResource;
 use App\Models\Contact;
 use Exception;
 use Illuminate\Http\Request;
@@ -20,6 +21,8 @@ class ContactController extends Controller
     {
         try {
             $data['contacts'] = ContactResource::collection($this->contact->get());
+            $data['footer_section'] = new PageResource(page('footer'));
+
             return successResponse($data);
         } catch (Exception $e) {
 

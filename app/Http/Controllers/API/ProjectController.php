@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\PageResource;
 use App\Http\Resources\ProjectResource;
 use App\Models\Project;
 use Exception;
@@ -20,6 +21,7 @@ class ProjectController extends Controller
     {
         try {
             $data['projects'] = ProjectResource::collection($this->project->get());
+            $data['footer_section'] = new PageResource(page('footer'));
             return successResponse($data);
         } catch (Exception $e) {
 

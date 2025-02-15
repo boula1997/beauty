@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\PageResource;
 use App\Http\Resources\VideoResource;
 use App\Models\Video;
 use Exception;
@@ -20,6 +21,7 @@ class VideoController extends Controller
     {
         try {
             $data['videos'] = VideoResource::collection($this->video->get());
+            $data['footer_section'] = new PageResource(page('footer'));
             return successResponse($data);
         } catch (Exception $e) {
 

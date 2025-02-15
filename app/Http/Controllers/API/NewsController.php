@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\NewsResource;
+use App\Http\Resources\PageResource;
 use App\Models\News;
 use Exception;
 use Illuminate\Http\Request;
@@ -20,6 +21,8 @@ class NewsController extends Controller
     {
         try {
             $data['newss'] = NewsResource::collection($this->news->get());
+            $data['footer_section'] = new PageResource(page('footer'));
+
             return successResponse($data);
         } catch (Exception $e) {
 

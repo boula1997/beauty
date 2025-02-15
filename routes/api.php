@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\AboutController;
 use App\Http\Controllers\API\FaqController;
 use App\Http\Controllers\API\MessageController;
 use App\Http\Controllers\API\CounterController;
@@ -17,6 +18,7 @@ use App\Http\Controllers\API\TestimonialController;
 use App\Http\Controllers\API\ProcessController;
 use App\Http\Controllers\API\CategoryController;
 use App\Http\Controllers\API\ComplainController;
+use App\Http\Controllers\API\HomeController;
 use App\Http\Controllers\API\NewsController;
 use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\API\SettingController;
@@ -62,6 +64,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // Route::post('store/newsletter', 'CNewsletterController@store');
 Route::group(['middleware' => ['apiLocalization','cors']], function () {
+    Route::get('/home', [HomeController::class, 'index']);
+    Route::get('/about', [AboutController::class, 'index']);
     Route::get('/services', [ServiceController::class, 'index']);
     Route::get('/service/{id}', [ServiceController::class, 'show']);
     Route::get('/testimonials', [TestimonialController::class, 'index']);
