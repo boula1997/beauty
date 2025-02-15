@@ -23,10 +23,10 @@ class VideoRequest extends FormRequest
 
 
         $rules = [
-            'youtube_link' =>  'required' ,
+            'youtube_link' =>  'required|active_url|url' ,
         ];
         foreach (config('translatable.locales') as $locale) {
-            $rules += [$locale . '.title' => ['required', 'string']];
+            // $rules += [$locale . '.title' => ['required', 'string']];
         }
         return  $rules;
     }

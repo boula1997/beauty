@@ -9,44 +9,39 @@
                     <div class="card card-table">
                         <div class="card-body">
                             <div class="title-header option-title d-sm-flex d-block">
-                                <h5>{{'general.portfolios'}}</h5>
+                                <h5>{{'general.videos'}}</h5>
                                 <div class="right-options">
                                     <ul>
                                         <li>
-                                            <a class="btn btn-solid" href="{{route('portfolios.create')}}">{{__('general.create')}}</a>
+                                            <a class="btn btn-solid" href="{{route('videos.create')}}">{{__('general.create')}}</a>
                                         </li>
                                     </ul>
                                 </div>
                             </div>
                             <div>
                                 <div class="table-responsive">
-                                    <table class="table all-package theme-table table-portfolio" id="table_id">
+                                    <table class="table all-package theme-table table-page" id="table_id">
                                         <thead>
                                             <tr>
                                                 <th>#</th>
-                                                <th>@lang('general.image')</th>
                                                 <th>@lang('general.title')</th>
+                                                <th>@lang('general.youtube_link')</th>
                                                 <th>@lang('general.controls')</th>
                                             </tr>
                                         </thead>
 
                                         <tbody>
-                                            @foreach ($portfolios as $portfolio)
+                                            @foreach ($videos as $video)
                                                 <tr>
                                                     <td>{{ $loop->iteration }}</td>
-                                                    <td>
-                                                        <div class="table-image">
-                                                            <img src="{{ $portfolio->image }}"
-                                                                class="img-fluid" alt="">
-                                                        </div>
-                                                    </td>
-
-                                                    <td class="text-start">{{ $portfolio->title }}</td>
+                                                  
+                                                    <td>{{ $video->title }}</td>
+                                                    <td>{{ $video->youtube_link }}</td>
                                                     <td>
                                                         @include('admin.components.controls', [
-                                                            'route' => 'portfolios',
-                                                            'role' => 'portfolio',
-                                                            'module' => $portfolio,
+                                                            'route' => 'videos',
+                                                            'role' => 'video',
+                                                            'module' => $video,
                                                         ])
                                                     </td>
                                                 </tr>
