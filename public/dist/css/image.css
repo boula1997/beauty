@@ -1,0 +1,86 @@
+.image-input.image-input-outline .image-input-wrapper {
+    border: 3px solid #fff;
+    -webkit-box-shadow: 0 0.5rem 1.5rem 0.5rem rgba(0,0,0,.075);
+    box-shadow: 0 0.5rem 1.5rem 0.5rem rgba(0,0,0,.075);
+}
+
+.image-input .image-input-wrapper {
+    width: 120px;
+    height: 120px;
+    border-radius: 0.42rem;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.form-group label {
+    font-size: 1rem;
+    font-weight: 400;
+    color: #3f4254;
+}
+
+.btn:not(.btn-text) {
+    cursor: pointer;
+}
+
+.btn.btn-icon {
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    padding: 0;
+    height: calc(1.5em + 1.3rem + 2px);
+    width: calc(1.5em + 1.3rem + 2px);
+}
+
+.btn.btn-white {
+    color: #3f4254;
+    background-color: #fff;
+    border-color: #fff;
+}
+
+.image-input [data-action=change] {
+    cursor: pointer;
+    position: absolute;
+    left: -10px;
+    top: -10px;
+}
+
+
+.btn:not(:disabled):not(.disabled) {
+    cursor: pointer;
+}
+
+.btn.btn-icon.btn-xs {
+    height: 24px;
+    width: 24px;
+}
+
+.btn.btn-icon.btn-circle {
+    border-radius: 50%;
+}
+
+.btn.btn-white.btn-shadow {
+    -webkit-box-shadow: 0 9px 16px 0 rgba(24,28,50,.25)!important;
+    box-shadow: 0 9px 16px 0 rgba(24,28,50,.25)!important;
+}
+
+.image-input .image-input-wrapper {
+    width: 120px;
+    height: 120px;
+    border-radius: 0.42rem;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
+.image-input.image-input-outline .image-input-wrapper {
+    border: 3px solid #fff;
+    -webkit-box-shadow: 0 0.5rem 1.5rem 0.5rem rgba(0,0,0,.075);
+    box-shadow: 0 0.5rem 1.5rem 0.5rem rgba(0,0,0,.075);
+}
+

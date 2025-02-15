@@ -1,0 +1,9 @@
+.nav-sidebar .nav-item .nav-link .fa-angle-left {
+    transform: rotateY(180deg);
+    float: left;
+}
+
+.nav-sidebar .nav-item .nav-link .badge-info {
+    float: left;
+    margin-left: 10px;
+}
