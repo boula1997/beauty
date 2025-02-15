@@ -13,12 +13,6 @@
                                 <div class="right-options">
                                     <ul>
                                         <li>
-                                            <a href="javascript:void(0)">import</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0)">Export</a>
-                                        </li>
-                                        <li>
                                             <a class="btn btn-solid" href="{{route('pages.create')}}">{{__('general.create')}}</a>
                                         </li>
                                     </ul>
@@ -30,10 +24,8 @@
                                         <thead>
                                             <tr>
                                                 <th>#</th>
-                                                <th>@lang('general.image')</th>
                                                 <th>@lang('general.title')</th>
-                                                <th>{{__('general.created_at')}}</th>
-                                                <th>{{__('general.updated_at')}}</th>
+                                                <th>@lang('general.subtitle')</th>
                                                 <th>@lang('general.controls')</th>
                                             </tr>
                                         </thead>
@@ -42,17 +34,9 @@
                                             @foreach ($pages as $page)
                                                 <tr>
                                                     <td>{{ $loop->iteration }}</td>
-                                                    <td>
-                                                        <div class="table-image">
-                                                            <img src="{{ $page->image }}"
-                                                                class="img-fluid" alt="">
-                                                        </div>
-                                                    </td>
-
+                                                
                                                     <td class="text-start">{{ $page->title }}</td>
-                                                    <td>{{ $category->created_at }}</td>
-                                                    
-                                                    <td>{{ $category->updated_at }}</td>
+                                                    <td class="text-start">{{ $page->subtitle }}</td>
                                                     <td>
                                                         @include('admin.components.controls', [
                                                             'route' => 'pages',

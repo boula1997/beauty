@@ -60,12 +60,26 @@
                                         @endforeach
                                     </div>
 
-                                    <!-- normal input -->
                                     <div class="mb-4 row align-items-center">
                                         <div class="col-sm-6"> <label
-                                                class="form-label-title mb-0">{{ __('general.image') }}</label> <img
-                                                class="bg-show p-2 mt-2" width="300" height="300"
-                                                src="{{ $page->image }}" alt=""> </div>
+                                                class="form-label-title mb-0">{{ __('general.identifier') }}</label>
+                                            <p class="bg-show p-2 mt-2">{{ $page->identifier }}</p>
+                                        </div>
+                                    </div>
+                                   
+                                     <!-- normal input -->
+                                    <div class="mb-4 row align-items-center">
+                                        <div class="col-sm-12"> <label
+                                                class="form-label-title mb-0">{{ __('general.images') }}</label>
+                                                <br>
+                                                @foreach ($images as $image)
+                                                    @if (isset($image->id))
+                                                        <img
+                                                        class="bg-show p-2 mt-2" width="100" height="100"
+                                                        src="{{ $image->url}}" alt=""> 
+                                                    @endif
+                                                @endforeach
+                                        </div>
                                     </div>
                                 </div>
                             </div>
