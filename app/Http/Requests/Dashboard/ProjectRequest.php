@@ -21,13 +21,15 @@ class ProjectRequest extends FormRequest
         //to add or remove input from request in validation class use $this->merge
         //  $this->merge(['user_id' => auth('api')->user()->id]);
 
-
+        $image = request()->isMethod('put') ? 'nullable' : 'required';
         $rules = [
-        'title' => 'required',
-
-        'status' => 'nullable',
+            'image' =>  $image ,
         ];
-        
+        foreach (config('translatable.locales') as $locale) {
+            $rules += [$locale . '.title' => ['required', 'string']];
+            $rules += [$locale . '.subtitle' => ['required', 'string']];
+            $rules += [$locale . '.description' => ['required']];
+        }
         return  $rules;
     }
 

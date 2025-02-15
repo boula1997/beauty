@@ -106,6 +106,22 @@
                                 <li class="sidebar-list">
                                     <a class="linear-icon-link sidebar-link sidebar-title" href="javascript:void(0)">
                                         <i class="ri-list-check-2"></i>
+                                        <span>{{__('general.projects')}}</span>
+                                    </a>
+                                    <ul class="sidebar-submenu">
+                                        <li>
+                                            <a href="{{route('projects.index')}}">{{__('general.All projects')}}</a>
+                                        </li>
+
+                                        <li>
+                                            <a href="{{route('projects.create')}}">{{__('general.Add a new project')}}</a>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                <li class="sidebar-list">
+                                    <a class="linear-icon-link sidebar-link sidebar-title" href="javascript:void(0)">
+                                        <i class="ri-list-check-2"></i>
                                         <span>{{__('general.teams')}}</span>
                                     </a>
                                     <ul class="sidebar-submenu">
