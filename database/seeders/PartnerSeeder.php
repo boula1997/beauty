@@ -13,15 +13,7 @@ class PartnerSeeder extends Seeder
      */
     public function run(): void
     {
-        $title_en = ["SEO Mind",
-        "Boosterio",
-        "Atomic SEO",
-        "Green Host"];
       
-        $title_ar = ["SEO Mind",
-                    "Boosterio",
-                    "Atomic SEO",
-                    "Green Host"];
 
         $image=["images/tykEYLJg6IvrEdpzYcHTmLm5WWErcSklnEZcOjcI.webp",
                 "images/HsWogOvEjxPtEStdNr913ols44RFifVERaoyxkwh.webp",
@@ -30,14 +22,8 @@ class PartnerSeeder extends Seeder
        
        
 
-        for ($i = 0; $i < count($title_ar); $i++) {
+        for ($i = 0; $i < count($image); $i++) {
             $Partner = Partner::create([
-                'ar' => [
-                    'title' => $title_ar[$i],
-                ],
-                'en' => [
-                    'title' => $title_en[$i],
-                ],
             ]);
             $Partner->file()->create(["url"=>$image[$i]]);
           }

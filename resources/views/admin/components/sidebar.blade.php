@@ -122,6 +122,22 @@
                                 <li class="sidebar-list">
                                     <a class="linear-icon-link sidebar-link sidebar-title" href="javascript:void(0)">
                                         <i class="ri-list-check-2"></i>
+                                        <span>{{__('general.newss')}}</span>
+                                    </a>
+                                    <ul class="sidebar-submenu">
+                                        <li>
+                                            <a href="{{route('newss.index')}}">{{__('general.All newss')}}</a>
+                                        </li>
+
+                                        <li>
+                                            <a href="{{route('newss.create')}}">{{__('general.Add a new news')}}</a>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                <li class="sidebar-list">
+                                    <a class="linear-icon-link sidebar-link sidebar-title" href="javascript:void(0)">
+                                        <i class="ri-list-check-2"></i>
                                         <span>{{__('general.teams')}}</span>
                                     </a>
                                     <ul class="sidebar-submenu">

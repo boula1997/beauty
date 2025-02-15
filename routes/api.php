@@ -17,6 +17,7 @@ use App\Http\Controllers\API\TestimonialController;
 use App\Http\Controllers\API\ProcessController;
 use App\Http\Controllers\API\CategoryController;
 use App\Http\Controllers\API\ComplainController;
+use App\Http\Controllers\API\NewsController;
 use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\API\SettingController;
 use App\Http\Controllers\API\PartnerController;
@@ -106,6 +107,9 @@ Route::group(['middleware' => ['apiLocalization','cors']], function () {
 
     Route::get('/portfolios', [PortfolioController::class, 'index']);
     Route::get('/portfolio/{id}', [PortfolioController::class, 'show']);
+
+    Route::get('/newss', [NewsController::class, 'index']);
+    Route::get('/news/{id}', [NewsController::class, 'show']);
 
 
 });
