@@ -74,21 +74,6 @@
 
                                 <li class="sidebar-list">
                                     <a class="linear-icon-link sidebar-link sidebar-title" href="javascript:void(0)">
-                                        <i class="ri-user-3-line"></i>
-                                        <span>{{__('general.users')}}</span>
-                                    </a>
-                                    <ul class="sidebar-submenu">
-                                        <li>
-                                            <a href="{{route('users.index')}}">{{__('general.All users')}}</a>
-                                        </li>
-                                        <li>
-                                            <a href="{{route('users.create')}}">{{__('general.Add a new  user')}}</a>
-                                        </li>
-                                    </ul>
-                                </li>
-
-                                <li class="sidebar-list">
-                                    <a class="linear-icon-link sidebar-link sidebar-title" href="javascript:void(0)">
                                         <i class="ri-list-check-2"></i>
                                         <span>{{__('general.partners')}}</span>
                                     </a>
@@ -138,102 +123,6 @@
                                 <li class="sidebar-list">
                                     <a class="linear-icon-link sidebar-link sidebar-title" href="javascript:void(0)">
                                         <i class="ri-list-check-2"></i>
-                                        <span>{{__('general.teams')}}</span>
-                                    </a>
-                                    <ul class="sidebar-submenu">
-                                        <li>
-                                            <a href="{{route('teams.index')}}">{{__('general.list')}}</a>
-                                        </li>
-
-                                        <li>
-                                            <a href="{{route('teams.create')}}">{{__('general.create')}}</a>
-                                        </li>
-                                    </ul>
-                                </li>
-
-                                <li class="sidebar-list">
-                                    <a class="linear-icon-link sidebar-link sidebar-title" href="javascript:void(0)">
-                                        <i class="ri-list-check-2"></i>
-                                        <span>{{__('general.services')}}</span>
-                                    </a>
-                                    <ul class="sidebar-submenu">
-                                        <li>
-                                            <a href="{{route('services.index')}}">{{__('general.list')}}</a>
-                                        </li>
-
-                                        <li>
-                                            <a href="{{route('services.create')}}">{{__('general.create')}}</a>
-                                        </li>
-                                    </ul>
-                                </li>
-
-                                <li class="sidebar-list">
-                                    <a class="linear-icon-link sidebar-link sidebar-title" href="javascript:void(0)">
-                                        <i class="ri-store-3-line"></i>
-                                        <span>{{__('general.products')}}</span>
-                                    </a>
-                                    <ul class="sidebar-submenu">
-                                        <li>
-                                            <a href="{{route('products.index')}}">{{__('general.list')}}</a>
-                                        </li>
-
-                                        <li>
-                                            <a href="{{route('products.create')}}">{{__('general.create')}}</a>
-                                        </li>
-                                    </ul>
-                                </li>
-
-                                <li class="sidebar-list">
-                                    <a class="linear-icon-link sidebar-link sidebar-title" href="javascript:void(0)">
-                                        <i class="ri-list-check-2"></i>
-                                        <span>{{__('general.catgeories')}}</span>
-                                    </a>
-                                    <ul class="sidebar-submenu">
-                                        <li>
-                                            <a href="{{route('categories.index')}}">{{__('general.list')}}</a>
-                                        </li>
-
-                                        <li>
-                                            <a href="{{route('categories.create')}}">{{__('general.create')}}</a>
-                                        </li>
-                                    </ul>
-                                </li>
-
-                                <li class="sidebar-list">
-                                    <a class="linear-icon-link sidebar-link sidebar-title" href="javascript:void(0)">
-                                        <i class="ri-list-check-2"></i>
-                                        <span>{{__('general.testimonials')}}</span>
-                                    </a>
-                                    <ul class="sidebar-submenu">
-                                        <li>
-                                            <a href="{{route('testimonials.index')}}">{{__('general.list')}}</a>
-                                        </li>
-
-                                        <li>
-                                            <a href="{{route('testimonials.create')}}">{{__('general.create')}}</a>
-                                        </li>
-                                    </ul>
-                                </li>
-
-                                <li class="sidebar-list">
-                                    <a class="linear-icon-link sidebar-link sidebar-title" href="javascript:void(0)">
-                                        <i class="ri-list-check-2"></i>
-                                        <span>{{__('general.processes')}}</span>
-                                    </a>
-                                    <ul class="sidebar-submenu">
-                                        <li>
-                                            <a href="{{route('processes.index')}}">{{__('general.list')}}</a>
-                                        </li>
-
-                                        <li>
-                                            <a href="{{route('processes.create')}}">{{__('general.create')}}</a>
-                                        </li>
-                                    </ul>
-                                </li>
-
-                                <li class="sidebar-list">
-                                    <a class="linear-icon-link sidebar-link sidebar-title" href="javascript:void(0)">
-                                        <i class="ri-list-check-2"></i>
                                         <span>{{__('general.portfolios')}}</span>
                                     </a>
                                     <ul class="sidebar-submenu">
@@ -262,54 +151,6 @@
                                         </li>
                                     </ul>
                                 </li>
-
-                                <li class="sidebar-list">
-                                    <a class="linear-icon-link sidebar-link sidebar-title" href="javascript:void(0)">
-                                        <i class="ri-list-check-2"></i>
-                                        <span>{{__('general.faqs')}}</span>
-                                    </a>
-                                    <ul class="sidebar-submenu">
-                                        <li>
-                                            <a href="{{route('faqs.index')}}">{{__('general.list')}}</a>
-                                        </li>
-
-                                        <li>
-                                            <a href="{{route('faqs.create')}}">{{__('general.create')}}</a>
-                                        </li>
-                                    </ul>
-                                </li>
-
-                                {{-- <li class="sidebar-list">
-                                    <a class="linear-icon-link sidebar-link sidebar-title" href="javascript:void(0)">
-                                        <i class="ri-list-check-2"></i>
-                                        <span>{{__('general.complains')}}</span>
-                                    </a>
-                                    <ul class="sidebar-submenu">
-                                        <li>
-                                            <a href="{{route('complains.index')}}">{{__('general.list')}}</a>
-                                        </li>
-
-                                        <li>
-                                            <a href="{{route('complains.create')}}">{{__('general.create')}}</a>
-                                        </li>
-                                    </ul>
-                                </li> --}}
-
-                                {{-- <li class="sidebar-list">
-                                    <a class="linear-icon-link sidebar-link sidebar-title" href="javascript:void(0)">
-                                        <i class="ri-list-check-2"></i>
-                                        <span>{{__('general.vaccancies')}}</span>
-                                    </a>
-                                    <ul class="sidebar-submenu">
-                                        <li>
-                                            <a href="{{route('vaccancies.index')}}">{{__('general.list')}}</a>
-                                        </li>
-
-                                        <li>
-                                            <a href="{{route('vaccancies.create')}}">{{__('general.create')}}</a>
-                                        </li>
-                                    </ul>
-                                </li> --}}
 
                                 <li class="sidebar-list">
                                     <a class="linear-icon-link sidebar-link sidebar-title" href="javascript:void(0)">
@@ -343,7 +184,7 @@
                                     </ul>
                                 </li>
 
-                                {{-- <li class="sidebar-list">
+                                <li class="sidebar-list">
                                     <a class="linear-icon-link sidebar-link sidebar-title" href="javascript:void(0)">
                                         <i class="ri-list-check-2"></i>
                                         <span>{{__('general.videos')}}</span>
@@ -357,7 +198,7 @@
                                             <a href="{{route('videos.create')}}">{{__('general.create')}}</a>
                                         </li>
                                     </ul>
-                                </li> --}}
+                                </li>
 
                                 <li class="sidebar-list">
                                     <a class="linear-icon-link sidebar-link sidebar-title" href="javascript:void(0)">
@@ -391,123 +232,22 @@
                                     </ul>
                                 </li>
 
-
-                                {{-- <li class="sidebar-list">
-                                    <a class="linear-icon-link sidebar-link sidebar-title" href="javascript:void(0)">
-                                        <i class="ri-list-settings-line"></i>
-                                        <span>Attributes</span>
-                                    </a>
-                                    <ul class="sidebar-submenu">
-                                        <li>
-                                            <a href="attributes.html">Attributes</a>
-                                        </li>
-
-                                        <li>
-                                            <a href="add-new-attributes.html">Add Attributes</a>
-                                        </li>
-                                    </ul>
-                                </li> --}}
-
-
-
-
-
-                                {{-- <li class="sidebar-list">
-                                    <a class="sidebar-link sidebar-title link-nav" href="media.html">
-                                        <i class="ri-price-tag-3-line"></i>
-                                        <span>Media</span>
-                                    </a>
-                                </li> --}}
-
-                                {{-- <li class="sidebar-list">
-                                    <a class="sidebar-link sidebar-title" href="javascript:void(0)">
-                                        <i class="ri-archive-line"></i>
-                                        <span>Orders</span>
-                                    </a>
-                                    <ul class="sidebar-submenu">
-                                        <li>
-                                            <a href="order-list.html">Order List</a>
-                                        </li>
-                                        <li>
-                                            <a href="order-detail.html">Order Detail</a>
-                                        </li>
-                                        <li>
-                                            <a href="order-tracking.html">Order Tracking</a>
-                                        </li>
-                                    </ul>
-                                </li> --}}
-
-                                {{-- <li class="sidebar-list">
-                                    <a class="linear-icon-link sidebar-link sidebar-title" href="javascript:void(0)">
-                                        <i class="ri-focus-3-line"></i>
-                                        <span>Localization</span>
-                                    </a>
-                                    <ul class="sidebar-submenu">
-                                        <li>
-                                            <a href="translation.html">Translation</a>
-                                        </li>
-
-                                        <li>
-                                            <a href="currency-rates.html">Currency Rates</a>
-                                        </li>
-                                    </ul>
-                                </li> --}}
-
-                                {{-- <li class="sidebar-list">
-                                    <a class="linear-icon-link sidebar-link sidebar-title" href="javascript:void(0)">
-                                        <i class="ri-price-tag-3-line"></i>
-                                        <span>Coupons</span>
-                                    </a>
-                                    <ul class="sidebar-submenu">
-                                        <li>
-                                            <a href="coupon-list.html">Coupon List</a>
-                                        </li>
-
-                                        <li>
-                                            <a href="create-coupon.html">Create Coupon</a>
-                                        </li>
-                                    </ul>
-                                </li> --}}
-
-                                {{-- <li class="sidebar-list">
-                                    <a class="sidebar-link sidebar-title link-nav" href="taxes.html">
-                                        <i class="ri-price-tag-3-line"></i>
-                                        <span>Tax</span>
-                                    </a>
-                                </li> --}}
-{{-- 
                                 <li class="sidebar-list">
-                                    <a class="sidebar-link sidebar-title link-nav" href="product-review.html">
-                                        <i class="ri-star-line"></i>
-                                        <span>Product Review</span>
-                                    </a>
-                                </li> --}}
-
-                                {{-- <li class="sidebar-list">
-                                    <a class="sidebar-link sidebar-title link-nav" href="support-ticket.html">
-                                        <i class="ri-phone-line"></i>
-                                        <span>Support Ticket</span>
-                                    </a>
-                                </li> --}}
-
-                                {{-- <li class="sidebar-list">
                                     <a class="linear-icon-link sidebar-link sidebar-title" href="javascript:void(0)">
-                                        <i class=""></i>
-                                        <span>{{__('general.settings')}}</span>
+                                        <i class="ri-list-check-2"></i>
+                                        <span>{{__('general.logout')}}</span>
                                     </a>
                                     <ul class="sidebar-submenu">
                                         <li>
-                                            <a href="{{route('edit.setting')}}">{{__('general.Profile Setting')}}</a>
+                                            <form action="{{ route('logout') }}" method="POST">
+                                                @csrf
+                                                <i class=" px-1 nav-icon  fa fa-sign-out text-white" aria-hidden="true"></i>
+                                                <button class="btn text-white" type="submit">{{__('general.logout')}}</button>
+                        
+                                            </form>
                                         </li>
                                     </ul>
-                                </li> --}}
-
-                                {{-- <li class="sidebar-list">
-                                    <a class="sidebar-link sidebar-title link-nav" href="reports.html">
-                                        <i class="ri-file-chart-line"></i>
-                                        <span>Reports</span>
-                                    </a>
-                                </li> --}}
+                                </li>
 
                                 <li class="sidebar-list">
                                     <a class="sidebar-link sidebar-title link-nav" href="list-page.html">
