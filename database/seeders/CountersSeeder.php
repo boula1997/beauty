@@ -13,8 +13,8 @@ class CountersSeeder extends Seeder
      */
     public function run(): void
     {
-        $title_ar = ["مواقع تم تنفيذها","مواقع تحت الانشاء","تطبيقات موبيل تم تنفيذها","تطبيقات موبيل تحت الانشاء"];
-        $title_en = ["Built Web Projects","New Web Project","Created Mobile Applications","New  Mobile Applications"];
+        $title_ar = ["مشروع العاصمة الجديدة – R8", "منذ في مصر", "مشاريع غرب القاهرة", "العاصمة الجديدة – وسط المدينة"];
+        $title_en = ["Project New Capital – R8","Since in Egypt","West Cairo Projects","New Capital – Downtown"];
         $count=['30','15',"10","5"];
       
 
