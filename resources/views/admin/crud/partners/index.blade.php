@@ -13,12 +13,6 @@
                                 <div class="right-options">
                                     <ul>
                                         <li>
-                                            <a href="javascript:void(0)">import</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0)">Export</a>
-                                        </li>
-                                        <li>
                                             <a class="btn btn-solid"
                                                 href="{{ route('partners.create') }}">{{ __('general.create') }}</a>
                                         </li>
@@ -31,13 +25,7 @@
                                         <thead>
                                             <tr>
                                                 <th>#</th>
-                                                <th>@lang('general.image')</th>
-                                                
-                                                <th>{{ __('general.title') }}</th>
-                                                <th>{{ __('general.created_at') }}</th>
-
-                                                <th>{{ __('general.updated_at') }}</th>
-                                                
+                                                <th>@lang('general.image')</th>                                             
                                                 <th>@lang('general.controls')</th>
                                             </tr>
                                         </thead>
@@ -52,12 +40,6 @@
                                                                 alt="">
                                                         </div>
                                                     </td>
-
-                                                    
-                                                    <td>{{ $partner->title }}</td>
-                                                    <td>{{ $partner->created_at }}</td>
-
-                                                    <td>{{ $partner->updated_at }}</td>
                                                     <td>
                                                         @include('admin.components.controls', [
                                                             'route' => 'partners',

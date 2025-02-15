@@ -15,7 +15,6 @@ class CreatePartnerTranslationsTable extends Migration
     {
         Schema::create('partner_translations', function (Blueprint $table) {
             $table->id();
-            $table->string('title')->nullable();
             $table->unsignedBigInteger('partner_id');
             $table->string('locale')->index();
             $table->unique(['partner_id', 'locale']);
