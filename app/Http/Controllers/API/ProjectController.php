@@ -21,7 +21,7 @@ class ProjectController extends Controller
     {
         try {
             $data['projects'] = ProjectResource::collection($this->project->get());
-            $data['footer_section'] = new PageResource(page('footer'));
+            $data['footer_section'] = new PageResource(page('footer-section'));
             return successResponse($data);
         } catch (Exception $e) {
 

@@ -21,7 +21,7 @@ class NewsController extends Controller
     {
         try {
             $data['newss'] = NewsResource::collection($this->news->get());
-            $data['footer_section'] = new PageResource(page('footer'));
+            $data['footer_section'] = new PageResource(page('footer-section'));
 
             return successResponse($data);
         } catch (Exception $e) {

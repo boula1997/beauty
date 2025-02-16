@@ -16,7 +16,7 @@ class Gallery extends Model implements TranslatableContract
     use HasFactory, Translatable,MorphFiles,MorphFile;
     protected $table = 'galleries';
     protected $guarded = [];
-    public $translatedAttributes = ['title',];
+    public $translatedAttributes = ['title','description'];
     public $timestamps = true;
 
     public function getImagesAttribute()

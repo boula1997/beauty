@@ -63,10 +63,10 @@ class AboutController extends Controller
     public function index()
     {
         try {
-            $data['about_section'] = new PageResource(page('about'));
+            $data['about_section'] = new PageResource(page('aboutus-home'));
             $data['projects'] = ProjectResource::collection($this->project->latest()->take(3)->get());
             $data['counters'] = CounterResource::collection($this->counter->latest()->paginate(10));
-            $data['footer_section'] = new PageResource(page('footer'));
+            $data['footer_section'] = new PageResource(page('footer-section'));
             return response()->json($data);
         } catch (Exception $e) {
 

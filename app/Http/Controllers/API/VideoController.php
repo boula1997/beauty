@@ -21,7 +21,7 @@ class VideoController extends Controller
     {
         try {
             $data['videos'] = VideoResource::collection($this->video->get());
-            $data['footer_section'] = new PageResource(page('footer'));
+            $data['footer_section'] = new PageResource(page('footer-section'));
             return successResponse($data);
         } catch (Exception $e) {
 
