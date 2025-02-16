@@ -64,11 +64,11 @@ class HomeController extends Controller
         try {
             
             $data['blog_section'] = new PageResource(page('blog'));
-            $data['about_section'] = new PageResource(page('about'));
+            $data['about_section'] = new PageResource(page('aboutus-home'));
             $data['projects'] = ProjectResource::collection($this->project->latest()->paginate(10));
             $data['partners'] = PartnerResource::collection($this->partner->latest()->paginate(10));
             $data['news'] = NewsResource::collection($this->news->latest()->paginate(10));
-            $data['footer_section'] = new PageResource(page('footer'));
+            $data['footer_section'] = new PageResource(page('footer-section'));
             return response()->json($data);
         } catch (Exception $e) {
 

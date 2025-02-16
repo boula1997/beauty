@@ -16,6 +16,7 @@ class CreatePagesTable extends Migration
         Schema::create('pages', function (Blueprint $table) {
             $table->id();
             $table->string('identifier')->nullable();
+            $table->string('youtube_link')->nullable();
             $table->timestamps();
         });
     }

@@ -21,6 +21,7 @@ class PageResource extends JsonResource
             "subtitle" => $this->subtitle,
             "description" => $this->description,
             "identifier" => $this->identifier,
+            "youtube_link" => $this->youtube_link,
         ];
     }
 }

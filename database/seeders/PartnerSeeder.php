@@ -15,10 +15,16 @@ class PartnerSeeder extends Seeder
     {
       
 
-        $image=["images/tykEYLJg6IvrEdpzYcHTmLm5WWErcSklnEZcOjcI.webp",
-                "images/HsWogOvEjxPtEStdNr913ols44RFifVERaoyxkwh.webp",
-                "images/PF6upRmlXRiiLF1JVifLw2q43EI50i0dnTGHP6xu.webp",
-                "images/TpVI2ZX1wEb42aAx56kLkGIpwGHyW1sPLeBgF5e8.webp"];
+        $image=[
+                "images/partners/1.jpg",
+                "images/partners/2.png",
+                "images/partners/3.jpg",
+                "images/partners/3.png",
+                "images/partners/4.jpg",
+                "images/partners/5.png",
+                "images/partners/bg2.jpg",
+              
+            ];
        
        
 
