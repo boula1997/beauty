@@ -21,6 +21,29 @@ return [
 'SupportTickets' => 'Support Tickets',
 'profile' => 'Profile',
 
+
+"show_all" => "Show all",
+
+"cancel" => "Cancel",
+
+"no_result" => "No result",
+
+"newss" => "Newss",
+
+"category" => "Category",
+
+"Dashboard" => "Dashboard",
+
+"Password" => "Password",
+
+"Confirm" => "Confirm",
+
+"Email" => "Email",
+
+"Register" => "Register",
+
+"Name" => "Name",
+
 'Notifications' => 'Notifications',
 'DeliveryProcessing' => 'Delivery processing',
 'OrderComplete' => 'Order Complete',
