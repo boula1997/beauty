@@ -45,7 +45,8 @@
                                                             name="{{ $locale . '[title]' }}"
                                                             placeholder="{{ __('general.title') }}"
                                                             class="form-control @error('title') invalid @enderror @error($locale . '.title') is-invalid @enderror"
-                                                            value="{{ old($locale . '.title', $project->translate($locale)->title) }}"> </div>
+                                                            value="{{ old($locale . '.title', $project->translate($locale)->title) }}">
+                                                    </div>
                                                 </div>
 
                                                 <!-- Normal title input -->
@@ -73,22 +74,37 @@
                                             </div>
                                         @endforeach
                                     </div>
-                                     {{-- Image Input --}} 
-                                     <div class="row">
+
+
+                                    <div class="mb-4 row align-items-center"> <label
+                                            class="col-sm-3 col-form-label form-label-title">{{ __('general.select') }}</label>
+                                        <div class="col-sm-9"> <select class="js-example-basic-single w-100"
+                                                name="category_id" id="category">
+                                                <option value="">{{ __('general.select') }}</option>
+                                                @foreach ($categorys as $category)
+                                                    <option value="{{ $category->id }}"
+                                                        {{ old('category_id', $project->category_id) == $category->id ? 'selected' : '' }}>
+                                                        {{ $category->title }} </option>
+                                                @endforeach
+                                            </select> </div>
+                                    </div>
+                                    {{-- Image Input --}}
+                                    <div class="row">
                                         <div class="col-md-6">
-                                                @include('admin.components.image', [
+                                            @include('admin.components.image', [
                                                 'label' => __('general.image'),
-                                                'value' => old('image',$project->image),
+                                                'value' => old('image', $project->image),
                                                 'name' => 'image',
                                                 'id' => 'kt_image_3',
                                                 'accept' => 'image/*',
                                                 'required' => true,
-                                            ]) 
+                                            ])
                                         </div>
                                     </div>
                                 </div>
                                 <div class="card-submit-button">
-                                    <button class="btn btn-animation ms-auto" type="submit">{{__('general.submit')}}</button>
+                                    <button class="btn btn-animation ms-auto"
+                                        type="submit">{{ __('general.submit') }}</button>
                                 </div>
                             </div>
                         </div>

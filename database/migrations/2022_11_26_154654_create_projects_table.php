@@ -18,6 +18,7 @@ class CreateProjectsTable extends Migration
             $table->string('title')->nullable();
             $table->boolean('status')->default(0);
             $table->double('cost')->nullable();
+            $table->unsignedBigInteger('category_id')->nullable(); $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->timestamps();
         });
     }

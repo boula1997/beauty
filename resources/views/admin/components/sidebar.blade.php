@@ -232,6 +232,23 @@
                                     </ul>
                                 </li>
 
+
+                                <li class="sidebar-list">
+                                    <a class="linear-icon-link sidebar-link sidebar-title" href="javascript:void(0)">
+                                        <i class="ri-list-check-2"></i>
+                                        <span>{{__('general.categories')}}</span>
+                                    </a>
+                                    <ul class="sidebar-submenu">
+                                        <li>
+                                            <a href="{{route('categories.index')}}">{{__('general.list')}}</a>
+                                        </li>
+
+                                        <li>
+                                            <a href="{{route('categories.create')}}">{{__('general.create')}}</a>
+                                        </li>
+                                    </ul>
+                                </li>
+
                                 <li class="sidebar-list">
                                     <a class="linear-icon-link sidebar-link sidebar-title" href="javascript:void(0)">
                                         <i class="ri-list-check-2"></i>

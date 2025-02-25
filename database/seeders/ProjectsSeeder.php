@@ -61,6 +61,7 @@ class ProjectsSeeder extends Seeder
             
         ];
        
+        $category=[1];
 
         for ($i = 0; $i < count($title_en); $i++) {
             $project = Project::create([
@@ -76,6 +77,8 @@ class ProjectsSeeder extends Seeder
                     'subtitle' => $subtitle_en[$i],
                    
                 ],
+
+                'category_id'=>$category[0],
             ]);
 
             $project->file()->create(["url"=>$image[$i]]);

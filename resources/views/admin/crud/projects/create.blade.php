@@ -73,6 +73,9 @@
                                         @endforeach
                                     </div>
 
+
+                                    <div class="mb-4 row align-items-center"> <label class="col-sm-3 col-form-label form-label-title">{{ __('general.select') }}</label> <div class="col-sm-9"> <select class="js-example-basic-single w-100" name="category_id" id="category"> <option value="">{{ __('general.select') }}</option> @foreach ($categorys as $category) <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}> {{ $category->title}} </option> @endforeach </select> </div> </div>
+
                                     {{-- Image Input --}} 
                                     <div class="row">
                                         <div class="col-md-6">

@@ -27,6 +27,7 @@
                                                 <th>@lang('general.image')</th>
                                                 <th>@lang('general.title')</th>
                                                 <th>@lang('general.subtitle')</th>
+                                                <th>{{__('general.category')}}</th>
                                                 <th>@lang('general.controls')</th>
                                             </tr>
                                         </thead>
@@ -43,6 +44,8 @@
                                                     </td>
                                                     <td>{{ $project->title }}</td>
                                                     <td>{{ $project->subtitle }}</td>
+                                                    
+                                                    <td>{{ $project->category->title }}</td>
                                                     <td>
                                                         @include('admin.components.controls', [
                                                             'route' => 'projects',

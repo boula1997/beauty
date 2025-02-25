@@ -61,6 +61,9 @@
                                         @endforeach
                                     </div>
 
+                                    
+<!-- normal input --> <div class="mb-4 row align-items-center"> <div class="col-sm-6"> <label class="form-label-title mb-0">{{__('general.category')}}</label> <p class="bg-show p-2 mt-2">{{ $project->category->title }}</p> </div> </div>
+
                                      <!-- normal input -->
                                      <div class="mb-4 row align-items-center">
                                         <div class="col-sm-6"> <label
@@ -69,6 +72,8 @@
                                                 src="{{ $project->image }}" alt=""> 
                                         </div>
                                     </div>
+
+
                                 </div>
                             </div>
                         </div>
