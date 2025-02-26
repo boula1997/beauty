@@ -81,7 +81,7 @@
                                         <div class="col-sm-9"> <select class="js-example-basic-single w-100"
                                                 name="category_id" id="category">
                                                 <option value="">{{ __('general.select') }}</option>
-                                                @foreach ($categorys as $category)
+                                                @foreach ($categories as $category)
                                                     <option value="{{ $category->id }}"
                                                         {{ old('category_id', $project->category_id) == $category->id ? 'selected' : '' }}>
                                                         {{ $category->title }} </option>

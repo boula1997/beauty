@@ -78,7 +78,7 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        $images = project->images;
+        $images = $project->images;
         return view('admin.crud.projects.show', compact('project','images'));
     }
 
@@ -92,7 +92,7 @@ class ProjectController extends Controller
     {
         //    dd($project->title);
                 $categories=Category::get();
-                $images = project->images;
+                $images = $project->images;
         return view('admin.crud.projects.edit', compact('project','categories','images'));
     }
     /**
