@@ -61,7 +61,7 @@ class PageController extends Controller
     {
 
         try {
-            $page = $this->page->create($request->except('images','profile_avatar_remove','icon'));
+            $page = $this->page->create($request->except('images','profile_avatar_remove','icon','image'));
             $page->uploadFiles();
             return redirect()->route('pages.index')
                 ->with('success', trans('general.created_successfully'));
