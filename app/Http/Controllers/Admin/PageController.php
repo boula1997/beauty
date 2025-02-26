@@ -21,10 +21,10 @@ class PageController extends Controller
     private $page;
     function __construct(Page $page)
     {
-        $this->middleware('permission:page-list|page-create|page-edit|page-delete', ['only' => ['index', 'show']]);
-        $this->middleware('permission:page-create', ['only' => ['create', 'store']]);
-        $this->middleware('permission:page-edit', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:page-delete', ['only' => ['destroy']]);
+        // $this->middleware('permission:page-list|page-create|page-edit|page-delete', ['only' => ['index', 'show']]);
+        // $this->middleware('permission:page-create', ['only' => ['create', 'store']]);
+        // $this->middleware('permission:page-edit', ['only' => ['edit', 'update']]);
+        // $this->middleware('permission:page-delete', ['only' => ['destroy']]);
 
         $this->page = $page;
     }
