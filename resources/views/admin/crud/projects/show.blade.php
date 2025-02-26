@@ -73,6 +73,13 @@
                                         </div>
                                     </div>
 
+                                    <div class="mb-4 row align-items-center">
+                                        <div class="col-sm-6"> <label
+                                                class="form-label-title mb-0">{{ __('general.image') }}</label> <img
+                                                class="bg-show p-2 mt-2" width="300" height="300"
+                                                src="{{ $project->image }}" alt=""> 
+                                        </div>
+                                    </div>
 
                                 </div>
                             </div>

@@ -100,7 +100,9 @@
                                                 'required' => true,
                                             ])
                                         </div>
+                                         @include('admin.components.images',$images)
                                     </div>
+                                    
                                 </div>
                                 <div class="card-submit-button">
                                     <button class="btn btn-animation ms-auto"

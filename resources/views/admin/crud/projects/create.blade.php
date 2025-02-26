@@ -89,6 +89,8 @@
                                             ]) 
                                         </div>
                                     </div>
+                                    
+                                     @include('admin.components.images')
                                 </div>
 
                                 <div class="card-submit-button">
