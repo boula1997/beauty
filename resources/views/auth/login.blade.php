@@ -30,14 +30,14 @@
 
     <!-- login section start -->
     <section class="log-in-section section-b-space">
-        <a href="" class="logo-login"><img src="{{asset("admin/assets/images/logo/1.png")}}" class="img-fluid"></a>
+        <a href="" class="logo-login"><img src="{{settings()->logo}}" class="img-fluid"></a>
         <div class="container w-100">
             <div class="row">
 
                 <div class="col-xl-5 col-lg-6 me-auto">
                     <div class="log-in-box">
                         <div class="log-in-title">
-                            <h3>Welcome To Fastkart</h3>
+                            <h3>Welcome To our website</h3>
                             <h4>Log In Your Account</h4>
                         </div>
 
