@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Project;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\ProjectRequest;
@@ -45,7 +46,8 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('admin.crud.projects.create');
+        $categories=Category::get();
+        return view('admin.crud.projects.create',compact('categories'));
     }
 
     /**
@@ -87,7 +89,8 @@ class ProjectController extends Controller
     public function edit(Project $project)
     {
         //    dd($project->title);
-        return view('admin.crud.projects.edit', compact('project'));
+                $categories=Category::get();
+        return view('admin.crud.projects.edit', compact('project','categories'));
     }
     /**
      * Update the specified resource in storage.
