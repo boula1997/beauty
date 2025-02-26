@@ -23,11 +23,11 @@ class PageRequest extends FormRequest
 
 
         $rules = [
-            'identifier' => 'required' ,
+            // 'identifier' => 'required' ,
         ];
         foreach (config('translatable.locales') as $locale) {
-            $rules += [$locale . '.title' => ['required', 'string']];
-            $rules += [$locale . '.description' => ['required']];
+            // $rules += [$locale . '.title' => ['required', 'string']];
+            // $rules += [$locale . '.description' => ['required']];
         }
         return  $rules;
     }
