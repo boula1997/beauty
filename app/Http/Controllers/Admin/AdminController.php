@@ -65,6 +65,7 @@ class AdminController extends Controller
         try {
             $input = $request->except('image','profile_avatar_remove');
             $input['password'] = Hash::make($input['password']);
+            $input['type']=strtolower($request->input('roles'));
             $admin = Admin::create($input);
             $admin->assignRole($request->input('roles'));
             $admin->uploadFile();
@@ -120,6 +121,7 @@ class AdminController extends Controller
             } else {
                 $input = Arr::except($input, array('password'));
             }
+            $input['type']=strtolower($request->input('roles'));
             $admin = Admin::find($id);
             $admin->update($input);
             DB::table('model_has_roles')->where('model_id', $id)->delete();

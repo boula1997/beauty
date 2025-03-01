@@ -46,20 +46,59 @@
 
                                     <div class="mb-4 row align-items-center"> <label
                                             class="col-sm-3 col-form-label form-label-title">{{ __('general.select') }}</label>
-                                        <div class="col-sm-9"> <select class="js-example-basic-single w-100" name="role_id"
+                                        <div class="col-sm-9"> <select class="js-example-basic-single w-100"name="roles"
                                                 id="role">
                                                 <option value="">{{ __('general.select') }}</option>
                                                 @foreach ($roles as $role)
-                                                    <option value="{{ $role->id }}"
-                                                        {{ old('role_id') == $role->id ? 'selected' : '' }}>
-                                                        {{ $role->name }} </option>
+                                                  <option value="{{ $role->name }}">{{ $role->name }}</option>
                                                 @endforeach
-                                            </select> </div>
+                                            </select> 
+                                        </div>
+                                    </div>
+
+                                       <!-- Normal title input -->
+                                       <div class="mb-4 row align-items-center"> 
+                                                <label
+                                                    class="form-label-title col-sm-3 mb-0">{{ __('general.password') }} <span
+                                                    class="text-danger"> * </span>
+                                                </label>
+                                                <div class="col-sm-9">
+                                                    <input type="password" placeholder="{{ __('general.password') }}"
+                                                    class="form-control @error('password') is-invalid @enderror"
+                                                    value="{{ old('password') }}" name="password"> 
+                                                </div>
+                                        </div>
+
+
+                                        <div class="mb-4 row align-items-center"> 
+                                            <label
+                                                class="form-label-title col-sm-3 mb-0">{{ __('general.confirm_password') }} <span
+                                                class="text-danger"> * </span>
+                                            </label>
+                                            <div class="col-sm-9">
+                                                <input type="password" placeholder="{{ __('general.confirm_password') }}"
+                                                class="form-control @error('confirm-password') is-invalid @enderror"
+                                                value="{{ old('confirm_password') }}" name="confirm-password"> 
+                                            </div>
+                                        </div>
+
+                                        {{-- Image Input --}} 
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                                @include('admin.components.image', [
+                                                'label' => __('general.image'),
+                                                'value' => old('image'),
+                                                'name' => 'image',
+                                                'id' => 'kt_image_3',
+                                                'accept' => 'image/*',
+                                                'required' => true,
+                                            ]) 
+                                        </div>
                                     </div>
 
 
                                     {{-- Checkbox Input --}}
-                                    <div class="mb-4 row align-items-center">
+                                    {{-- <div class="mb-4 row align-items-center">
                                         <div class="col-md-9">
                                             <div class="form-check user-checkbox ps-0"> <input @checked(old('dark'))
                                                     class="checkbox_animated check-it" type="checkbox" id="dark"
@@ -67,7 +106,7 @@
                                                     class="form-label-title col-md-6 mb-0">{{ __('general.dark') }} <span
                                                         class="text-danger"> * </span></label> </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
 
 
                                 </div>
