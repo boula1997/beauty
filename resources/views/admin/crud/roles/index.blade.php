@@ -9,47 +9,41 @@
                             <div class="card card-table">
                                 <!-- Table Start -->
                                 <div class="card-body">
-                                    <div class="title-header option-title">
-                                        <h5>Role List</h5>
-                                        <form class="d-inline-flex">
-                                            <a href="{{route('roles.create')}}" class="align-items-center btn btn-theme d-flex">
-                                                <i data-feather="plus"></i>Add Role
-                                            </a>
-                                        </form>
+                                    <div class="title-header option-title d-sm-flex d-block">
+                                        <h5>{{ 'general.admins' }}</h5>
+                                        <div class="right-options">
+                                            <ul>
+                                                <li>
+                                                    <a class="btn btn-solid"
+                                                        href="{{ route('roles.create') }}">{{ __('general.create') }}</a>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </div>
                                     <div>
                                         <div class="table-responsive">
                                             <table id="table_id" class="table role-table all-package theme-table">
                                                 <thead>
                                                     <tr>
-                                                        <th>No</th>
-                                                        <th>Name</th>
-                                                        <th>Create At</th>
-                                                        <th>Options</th>
+                                                        <th>#</th>
+                                                        <th>{{ __('general.role') }}</th>
+                                              
+                                                        <th>{{ __('general.controls') }}</th>
                                                     </tr>
                                                 </thead>
 
                                                 <tbody>
                                                     @foreach ($roles as $role)
                                                     <tr>
-                                                        <td>1</td>
-                                                        <td>Dummy</td>
-                                                        <td>3 weeks ago</td>
+                                                        <td>{{ $loop->iteration }}</td>
+                                                        <td>{{ $role->name }}</td>
+                                                       
                                                         <td>
-                                                            <ul>
-                                                                <li>
-                                                                    <a href="{{route('roles.edit',$role->id)}}">
-                                                                        <i class="ri-pencil-line"></i>
-                                                                    </a>
-                                                                </li>
-
-                                                                <li>
-                                                                    <a href="javascript:void(0)" data-bs-toggle="modal"
-                                                                        data-bs-target="#exampleModalToggle">
-                                                                        <i class="ri-delete-bin-line"></i>
-                                                                    </a>
-                                                                </li>
-                                                            </ul>
+                                                            @include('admin.components.controls', [
+                                                                'route' => 'roles',
+                                                                'role' => 'role',
+                                                                'module' => $role,
+                                                            ])
                                                         </td>
                                                     </tr>
                                                     @endforeach

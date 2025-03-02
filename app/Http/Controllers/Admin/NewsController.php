@@ -98,10 +98,11 @@ class NewsController extends Controller
      * @param  \App\Models\portfolio  $news
      * @return \Illuminate\Http\Response
      */
-    public function update(NewsRequest $request, News $news)
+    public function update(NewsRequest $request, $id)
     {
         try {
             $data = $request->except('image','profile_avatar_remove');
+            $news=News::findOrfail($id);
             $news->update($data);
             $news->updateFile();
             return redirect()->route('newss.index')

@@ -56,7 +56,7 @@
                                                     <div class="col-sm-9"> <input type="text"
                                                             name="{{ $locale . '[subtitle]' }}"
                                                             placeholder="{{ __('general.subtitle') }}"
-                                                            class="form-control @error('subtitle') invalid @enderror @error($locale . '.subtitle') is-invalid @enderror"
+                                                            class="form-control @error('subtitle') invalid @enderror "
                                                             value="{{ old($locale . '.subtitle', $news->translate($locale)->subtitle) }}">
                                                     </div>
                                                 </div>
