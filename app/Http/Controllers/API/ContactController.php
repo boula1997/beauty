@@ -21,7 +21,7 @@ class ContactController extends Controller
     {
         try {
             $data['contacts'] = ContactResource::collection($this->contact->get());
-            $data['footer_section'] = new PageResource(page('footer'));
+            $data['footer_section'] = new PageResource(page('footer-section'));
 
             return successResponse($data);
         } catch (Exception $e) {
