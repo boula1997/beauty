@@ -145,10 +145,6 @@
                                         <li>
                                             <a href="{{route('pages.index')}}">{{__('general.list')}}</a>
                                         </li>
-
-                                        <li>
-                                            <a href="{{route('pages.create')}}">{{__('general.create')}}</a>
-                                        </li>
                                     </ul>
                                 </li>
 
