@@ -61,11 +61,19 @@
                                         @endforeach
                                     </div>
 
-                                    
-<!-- normal input --> <div class="mb-4 row align-items-center"> <div class="col-sm-6"> <label class="form-label-title mb-0">{{__('general.category')}}</label> <p class="bg-show p-2 mt-2">{{ $project->category->title }}</p> </div> </div>
-
+                                    <div class="row">
+                                    <!-- normal input -->
+                                        <div class="col-sm-6">
+                                            <div class="mb-4  align-items-center">
+                                                <label class="form-label-title mb-0">{{__('general.category')}}</label> 
+                                                <p class="bg-show p-2 mt-2">{{ $project->category->title }}</p> 
+                                            </div> 
+                                        </div>
+                                    <!-- normal input --> <div class="col-sm-6"> <div class="mb-4  align-items-center"> <label class="form-label-title mb-0">{{__('general.space')}}</label> <p class="bg-show p-2 mt-2">{{ $project->space }}</p> </div> </div>
+                                    <!-- normal input --> <div class="col-sm-6"> <div class="mb-4  align-items-center"> <label class="form-label-title mb-0">{{__('general.floors')}}</label> <p class="bg-show p-2 mt-2">{{ $project->floors }}</p> </div> </div>
+                                    </div>
                                      <!-- normal input -->
-                                     <div class="mb-4 row align-items-center">
+                                     <div class="mb-4 align-items-center">
                                         <div class="col-sm-6"> <label
                                                 class="form-label-title mb-0">{{ __('general.image') }}</label> <img
                                                 class="bg-show p-2 mt-2" width="300" height="300"
@@ -73,7 +81,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="mb-4 row align-items-center">
+                                    <div class="mb-4  align-items-center">
                                         <div class="col-sm-6"> <label
                                                 class="form-label-title mb-0">{{ __('general.image') }}</label> <img
                                                 class="bg-show p-2 mt-2" width="300" height="300"

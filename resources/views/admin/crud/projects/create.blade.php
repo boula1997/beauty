@@ -73,9 +73,38 @@
                                         @endforeach
                                     </div>
 
+                                <div class="row">
+                                    <div class="mb-4 align-items-center"> <label class="col-sm-3 col-form-label form-label-title">{{ __('general.select') }}</label> <div class="col-sm-9"> <select class="js-example-basic-single w-100" name="category_id" id="category"> <option value="">{{ __('general.select') }}</option> @foreach ($categories as $category) <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}> {{ $category->title}} </option> @endforeach </select> </div> </div>
 
-                                    <div class="mb-4 row align-items-center"> <label class="col-sm-3 col-form-label form-label-title">{{ __('general.select') }}</label> <div class="col-sm-9"> <select class="js-example-basic-single w-100" name="category_id" id="category"> <option value="">{{ __('general.select') }}</option> @foreach ($categories as $category) <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}> {{ $category->title}} </option> @endforeach </select> </div> </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-4 align-items-center"> 
+                                            <label
+                                                class="form-label-title col-sm-3 mb-0">{{ __('general.space') }}
+                                            </label>
+                                            <div class="col-sm-9"> <input type="text"
+                                                    name="space"
+                                                    placeholder="{{ __('general.space') }}"
+                                                    class="form-control @error('space') invalid @enderror @error('space') is-invalid @enderror"
+                                                    value="{{ old('space') }}">
+                                            </div>
+                                        </div>
+                                    </div>
 
+                                    
+                                    <div class="col-md-6">
+                                        <div class="mb-4 align-items-center"> 
+                                            <label
+                                                class="form-label-title col-sm-3 mb-0">{{ __('general.floors') }}
+                                            </label>
+                                            <div class="col-sm-9"> <input type="text"
+                                                    name="floors"
+                                                    placeholder="{{ __('general.floors') }}"
+                                                    class="form-control @error('floors') invalid @enderror @error('floors') is-invalid @enderror"
+                                                    value="{{ old('floors') }}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                     {{-- Image Input --}} 
                                     <div class="row">
                                         <div class="col-md-6">

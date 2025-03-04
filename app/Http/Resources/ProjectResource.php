@@ -21,6 +21,8 @@ class ProjectResource extends JsonResource
                     'title'=>$this->title,
                     'subtitle'=>$this->subtitle,
                     'description'=>$this->description,
+                    'space'=>$this->space,
+                    'floors'=>$this->floors,
                     'category'=>$this->category,
                 ];
     }
