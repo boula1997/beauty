@@ -31,6 +31,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\VaccancyController;
 use App\Http\Controllers\Admin\FeeController;
 use App\Http\Controllers\Admin\NewsController;
+use App\Http\Controllers\Admin\ProjectFormController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
@@ -101,6 +102,7 @@ Route::group(
             Route::resource('vaccancies',VaccancyController::class);
             Route::resource('newss',NewsController::class);
             Route::resource('features',FeatureController::class);
+            Route::resource('projectForms',ProjectFormController::class);
 
 
 

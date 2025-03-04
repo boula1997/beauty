@@ -24,6 +24,7 @@ use App\Http\Controllers\API\NewsController;
 use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\API\SettingController;
 use App\Http\Controllers\API\PartnerController;
+use App\Http\Controllers\API\ProjectFormController;
 use App\Http\Controllers\API\TeamController;
 use App\Http\Controllers\API\VaccancyController;
 use App\Http\Controllers\API\VideoController;
@@ -130,6 +131,7 @@ Route::group(['middleware' => ['apiLocalization','cors']], function () {
 
 Route::post('/newsletter', [NewsletterController::class, 'store']);
 Route::post('/message', [MessageController::class, 'store']);
+Route::post('/projectForm', [ProjectFormController::class, 'store']);
 
 Route::post('/complain',[ComplainController::class,'store']);
 Route::put('/complain/{id}',[ComplainController::class,'update']);

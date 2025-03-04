@@ -120,6 +120,9 @@ class PermissionTableSeeder extends Seeder
            'feature-create',
            'feature-edit',
            'feature-delete',
+
+           'projectForm-list',
+           'projectForm-delete',
         ];
 
         foreach ($permissions as $permission) {
