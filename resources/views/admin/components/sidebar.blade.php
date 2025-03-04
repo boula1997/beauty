@@ -209,10 +209,6 @@
                                         <li>
                                             <a href="{{route('messages.index')}}">{{__('general.list')}}</a>
                                         </li>
-
-                                        <li>
-                                            <a href="{{route('messages.create')}}">{{__('general.create')}}</a>
-                                        </li>
                                     </ul>
                                 </li>
 

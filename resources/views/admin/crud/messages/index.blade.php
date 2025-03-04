@@ -10,19 +10,7 @@
                         <div class="card-body">
                             <div class="title-header option-title d-sm-flex d-block">
                                 <h5>{{'general.messages'}}</h5>
-                                <div class="right-options">
-                                    <ul>
-                                        <li>
-                                            <a href="javascript:void(0)">import</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0)">Export</a>
-                                        </li>
-                                        <li>
-                                            <a class="btn btn-solid" href="{{route('messages.create')}}">{{__('general.create')}}</a>
-                                        </li>
-                                    </ul>
-                                </div>
+                               
                             </div>
                             <div>
                                 <div class="table-responsive">
@@ -34,13 +22,11 @@
 
                                                 <th>{{__('general.email')}}</th>
 
+                                                <th>{{__('general.type')}}</th>
+
                                                 <th>{{__('general.phone')}}</th>
 
                                                 <th>{{__('general.message')}}</th>
-
-                                                <th>{{__('general.created_at')}}</th>
-
-                                                <th>{{__('general.updated_at')}}</th>
                                                 <th>@lang('general.controls')</th>
                                             </tr>
                                         </thead>
@@ -54,14 +40,13 @@
                                                     <td>{{ $message->name }}</td>
 
                                                     <td>{{ $message->email }}</td>
+
+                                                    <td>{{ $message->type }}</td>
                                                     
                                                     <td>{{ $message->phone }}</td>
                                                     
                                                     <td>{{ $message->message }}</td>
                                                     
-                                                    <td>{{ $message->created_at }}</td>
-                                                    
-                                                    <td>{{ $message->updated_at }}</td>
                                                     <td>
                                                         @include('admin.components.controls', [
                                                             'route' => 'messages',
