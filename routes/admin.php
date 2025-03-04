@@ -21,6 +21,7 @@ use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\ImageController;
 use App\Http\Controllers\Admin\CounterController;
 use App\Http\Controllers\Admin\ContactController;
+use App\Http\Controllers\Admin\FeatureController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\VideoController;
 use App\Http\Controllers\RoleController;
@@ -99,6 +100,7 @@ Route::group(
             Route::resource('fees', FeeController::class);
             Route::resource('vaccancies',VaccancyController::class);
             Route::resource('newss',NewsController::class);
+            Route::resource('features',FeatureController::class);
 
 
 

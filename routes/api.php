@@ -18,6 +18,7 @@ use App\Http\Controllers\API\TestimonialController;
 use App\Http\Controllers\API\ProcessController;
 use App\Http\Controllers\API\CategoryController;
 use App\Http\Controllers\API\ComplainController;
+use App\Http\Controllers\API\FeatureController;
 use App\Http\Controllers\API\HomeController;
 use App\Http\Controllers\API\NewsController;
 use App\Http\Controllers\API\ProductController;
@@ -118,6 +119,9 @@ Route::group(['middleware' => ['apiLocalization','cors']], function () {
 
     Route::get('/newss', [NewsController::class, 'index']);
     Route::get('/news/{id}', [NewsController::class, 'show']);
+    
+    Route::get('/features', [FeatureController::class, 'index']);
+    Route::get('/feature/{id}', [FeatureController::class, 'show']);
 
 
 });
