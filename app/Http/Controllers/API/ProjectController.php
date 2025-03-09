@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\FeatureResource;
 use App\Http\Resources\PageResource;
 use App\Http\Resources\ProjectResource;
+use App\Models\Feature;
 use App\Models\Project;
 use Exception;
 use Illuminate\Http\Request;
@@ -33,6 +35,7 @@ class ProjectController extends Controller
     {
         try {
             $data['project'] = new ProjectResource($this->project->findorfail($id));
+            $data['features']=  FeatureResource::collection(Feature::latest()->get());
             return successResponse($data);
         } catch (Exception $e) {
 

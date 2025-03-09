@@ -17,9 +17,12 @@ class ProjectResource extends JsonResource
                 return [
                     "id" => $this->id,
                     'image'=>$this->image,
+                    'images'=>$this->images,
                     'title'=>$this->title,
                     'subtitle'=>$this->subtitle,
                     'description'=>$this->description,
+                    'space'=>$this->space,
+                    'floors'=>$this->floors,
                     'category'=>$this->category,
                 ];
     }

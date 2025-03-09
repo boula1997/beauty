@@ -145,10 +145,6 @@
                                         <li>
                                             <a href="{{route('pages.index')}}">{{__('general.list')}}</a>
                                         </li>
-
-                                        <li>
-                                            <a href="{{route('pages.create')}}">{{__('general.create')}}</a>
-                                        </li>
                                     </ul>
                                 </li>
 
@@ -203,15 +199,39 @@
                                 <li class="sidebar-list">
                                     <a class="linear-icon-link sidebar-link sidebar-title" href="javascript:void(0)">
                                         <i class="ri-list-check-2"></i>
+                                        <span>{{__('general.features')}}</span>
+                                    </a>
+                                    <ul class="sidebar-submenu">
+                                        <li>
+                                            <a href="{{route('features.index')}}">{{__('general.list')}}</a>
+                                        </li>
+
+                                        <li>
+                                            <a href="{{route('features.create')}}">{{__('general.create')}}</a>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                <li class="sidebar-list">
+                                    <a class="linear-icon-link sidebar-link sidebar-title" href="javascript:void(0)">
+                                        <i class="ri-list-check-2"></i>
                                         <span>{{__('general.messages')}}</span>
                                     </a>
                                     <ul class="sidebar-submenu">
                                         <li>
                                             <a href="{{route('messages.index')}}">{{__('general.list')}}</a>
                                         </li>
+                                    </ul>
+                                </li>
 
+                                <li class="sidebar-list">
+                                    <a class="linear-icon-link sidebar-link sidebar-title" href="javascript:void(0)">
+                                        <i class="ri-list-check-2"></i>
+                                        <span>{{__('general.projectForms')}}</span>
+                                    </a>
+                                    <ul class="sidebar-submenu">
                                         <li>
-                                            <a href="{{route('messages.create')}}">{{__('general.create')}}</a>
+                                            <a href="{{route('projectForms.index')}}">{{__('general.list')}}</a>
                                         </li>
                                     </ul>
                                 </li>

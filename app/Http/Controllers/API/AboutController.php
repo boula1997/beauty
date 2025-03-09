@@ -64,6 +64,10 @@ class AboutController extends Controller
     {
         try {
             $data['about_section'] = new PageResource(page('aboutus-home'));
+            $data['vision_section'] = new PageResource(page('vision'));
+            $data['mission_section'] = new PageResource(page('mission'));
+            $data['what_we_section'] = new PageResource(page('what_we'));
+            $data['ceo_section'] = new PageResource(page('ceo'));
             $data['projects'] = ProjectResource::collection($this->project->latest()->take(3)->get());
             $data['counters'] = CounterResource::collection($this->counter->latest()->paginate(10));
             $data['footer_section'] = new PageResource(page('footer-section'));

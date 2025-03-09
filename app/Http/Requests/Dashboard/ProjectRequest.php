@@ -25,6 +25,8 @@ class ProjectRequest extends FormRequest
         $rules = [
             'image' =>  $image ,
             'category_id' => 'required',
+            'space' => 'required|numeric|min:0|integer',
+            'floors' => 'required|numeric|min:0|integer',
         ];
         foreach (config('translatable.locales') as $locale) {
             $rules += [$locale . '.title' => ['required', 'string']];

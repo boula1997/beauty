@@ -59,8 +59,9 @@ class ProjectController extends Controller
     public function store(ProjectRequest $request)
     {
         try {
-            $project=$this->project->create($request->except('image','profile_avatar_remove'));
+            $project=$this->project->create($request->except('image','profile_avatar_remove','images'));
             $project->uploadFile();
+            $project->uploadFiles();
             return redirect()->route('projects.index')
                 ->with('success', trans('general.created_successfully'));
         } catch (Exception $e) {
@@ -77,7 +78,8 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        return view('admin.crud.projects.show', compact('project'));
+        $images = $project->images;
+        return view('admin.crud.projects.show', compact('project','images'));
     }
 
     /**
@@ -90,7 +92,8 @@ class ProjectController extends Controller
     {
         //    dd($project->title);
                 $categories=Category::get();
-        return view('admin.crud.projects.edit', compact('project','categories'));
+                $images = $project->images;
+        return view('admin.crud.projects.edit', compact('project','categories','images'));
     }
     /**
      * Update the specified resource in storage.
@@ -102,9 +105,10 @@ class ProjectController extends Controller
     public function update(ProjectRequest $request, Project $project)
     {
         try {
-            $data = $request->except('image','profile_avatar_remove');
+            $data = $request->except('image','profile_avatar_remove','images','delimages');
             $project->update($data);
             $project->updateFile();
+            $project->updateFiles();
             return redirect()->route('projects.index')
                 ->with('success', trans('general.update_successfully'));
         } catch (Exception $e) {
@@ -122,6 +126,7 @@ class ProjectController extends Controller
     {
         try {
             $project->delete();
+            $project->deleteFiles();
             return redirect()->route('projects.index')
                 ->with('success', trans('general.deleted_successfully'));
         } catch (Exception $e) {
