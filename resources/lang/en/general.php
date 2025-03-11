@@ -38,6 +38,22 @@ return [
 
 "Confirm" => "Confirm",
 
+"show_all" => "Show all",
+"cancel" => "Cancel",
+"no_result" => "No result",
+"features" => "Features",
+"projectForms" => "Project Forms",
+"projectForm" => "Project Form",
+"space" => "Space",
+"floors" => "Floors",
+"back" => "Back",
+"Dashboard" => "Dashboard",
+"Password" => "Password",
+"Confirm" => "Confirm",
+"Email" => "Email",
+"Register" => "Register",
+"Name" => "Name",
+
 "Email" => "Email",
 
 "Register" => "Register",

@@ -29,7 +29,25 @@ return [
 
 "Dashboard" => "لوحة التحكم",
 
+
 "Password" => "كلمة المرور",
+
+"show_all" => "عرض الكل",
+"cancel" => "إلغاء",
+"no_result" => "لا يوجد نتائج",
+"features" => "المميزات",
+"projectForms" => "نماذج المشروع",
+"projectForm" => "نموذج المشروع",
+"space" => "المساحة",
+"floors" => "الطوابق",
+"back" => "رجوع",
+"Dashboard" => "لوحة التحكم",
+"Password" => "كلمة المرور",
+"Confirm" => "تأكيد",
+"Email" => "البريد الإلكتروني",
+"Register" => "تسجيل",
+"Name" => "الاسم",
+
 
 "Confirm" => "تأكيد",
 
