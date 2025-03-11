@@ -4,20 +4,18 @@
 @section('fields_content')
 
 <div class="page-body">
-    <div class="row theme-form">
-        <div class="col-12">
-            @include('admin.components.alert-error')
+    <!-- New Product Add Start -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="card-header-2">
+                                    <h5>Create Role</h5>
+                                </div>
 
-            <div class="row">
-                <div class="col-sm-8 m-auto">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="title-header option-title">
-                                <h5>{{ __('general.create') }} {{ __('general.roles') }}</h5>
-                            </div>
-
-                            <div class="row">
-                                {{-- ✅ 1. فتح <form> رئيسي يحتوي على كل البيانات --}}
                                 <form class="theme-form theme-form-2 mega-form" method="POST" action="{{ route('roles.store') }}">
                                     @csrf  {{-- ضروري لحماية الفورم --}}
 
@@ -75,14 +73,28 @@
                                         </button>
                                     </div>
                                 </form> {{-- ✅ إغلاق الفورم الرئيسي --}}
-                            </div> {{-- ✅ إغلاق الـ row --}}
-                        </div> {{-- ✅ إغلاق الـ card-body --}}
-                    </div> {{-- ✅ إغلاق الـ card --}}
-                </div> {{-- ✅ إغلاق الـ col-sm-8 --}}
-            </div> {{-- ✅ إغلاق الـ row --}}
-        </div> {{-- ✅ إغلاق الـ col-12 --}}
-    </div> {{-- ✅ إغلاق الـ row theme-form --}}
-</div> {{-- ✅ إغلاق الـ page-body --}}
+                            </div> {{-- ✅ إغلاق الـ card-body --}}
+                        </div> {{-- ✅ إغلاق الـ card --}}
+                    </div> {{-- ✅ إغلاق الـ col-sm-8 --}}
+                </div> {{-- ✅ إغلاق الـ row --}}
+            </div> {{-- ✅ إغلاق الـ col-12 --}}
+        </div> {{-- ✅ إغلاق الـ row theme-form --}}
+    </div> {{-- ✅ إغلاق الـ page-body --}}
+
+    <!-- footer Start -->
+    <div class="container-fluid">
+        <footer class="footer">
+            <div class="row">
+                <div class="col-md-12 footer-copyright text-center">
+                    <p class="mb-0">
+                        Copyright 2022 © Fastkart theme by pixelstrap
+                    </p>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <!-- footer En -->
+</div>
 
 {{-- ✅ 8. JavaScript للتفاعل مع الـ "All" --}}
 <script>
