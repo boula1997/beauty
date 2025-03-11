@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\ProjectRequest;
 use Exception;
+use Illuminate\Support\Facades\Storage;
 
 class ProjectController extends Controller
 {
@@ -59,7 +60,11 @@ class ProjectController extends Controller
     public function store(ProjectRequest $request)
     {
         try {
-            $project=$this->project->create($request->except('image','profile_avatar_remove','images'));
+            $project=$this->project->create($request->except('image','profile_avatar_remove','images','plan'));
+            if ($request->hasFile('plan')) {
+                $planPath = $request->file('plan')->store('plans', 'public');
+                $project->update(['plan' => $planPath]);
+            }
             $project->uploadFile();
             $project->uploadFiles();
             return redirect()->route('projects.index')
@@ -105,8 +110,19 @@ class ProjectController extends Controller
     public function update(ProjectRequest $request, Project $project)
     {
         try {
-            $data = $request->except('image','profile_avatar_remove','images','delimages');
+            $data = $request->except('image','profile_avatar_remove','images','delimages','plan');
             $project->update($data);
+            if ($request->hasFile('plan')) {
+                // حذف الصورة القديمة لو كانت موجودة
+                if ($project->plan) {
+                    Storage::disk('public')->delete($project->plan);
+                }
+            
+                // رفع الصورة الجديدة وتحديث السجل
+                $planPath = $request->file('plan')->store('plans', 'public');
+                $project->update(['plan' => $planPath]);
+            }
+            
             $project->updateFile();
             $project->updateFiles();
             return redirect()->route('projects.index')

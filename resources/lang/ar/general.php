@@ -362,5 +362,7 @@ return [
     "Register" => "يسجل",
     "Name" => "اسم",
     "Logout" => "تسجيل خروج",
-
+    'location' => 'الموقع',
+    'plan' => 'الخطة',
+    'landescapPer' => 'نسبة تنسيق الحدائق',
 ];

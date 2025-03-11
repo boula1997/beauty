@@ -71,6 +71,8 @@
                                         </div>
                                     <!-- normal input --> <div class="col-sm-6"> <div class="mb-4  align-items-center"> <label class="form-label-title mb-0">{{__('general.space')}}</label> <p class="bg-show p-2 mt-2">{{ $project->space }}</p> </div> </div>
                                     <!-- normal input --> <div class="col-sm-6"> <div class="mb-4  align-items-center"> <label class="form-label-title mb-0">{{__('general.floors')}}</label> <p class="bg-show p-2 mt-2">{{ $project->floors }}</p> </div> </div>
+                                    <!-- normal input --> <div class="col-sm-6"> <div class="mb-4  align-items-center"> <label class="form-label-title mb-0">{{__('general.location')}}</label> <p class="bg-show p-2 mt-2">{{ $project->location }}</p> </div> </div>
+                                    <!-- normal input --> <div class="col-sm-6"> <div class="mb-4  align-items-center"> <label class="form-label-title mb-0">{{__('general.landescapPer')}}</label> <p class="bg-show p-2 mt-2">{{ $project->landescapPer }}</p> </div> </div>
                                     </div>
                                      <!-- normal input -->
                                      <div class="mb-4 align-items-center">
@@ -78,6 +80,14 @@
                                                 class="form-label-title mb-0">{{ __('general.image') }}</label> <img
                                                 class="bg-show p-2 mt-2" width="300" height="300"
                                                 src="{{ $project->image }}" alt=""> 
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-4 align-items-center">
+                                        <div class="col-sm-6"> <label
+                                                class="form-label-title mb-0">{{ __('general.plan') }}</label> <img
+                                                class="bg-show p-2 mt-2" width="300" height="300"
+                                                src="{{ asset('storage/' . $project->plan) }}" alt=""> 
                                         </div>
                                     </div>
 

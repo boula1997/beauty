@@ -104,6 +104,34 @@
                                             </div>
                                         </div>
                                     </div>
+
+                                    <div class="col-md-6">
+                                        <div class="mb-4 align-items-center"> 
+                                            <label
+                                                class="form-label-title col-sm-3 mb-0">{{ __('general.location') }}
+                                            </label>
+                                            <div class="col-sm-9"> <input type="text"
+                                                    name="location"
+                                                    placeholder="{{ __('general.location') }}"
+                                                    class="form-control @error('location') invalid @enderror @error('location') is-invalid @enderror"
+                                                    value="{{ old('location') }}">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="mb-4 align-items-center"> 
+                                            <label
+                                                class="form-label-title col-sm-3 mb-0">{{ __('general.landescapPer') }}
+                                            </label>
+                                            <div class="col-sm-9"> <input type="text"
+                                                    name="landescapPer"
+                                                    placeholder="{{ __('general.landescapPer') }}"
+                                                    class="form-control @error('landescapPer') invalid @enderror @error('landescapPer') is-invalid @enderror"
+                                                    value="{{ old('landescapPer') }}">
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                     {{-- Image Input --}} 
                                     <div class="row">
@@ -113,6 +141,17 @@
                                                 'value' => old('image'),
                                                 'name' => 'image',
                                                 'id' => 'kt_image_3',
+                                                'accept' => 'image/*',
+                                                'required' => true,
+                                            ]) 
+                                        </div>
+
+                                        <div class="col-md-6">
+                                                @include('admin.components.image', [
+                                                'label' => __('general.plan'),
+                                                'value' => old('plan'),
+                                                'name' => 'plan',
+                                                'id' => 'kt_image_4',
                                                 'accept' => 'image/*',
                                                 'required' => true,
                                             ]) 

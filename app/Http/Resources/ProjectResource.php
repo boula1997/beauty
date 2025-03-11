@@ -16,6 +16,7 @@ class ProjectResource extends JsonResource
     {
                 return [
                     "id" => $this->id,
+                    'plan'=>asset('storage/' . $this->plan),
                     'image'=>$this->image,
                     'images'=>$this->images,
                     'title'=>$this->title,
@@ -23,6 +24,8 @@ class ProjectResource extends JsonResource
                     'description'=>$this->description,
                     'space'=>$this->space,
                     'floors'=>$this->floors,
+                    'location'=>$this->location,
+                    'landescapPer'=>$this->landescapPer,
                     'category'=>$this->category,
                 ];
     }

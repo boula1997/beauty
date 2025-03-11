@@ -382,5 +382,7 @@ return [
     "Register" => "Register",
     "Name" => "Name",
     "Logout" => "Logout",
-
+    'location' => 'Location',
+    'plan' => 'Plan',
+    'landscaPer' => 'Landscape Percentage',
 ];
