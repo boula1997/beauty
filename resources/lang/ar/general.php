@@ -365,4 +365,7 @@ return [
     'location' => 'الموقع',
     'plan' => 'الخطة',
     'landescapPer' => 'نسبة تنسيق الحدائق',
+    'villaLandArea' => 'مساحة أرض الفيلا',
+    'villaTotalBuild' => 'إجمالي المساحة المبنية للفيلا',
+    'style' => 'النمط',
 ];

@@ -384,5 +384,8 @@ return [
     "Logout" => "Logout",
     'location' => 'Location',
     'plan' => 'Plan',
-    'landscaPer' => 'Landscape Percentage',
+    'landescapPer' => 'Landscape Percentage',
+    'villaLandArea' => 'Villa Land Area',
+    'villaTotalBuild' => 'Villa Total Build Up Area',
+    'style' => 'Style',
 ];
