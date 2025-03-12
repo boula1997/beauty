@@ -73,6 +73,9 @@
                                     <!-- normal input --> <div class="col-sm-6"> <div class="mb-4  align-items-center"> <label class="form-label-title mb-0">{{__('general.floors')}}</label> <p class="bg-show p-2 mt-2">{{ $project->floors }}</p> </div> </div>
                                     <!-- normal input --> <div class="col-sm-6"> <div class="mb-4  align-items-center"> <label class="form-label-title mb-0">{{__('general.location')}}</label> <p class="bg-show p-2 mt-2">{{ $project->location }}</p> </div> </div>
                                     <!-- normal input --> <div class="col-sm-6"> <div class="mb-4  align-items-center"> <label class="form-label-title mb-0">{{__('general.landescapPer')}}</label> <p class="bg-show p-2 mt-2">{{ $project->landescapPer }}</p> </div> </div>
+                                    <!-- normal input --> <div class="col-sm-6"> <div class="mb-4  align-items-center"> <label class="form-label-title mb-0">{{__('general.villaLandArea')}}</label> <p class="bg-show p-2 mt-2">{{ $project->villaLandArea }}</p> </div> </div>
+                                    <!-- normal input --> <div class="col-sm-6"> <div class="mb-4  align-items-center"> <label class="form-label-title mb-0">{{__('general.villaTotalBuild')}}</label> <p class="bg-show p-2 mt-2">{{ $project->villaTotalBuild }}</p> </div> </div>
+                                    <!-- normal input --> <div class="col-sm-6"> <div class="mb-4  align-items-center"> <label class="form-label-title mb-0">{{__('general.style')}}</label> <p class="bg-show p-2 mt-2">{{ $project->style }}</p> </div> </div>
                                     </div>
                                      <!-- normal input -->
                                      <div class="mb-4 align-items-center">

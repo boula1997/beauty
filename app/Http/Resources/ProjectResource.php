@@ -26,6 +26,9 @@ class ProjectResource extends JsonResource
                     'floors'=>$this->floors,
                     'location'=>$this->location,
                     'landescapPer'=>$this->landescapPer,
+                    'villaLandArea'=>$this->villaLandArea,
+                    'villaTotalBuild'=>$this->villaTotalBuild,
+                    'style'=>$this->style,
                     'category'=>$this->category,
                 ];
     }

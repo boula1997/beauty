@@ -132,6 +132,48 @@
                                             </div>
                                         </div>
                                     </div>
+
+                                    <div class="col-md-6">
+                                        <div class="mb-4 align-items-center"> 
+                                            <label
+                                                class="form-label-title col-sm-3 mb-0">{{ __('general.villaLandArea') }}
+                                            </label>
+                                            <div class="col-sm-9"> <input type="text"
+                                                    name="villaLandArea"
+                                                    placeholder="{{ __('general.villaLandArea') }}"
+                                                    class="form-control @error('villaLandArea') invalid @enderror @error('villaLandArea') is-invalid @enderror"
+                                                    value="{{ old('villaLandArea') }}">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="mb-4 align-items-center"> 
+                                            <label
+                                                class="form-label-title col-sm-3 mb-0">{{ __('general.villaTotalBuild') }}
+                                            </label>
+                                            <div class="col-sm-9"> <input type="text"
+                                                    name="villaTotalBuild"
+                                                    placeholder="{{ __('general.villaTotalBuild') }}"
+                                                    class="form-control @error('villaTotalBuild') invalid @enderror @error('villaTotalBuild') is-invalid @enderror"
+                                                    value="{{ old('villaTotalBuild') }}">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="mb-4 align-items-center"> 
+                                            <label
+                                                class="form-label-title col-sm-3 mb-0">{{ __('general.style') }}
+                                            </label>
+                                            <div class="col-sm-9"> <input type="text"
+                                                    name="style"
+                                                    placeholder="{{ __('general.style') }}"
+                                                    class="form-control @error('style') invalid @enderror @error('style') is-invalid @enderror"
+                                                    value="{{ old('style') }}">
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                     {{-- Image Input --}} 
                                     <div class="row">
