@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Auth\AuthenticationException;
+use Illuminate\Support\Facades\Route;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -51,14 +52,22 @@ class Handler extends ExceptionHandler
 
     protected function unauthenticated($request, AuthenticationException $exception)
     {
+        if ($request->expectsJson() || $request->is('api/*')) {
+            return response()->json(['message' => 'Unauthenticated.'], 401);
+        }
+        $array=Route::current()->gatherMiddleware();
         if ($request->expectsJson()) {
             return response()->json(['message' => 'Unauthenticated.'], 401);
         }
 
-        if ($request->is('admin') || $request->is('admin/*')) {
-            return redirect()->guest('/admin/login');
+        if (in_array('auth:admin',$array)) {
+            return redirect()->guest(route('admin.login-view'));
+        }
+
+        if (in_array('auth:merchant',$array)) {
+            return redirect()->guest(route('merchant.login'));
         }
         
-        return redirect()->guest(route('admin.login'));
+        return redirect()->guest(route('user.login-view'));
     }
 }

@@ -8,10 +8,9 @@ use App\Mail\NewsletterUserMail;
 use App\Models\Newsletter;
 use App\Models\Service;
 use App\Models\Testimonial;
-use App\Models\Process;
 use App\Models\Gallery;
 use App\Models\Team;
-use App\Models\Counter;
+use App\Models\Feature;
 use Exception;
 use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Support\Facades\Mail;
@@ -52,7 +51,7 @@ class NewsletterController extends Controller
         try {
             $data = $request->all();
             $newsletter = $this->newsletter->create($data);
-            Mail::to(env('MAIL_FROM_ADDRESS'))->send(new NewsletterMail($newsletter));
+            // Mail::to(env('MAIL_FROM_ADDRESS'))->send(new NewsletterMail($newsletter));
             return response()->json(['success' => trans('general.sent_successfully')]);
         } catch (\Exception $e) {
             return response()->json(['error' => __($e->getMessage())]);

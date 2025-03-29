@@ -13,6 +13,13 @@ return [
     |
     */
 
+    'new_password_required' => 'The new password is required.',
+    'new_password_min' => 'The new password must be at least 8 characters.',
+    'new_password_max' => 'The new password must not exceed 50 characters.',
+    'new_password_confirmed' => 'The new password confirmation does not match.',
+    'new_password_regex' => 'The new password must contain at least one uppercase letter, one lowercase letter, one number, and one special character.',
+
+
     'accepted' => 'The :attribute must be accepted.',
     'accepted_if' => 'The :attribute must be accepted when :other is :value.',
     'active_url' => 'The :attribute is not a valid URL.',
@@ -160,12 +167,19 @@ return [
 
     'attributes' => [
 
+        'store_id' => 'Store',
+        'brand_id' => 'Brand',
+        'category_id' => 'Category',
+        'subcategory_id' => 'Subcategory',
+        'weight' => 'Weight',
+        'SKU' => 'SKU',
+        
         "permission_id" => "Permission",
         "setting_id" => "Setting",
         "id" => "Id",
         "model_id" => "Model",
         "team_id" => "Team",
-        "video_id" => "Video",
+        "orderproduct_id" => "Orderproduct",
         "partner_id" => "Partner",
         "service_id" => "Service",
         "process_id" => "Process",
@@ -242,7 +256,7 @@ return [
             "id" => "Id in Arabic",
             "model_id" => "Model in Arabic",
             "team_id" => "Team in Arabic",
-            "video_id" => "Video in Arabic",
+            "orderproduct_id" => "Orderproduct in Arabic",
             "partner_id" => "Partner in Arabic",
             "process_id" => "Process in Arabic",
             "partner_id" => "Partner in Arabic",
@@ -318,7 +332,7 @@ return [
             "id" => "Id in English",
             "model_id" => "Model in English",
             "team_id" => "Team in English",
-            "video_id" => "Video in English",
+            "orderproduct_id" => "Orderproduct in English",
             "partner_id" => "Partner in English",
             "process_id" => "Process in English",
             "partner_id" => "Partner in English",
@@ -386,7 +400,7 @@ return [
             "subtitle" => "Subtitle in English",
             "migration" => "Migration in English",
         
-        ]
+        ],
     
     ],
 

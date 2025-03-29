@@ -85,7 +85,7 @@ class MessageController extends Controller
         try {
             $data = $request->all();
             $message=$this->message->find($id);
-            Mail::to($message->email)->send(new MessageAdminMail($data));
+            // Mail::to($message->email)->send(new MessageAdminMail($data));
             return redirect()->route('messages.index')
                 ->with('success', trans('general.replied_successfully'));
         } catch (\Exception $e) {

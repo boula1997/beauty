@@ -1,0 +1,254 @@
+/*=============================================================
+    Authour URI: www.binarycart.com
+    License: Commons Attribution 3.0
+
+    http://creativecommons.org/licenses/by/3.0/
+
+    100% To use For Personal And Commercial Use.
+    IN EXCHANGE JUST GIVE US CREDITS AND TELL YOUR FRIENDS ABOUT US
+   
+    ========================================================  */
+/*==============================================
+    GENERAL  STYLES    
+    =============================================*/
+body {
+    font-family: 'Open Sans', sans-serif;
+    line-height: 30px;
+}
+
+#wrapper {
+    width: 100%;
+    margin-top: 50px;
+}
+
+#page-wrapper {
+    padding: 15px 15px;
+    min-height: 600px;
+    background: #F3F3F3;
+
+}
+
+#page-inner {
+    width: 100%;
+    margin: 10px 20px 10px 0px;
+    background-color: #fff !important;
+    padding: 10px;
+    min-height: 1050px;
+}
+
+.pad-top {
+    padding-top: 15px;
+}
+
+/*==============================================
+    MENU STYLES    
+    =============================================*/
+
+.sidebar-collapse .nav {
+    padding: 0;
+    padding-top: 50px;
+}
+
+.sidebar-collapse>.nav>li>a {
+    padding: 15px 10px;
+    color: #214761;
+    font-weight: 900;
+    font-size: 16px;
+}
+
+.sidebar-collapse>.nav>li {
+    border-bottom: 1px solid #e1e1e1;
+}
+
+.sidebar-collapse .nav>li>a:hover,
+.sidebar-collapse .nav>li>a:focus {
+
+    background: #F3F3F3;
+    outline: 0;
+}
+
+.navbar-side {
+    border: none;
+    background-color: #fff;
+
+}
+
+.navbar-inverse {
+
+    background-color: #214761;
+    border-color: #F0F0F0;
+    min-height: 80px;
+}
+
+
+.nav>li>a>i {
+    margin-right: 10px;
+}
+
+.logout-spn {
+    float: right;
+    color: #fff;
+    font-size: 25px;
+    font-weight: 800;
+    margin: 20px;
+    margin: 10px 25px 10px 50px;
+}
+
+.logout-spn a {
+    text-decoration: none;
+}
+
+.active-link {
+    background-color: #f3f3f3;
+}
+
+/*==============================================
+    DASHBOARD STYLES    
+    =============================================*/
+.div-square {
+    padding: 5px;
+    border: 3px double #e1e1e1;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    margin: 5px;
+
+}
+
+.div-square>a,
+.div-square>a:hover {
+    color: #808080;
+    text-decoration: none;
+}
+
+/*==============================================
+    FOOTER STYLES     
+    =============================================*/
+.footer {
+    background-color: #214761;
+    width: 100%;
+    color: #fff;
+    padding: 20px 50px 20px 50px;
+    padding-left: 20px;
+}
+
+
+.footer>a,
+.footer>a:hover {
+
+    color: #fff;
+}
+
+.flag {
+    height: 20px;
+    width: 20px;
+}
+
+* {
+    text-align: start !important;   
+}
+
+.card-label{
+display: flex;
+justify-content: center;
+padding-left: 65rem;
+
+    
+}
+
+.nav-sidebar .nav-link>.right,
+.nav-sidebar .nav-link>p>.right {
+    position: unset;
+    right: 1rem;
+    top: 0.7rem;
+}
+
+:lang(ar) .nav-link {
+    display: block;
+    padding: 0.5rem 0 1rem 0;
+}
+
+:lang(ar) .badge {
+    display: inline-block;
+    padding: 0.25em 0.4em;
+    font-size: 75%;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 0.25rem;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+
+:lang(ar) .layout-fixed {
+    bottom: 0;
+    float: none;
+    right: 0 !important;
+    /* position: absolute; */
+    top: 0;
+}
+
+:lang(ar) .main-sidebar {
+    bottom: 0;
+    float: none;
+    right: 0 !important;
+    /* position: absolute; */
+    top: 0;
+}
+
+.input-group-text{
+    transform: rotate(180deg); 
+
+}
+
+
+
+
+
+
+
+/*==============================================
+    MEDIA QUERIES     
+    =============================================*/
+
+@media (min-width: 768px) {
+
+    body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .content-wrapper,
+    body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-footer,
+    body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-header {
+        transition: margin-left .3s ease-in-out;
+        margin-inline-start: 250px !important;
+    }
+
+
+    body:lang(ar):lang(ar):lang(ar) .content-wrapper,
+    body:lang(ar):lang(ar):lang(ar) .main-footer,
+    body:lang(ar):lang(ar):lang(ar) .main-header {
+        transition: margin-left .3s ease-in-out;
+        margin-inline-start: 250px !important;
+        margin-left: 0 !important;
+    }
+
+
+}
+
+@media(min-width:768px) {
+    #page-wrapper {
+        margin: 0 0 0 260px;
+        padding: 15px 30px;
+        min-height: 1050px;
+
+    }
+
+
+    .navbar-side {
+        z-index: 1;
+        position: absolute;
+        width: 260px;
+
+    }
+
+
+}

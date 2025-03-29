@@ -15,13 +15,14 @@ trait  MorphFile
         return $this->morphOne(ModelsFile::class, 'fileable');
     }
 
-    public function uploadFile()
+    public function uploadFile($dbSave=true)
     {
         if (request()->hasFile('image')) {
             try{
                 $file = request()->file('image');
                 $image = request()->image->store('images');
                 $file->move('images',  $image);
+                if($dbSave)
                 $this->file()->create(['url' =>  $image]);
             }catch(Exception $e){
                 dd($e->getMessage());
@@ -31,7 +32,7 @@ trait  MorphFile
         }
     }
 
-    public function updateFile()
+    public function updateFile($dbSave=true)
     {
         if (request()->hasFile('image')) {
             try{
@@ -39,6 +40,7 @@ trait  MorphFile
                 $file = request()->file('image');
                 $image = $file ->store('images');
                 $file->move('images', $image);
+                if($dbSave)
                 $this->file()->create(['url' => $image]);
             }catch(Exception $e){
                 dd($e->getMessage());

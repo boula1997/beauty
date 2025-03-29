@@ -15,17 +15,16 @@ class UsersSeeder extends Seeder
     public function run(): void
     {
       
-        $name= ["Ibrahim Samy","Keroles Fouad","ابراهيم سامى"];
-        $email = ["ibrahimsamy308@gmail.com","Kero@gmail.com","ibrahim@gmail.com"];
-        $pass = ["123456789","123456789","0125458952"];
-    
-        for ($i = 0; $i < 3; $i++) {
+        $fullname= ["Ibrahim Ahmed","Mohamed Ali",];
+        $email = ["ibrahimsamy308@gmail.com","Kero@gmail.com",];
+        $pass = ["123456789","123456789",];
+        $phone = ["01126785910","01126985910",];
+        for ($i = 0; $i < 2; $i++) {
             $user = User::create([
-                    'name' => $name[$i],
+                    'fullname' => $fullname[$i],
                     'email' => $email[$i],
+                    'phone' => $phone[$i],
                     'password' =>Hash::make($pass[$i]),
-                    
-             
             ]);
         }
     }

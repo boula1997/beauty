@@ -1,114 +1,93 @@
 @extends('admin.components.form')
-@section('form_action', route('products.update', $product->id))
+@section('form_action', route('update.profile', auth('admin')->user()->id))
 @section('form_type', 'POST')
 @section('fields_content')
-    @method('put')
-    <div class="page-body">
-
-        <!-- New Product Add Start -->
-        <div class="container-fluid">
-
-
-
-            <div class="row theme-form ">
-                <div class="col-12">
-
-                    @include('admin.components.alert-error')
-
+    <div class="content-wrapper">
+        @method('PUT')
+        <div class="container p-3">
+            @include('admin.components.alert-error')
+            <!-- Main content -->
+            <section class="content">
+                <div class="container-fluid">
                     <div class="row">
-                        <div class="col-sm-8 m-auto">
-                            <div class="card">
+                        <!-- left column -->
+                        <div class="col-md-12">
+                            <!-- general form elements -->
+                            <div class="card card-secondary">
+                                <div class="card-header card-header-tabs-line">
+                                    @include('admin.components.breadcrumb', [
+                                        'module' => 'profile',
+                                        'action' => 'edit',
+                                    ])
+                                </div>
+                                <!-- /.card-header -->
+
+                                <!-- form start -->
+                                <input type="hidden" name="id" value="{{ $admin->id }}">
                                 <div class="card-body">
-                                    <div class="title-header option-title">
-                                        <h5>{{ __('general.edit') }} {{ __('general.products') }}</h5>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">{{__('general.name')}}</label>
+                                        <input type="text" name="name" value="{{ old('name', $admin->name) }}"
+                                            class="form-control @error('') invalid @enderror" id="exampleInputName" placeholder="{{__('general.name')}}">
                                     </div>
-                                    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                                        @foreach (config('translatable.locales') as $key => $locale)
-                                            <li class="nav-item" role="presentation">
-                                                <button class="nav-link @if ($key == 0) active @endif"
-                                                    id="pills-{{ $locale }}-tab" data-bs-toggle="pill"
-                                                    data-bs-target="#pills-{{ $locale }}"
-                                                    type="button">@lang('general.' . $locale)</button>
-                                            </li>
-                                        @endforeach
-                                    </ul>
-
-                                    <div class="tab-content" id="pills-tabContent">
-                                        @foreach (config('translatable.locales') as $key => $locale)
-                                            <div class="tab-pane fade show @if ($key == 0) active @endif"
-                                                id="pills-{{ $locale }}" role="tabpanel">
-                                                <!-- Normal title input -->
-                                                <div class="mb-4 row align-items-center"> <label
-                                                        class="form-label-title col-sm-3 mb-0">{{ __('general.title') }} -
-                                                        @lang('general.' . $locale)<span class="text-danger"> * </span></label>
-                                                    <div class="col-sm-9"> <input type="text"
-                                                            name="{{ $locale . '[title]' }}"
-                                                            placeholder="{{ __('general.title') }}"
-                                                            class="form-control @error('title') invalid @enderror @error($locale . '.title') is-invalid @enderror"
-                                                            value="{{ old($locale . '.title', $product->translate($locale)->title) }}"> </div>
-                                                </div>
-
-                                                <!-- Normal title input -->
-                                                <div class="mb-4 row align-items-center"> <label
-                                                        class="form-label-title col-sm-3 mb-0">{{ __('general.subtitle') }}
-                                                        - @lang('general.' . $locale)<span class="text-danger"> * </span></label>
-                                                    <div class="col-sm-9"> <input type="text"
-                                                            name="{{ $locale . '[subtitle]' }}"
-                                                            placeholder="{{ __('general.subtitle') }}"
-                                                            class="form-control @error('subtitle') invalid @enderror @error($locale . '.subtitle') is-invalid @enderror"
-                                                            value="{{ old($locale . '.subtitle', $product->translate($locale)->subtitle) }}">
-                                                    </div>
-                                                </div>
-
-                                                <!-- Normal title input -->
-                                                <div class="mb-4 row align-items-center"> <label
-                                                        class="form-label-title col-sm-3 mb-0">{{ __('general.description') }}
-                                                        - @lang('general.' . $locale)<span class="text-danger"> * </span></label>
-                                                    <div class="col-sm-9">
-                                                        <textarea rows="100" class="summernote @error($locale . '.description') is-invalid @enderror"
-                                                            name="{{ $locale . '[description]' }}"> {!! old($locale . '.description', $product->translate($locale)->description) !!} </textarea>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        @endforeach
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">{{__('general.email')}}</label>
+                                        <input type="email" name="email" value="{{ old('email', $admin->email) }}"
+                                            class="form-control @error('') invalid @enderror" id="exampleInputEmail" placeholder="{{__('general.email')}}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">{{__('general.password')}}</label>
+                                        <input type="password" name="password" value="{{ old('password') }}"
+                                            class="form-control @error('') invalid @enderror" id="exampleInputPassword" placeholder="{{__('general.password')}}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">{{__('general.confirm_password')}}</label>
+                                        <input type="password" name="confirm-password" value="{{ old('confirm-password') }}"
+                                            class="form-control @error('') invalid @enderror" id="exampleInputConfirmpassword"
+                                            placeholder="{{__('general.confirm_password')}}">
                                     </div>
 
-                                    {{-- Image Input --}} 
+
                                     <div class="row">
-                                        <div class="col-md-6"> @include('admin.components.image', [
-                                            'label' => __('general.image'),
-                                            'value' => old('image', $product->image),
-                                            'name' => 'image',
-                                            'id' => 'kt_image_3',
-                                            'accept' => 'image/*',
-                                            'required' => true,
-                                        ]) </div>
-
                                         <div class="col-md-6">
-                                            @include('admin.components.icon', [
-                                                'label' => 'icon',
+                                            @include('admin.components.image', [
+                                                'label' => __('general.image'),
+                                                'value' => old('image', $admin->image),
+                                                'name' => 'image',
+                                                'id' => 'kt_image_3',
+                                                'accept' => 'image/*',
                                                 'required' => true,
-                                                'value' => 'fas fa-desktop',
                                             ])
 
                                         </div>
                                     </div>
+
+
+                                    <div class="card-footer mb-5 mt-5">
+                                        <button type="submit"
+                                            class="btn btn-outline-primary px-5">{{__('general.save')}}</button>
+                                        <a href="{{ route('services.index') }}"
+                                            class="btn btn-outline-danger px-5
+                                        ">{{__('general.cancel')}}</a>
+                                    </div>
                                 </div>
-                                <div class="card-submit-button">
-                                    <button class="btn btn-animation ms-auto" type="submit">{{__('general.submit')}}</button>
-                                </div>
+                                <!-- /.card -->
+
+
                             </div>
+                            <!--/.col (left) -->
+
                         </div>
+                        <!-- /.row -->
                     </div>
                 </div>
-            </div>
+                <!-- /.container-fluid -->
+            </section>
+            <!-- /.content -->
         </div>
-        <!-- New Product Add End -->
     </div>
-
+    <!-- /.content-wrapper -->
 @endsection
-
 
 @push('scripts')
     <script>

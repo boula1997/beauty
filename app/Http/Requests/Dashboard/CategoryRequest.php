@@ -18,18 +18,15 @@ class CategoryRequest extends FormRequest
  
     public function rules()
     {
-        //to add or remove input from request in validation class use $this->merge
-        //  $this->merge(['user_id' => auth('api')->user()->id]);
-
-
+        
         $image = request()->isMethod('put') ? 'nullable' : 'required';
+
         $rules = [
-            'image' =>  $image ,
-            'icon' =>  'required' ,
+        'image' =>  $image ,
+   
         ];
         foreach (config('translatable.locales') as $locale) {
             $rules += [$locale . '.title' => ['required', 'string']];
-            $rules += [$locale . '.description' => ['required']];
         }
         return  $rules;
     }

@@ -1,0 +1,10 @@
+@extends('front.layouts.master')
+@section('content')
+    @include('front.components.slider_index')
+    @include('front.components.collection')
+    @include('front.components.products-home')
+    @include('front.components.offer-home')
+    @include('front.components.tabProduct')
+    @include('front.components.services_home')
+    @include('front.components.blog')
+@endsection

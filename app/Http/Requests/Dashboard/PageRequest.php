@@ -20,14 +20,16 @@ class PageRequest extends FormRequest
     {
         //to add or remove input from request in validation class use $this->merge
         //  $this->merge(['user_id' => auth('api')->user()->id]);
-
+        $rx = '~ ^(?:https?://)?  
+        (?:www[.])?  (?:youtube[.]com/watch[?]v=|youtu[.]be/) (w/ query string in .com) ([^&]{11}) group 1 ~x'; 
 
         $rules = [
-            // 'identifier' => 'required' ,
+            // 'youtube_link' => $rx,
+            'identifier' => 'required' ,
         ];
         foreach (config('translatable.locales') as $locale) {
-            // $rules += [$locale . '.title' => ['required', 'string']];
-            // $rules += [$locale . '.description' => ['required']];
+            $rules += [$locale . '.title' => ['required', 'string']];
+            $rules += [$locale . '.description' => ['nullable']];
         }
         return  $rules;
     }

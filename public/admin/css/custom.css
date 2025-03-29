@@ -1,0 +1,612 @@
+/* Flag icon */
+
+.flag {
+  height: 20px;
+  width: 20px;
+  border-radius: 3px;
+  /* Slight rounding for smoother look */
+}
+
+#add {
+  z-index: 50 !important;
+}
+
+
+
+div.dataTables_wrapper div.dataTables_filter input {
+  margin-left: .5em;
+  display: unset !important; 
+  width: auto;
+}
+
+.card-title{
+float:unset !important;
+}
+
+html, body {
+  overflow-x: hidden !important; /* Prevent horizontal scrolling */
+  overflow-y: scroll !important;   /* Ensure vertical scrolling */
+  height: 100% !important;       /* Allow full-page scrolling */
+}
+
+.os-content{
+  height: 200% !important;
+}
+
+.sidebar{
+
+  overflow-x: hidden !important; /* Prevent horizontal scrolling */
+  overflow-y: auto !important;   /* Ensure vertical scrolling */
+  height: 100% !important;       /* Allow full-page scrolling */
+
+} 
+
+.nav-pills .nav-link:not(.active):hover {
+  color: #18427a;
+  /* Adjusted hover color */
+  text-decoration: underline;
+  /* Underline on hover for better UX */
+}
+
+
+/* Sidebar Links: Hover and Focus Fix */
+
+.nav-sidebar .nav-item>.nav-link {
+  position: relative;
+  color: #000000;
+  /* Base color */
+  transition: background-color 0.3s, color 0.3s ease-in-out;
+  /* Smooth transition */
+}
+
+
+
+/* Logo size adjustments */
+
+.logo-side {
+  height: 80px !important;
+  /* Refined height */
+}
+
+
+/* Ensure Select2 dropdown appears above everything */
+
+.select2 {
+  z-index: 999 !important;
+  /* Use a high enough value */
+}
+
+
+/* Ensure the Select2 results options are on top */
+
+.select2-results {
+  z-index: 999999 !important;
+  /* Ensure options appear on top */
+}
+
+.modal-backdrop {
+  z-index: 1040 !important;
+  /* Ensure backdrop stays behind Select2 dropdown */
+}
+
+.select2-container {
+  display: block !important;
+  width: 100% !important;
+}
+
+
+.tabLine {
+  list-style: none;
+  padding: 0;
+  display: flex;
+}
+.tabLine li {
+  margin: 0 5px;
+}
+.tabLine li a {
+  text-decoration: none;
+  padding: 10px 15px;
+  background-color: #f4f4f4;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+.tabLine li a:hover {
+  background-color: #ddd;
+}
+
+
+.rowTab {
+  display: none;
+}
+.rowTab.active {
+  display: block;
+}
+
+/* Ensure modal and backdrop z-index are properly managed */
+
+.modal {
+  z-index: 1050 !important;
+  /* Bootstrap modals have a default z-index of 1050 */
+}
+
+
+
+.modal .modal-body {
+  overflow: visible;
+}
+
+.logo {
+  height: 70px !important;
+  margin-top: 5px;
+  /* Added margin for better alignment */
+}
+
+
+/* Tooltip styling */
+
+.note-toolbar {
+  z-index: 100;
+  /* Ensures toolbars are always on top */
+}
+
+
+/* Separator Styles */
+
+.separator {
+  margin: 15px 0;
+  /* Space between sections */
+}
+
+.separator.separator-dashed {
+  border-bottom: 1px dashed #ebedf3;
+}
+
+.separator.separator-solid {
+  border-bottom: 1px solid #ebedf3;
+}
+
+
+/* Image Input */
+
+.image-input {
+  position: relative;
+  display: inline-block;
+  border-radius: 0.42rem;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.image-input .image-input-wrapper {
+  width: 130px;
+  /* Slightly larger for better visibility */
+  height: 130px;
+  border-radius: 0.42rem;
+}
+
+
+/* Label Customization */
+
+.label {
+  padding: 2px 5px;
+  /* Adjusted padding for consistency */
+  font-size: 0.85rem;
+  /* Slightly larger text */
+  border-radius: 5px;
+  /* Smooth rounding */
+  color: #fff;
+  /* White text */
+}
+
+.label.label-primary {
+  background-color: #3699ff;
+}
+
+
+
+
+/* Headings */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #333;
+  margin-bottom: 10px;
+  /* Adequate spacing */
+  font-weight: 500;
+  /* Slightly heavier font weight */
+}
+
+
+/* Links */
+
+
+/* Footer Customization */
+
+.main-footer {
+  background-color: #2e3b4e;
+  color: #f5f6f7;
+  padding: 10px 20px;
+  /* Better padding */
+  border-top: 1px solid #d3dae3;
+  font-size: 13px;
+  /* Adjusted font size for readability */
+  text-align: center;
+  /* Centered text */
+}
+
+
+/* Font customization */
+
+body,
+.navbar,
+.sidebar,
+.content-wrapper {
+  font-family: "Josefin Sans", sans-serif !important;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+}
+
+
+/* Navbar color adjustments */
+
+.navbar {
+  background-color: #2e3b4e;
+  /* Softer dark color for the navbar */
+  color: #f5f6f7;
+  /* Light color for text */
+}
+
+
+
+
+/* Box color adjustments */
+
+.box {
+  background-color: #f5f6f7;
+  /* Light box background */
+  border: 1px solid #d3dae3;
+  /* Softer borders */
+  color: #333;
+  /* Darker text color */
+}
+
+.separator.separator-dashed {
+  border-bottom: 1px dashed #ebedf3
+}
+
+.separator.separator-solid {
+  border-bottom: 1px solid #ebedf3
+}
+
+.separator.separator-border-2 {
+  border-bottom-width: 2px
+}
+
+.separator.separator-border-3 {
+  border-bottom-width: 3px
+}
+
+.separator.separator-border-4 {
+  border-bottom-width: 4px
+}
+
+.separator.separator-primary {
+  border-bottom-color: #3699ff
+}
+
+.separator.separator-secondary {
+  border-bottom-color: #e4e6ef
+}
+
+.separator.separator-success {
+  border-bottom-color: #1bc5bd
+}
+
+.separator.separator-info {
+  border-bottom-color: #8950fc
+}
+
+.separator.separator-warning {
+  border-bottom-color: #ffa800
+}
+
+.separator.separator-danger {
+  border-bottom-color: #f64e60
+}
+
+.separator.separator-light {
+  border-bottom-color: #f3f6f9
+}
+
+.separator.separator-dark {
+  border-bottom-color: #181c32
+}
+
+.separator.separator-white {
+  border-bottom-color: #fff
+}
+
+.image-input {
+  position: relative;
+  display: inline-block;
+  border-radius: .42rem;
+  background-repeat: no-repeat;
+  background-size: cover
+}
+
+.image-input .image-input-wrapper {
+  width: 120px;
+  height: 120px;
+  border-radius: .42rem;
+  background-repeat: no-repeat;
+  background-size: cover
+}
+
+.image-input [data-action=change] {
+  cursor: pointer;
+  position: absolute;
+  left: -10px;
+  top: -10px
+}
+
+.image-input [data-action=change] input {
+  width: 0 !important;
+  height: 0 !important;
+  overflow: hidden;
+  opacity: 0
+}
+
+.image-input [data-action=cancel],
+.image-input [data-action=remove] {
+  position: absolute;
+  left: -10px;
+  bottom: -5px
+}
+
+.image-input [data-action=cancel] {
+  display: none
+}
+
+.image-input.image-input-changed [data-action=cancel] {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex
+}
+
+.image-input.image-input-changed [data-action=remove] {
+  display: none
+}
+
+.image-input.image-input-empty [data-action=cancel],
+.image-input.image-input-empty [data-action=remove] {
+  display: none
+}
+
+.image-input.image-input-circle {
+  border-radius: 50%
+}
+
+.image-input.image-input-circle .image-input-wrapper {
+  border-radius: 50%
+}
+
+.image-input.image-input-circle [data-action=change] {
+  left: 5px;
+  top: 5px
+}
+
+.image-input.image-input-circle [data-action=cancel],
+.image-input.image-input-circle [data-action=remove] {
+  left: 5px;
+  bottom: 5px
+}
+
+.image-input.image-input-outline .image-input-wrapper {
+  border: 3px solid #fff;
+  -webkit-box-shadow: 0 .5rem 1.5rem .5rem rgba(0, 0, 0, .075);
+  box-shadow: 0 .5rem 1.5rem .5rem rgba(0, 0, 0, .075)
+}
+
+.label {
+  padding: 0;
+  margin: 0;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  font-size: .8rem;
+  background-color: #ebedf3;
+  color: #3f4254;
+  font-weight: 400;
+  height: 20px;
+  width: 20px;
+  font-size: .8rem
+}
+
+.label.label-primary {
+  color: #fff;
+  background-color: #3699ff
+}
+
+.label.label-outline-primary {
+  background-color: transparent;
+  color: #3699ff;
+  border: 1px solid #3699ff
+}
+
+.label.label-outline-primary.label-outline-2x {
+  border: 2px solid #3699ff
+}
+
+.label.label-light-primary {
+  color: #3699ff;
+  background-color: #e1f0ff
+}
+
+.label.label-secondary {
+  color: #3f4254;
+  background-color: #e4e6ef
+}
+
+.label.label-outline-secondary {
+  background-color: transparent;
+  color: #3f4254;
+  border: 1px solid #e4e6ef
+}
+
+.d-flex.justify-content-center.logo-parent {
+  height: 90px;
+}
+
+.user-info-btn:hover {
+  background: none !important;
+}
+
+
+/* .page-sidebar{
+  z-index:999 !important;
+} */
+
+body.rtl .page-wrapper .page-body-wrapper .page-sidebar ~ .page-body {
+  margin-right: 323px;
+  margin-left: unset;
+}
+.page-wrapper .page-main-header {
+  z-index: 1;
+}
+.page-main-header .main-header-right {
+  margin-right: 60px;
+
+}
+
+.logout {
+  background-color: transparent; 
+  border: none; 
+  box-shadow: none; 
+  padding: 0; 
+  color: inherit; 
+}
+
+.logout:hover {
+  background-color: transparent; 
+  color: inherit; 
+}
+
+
+.rotate {
+  float: left;
+  transform: rotate(180deg); 
+}
+
+.cursor-pointer {
+  cursor: pointer !important;
+}
+
+.cursor-move {
+  cursor: move !important;
+}
+
+.cursor-grab {
+  cursor: grab !important;
+}
+
+.pagination .page-item .page-link {
+  color: #333333 !important; 
+  border-color: #ddd !important;
+  transition: all 0.3s ease-in-out;
+}
+.pagination .page-item.active .page-link {
+  background-color: #E7C361 !important;
+  border-color: #E7C361 !important;
+  color: white !important;
+}
+
+.pagination .page-item .page-link:hover {
+  background-color: white !important;
+  border: 1px solid #E7C361 !important;
+  color: #E7C361 !important;
+}
+
+
+.drop-zone {
+  border: 2px dashed #ddd;
+  padding: 10px;
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  background-color: #f8f9fa;  /* تحديد اللون الخلفي الأبيض */
+  background-image: none;  /* عند عدم وجود صورة لا يتم إظهار الخلفية */
+  background-position: center;
+  background-size: cover;
+  height: 250px; /* تحديد الارتفاع */
+  overflow: hidden; /* لتجنب تغطية الصورة */
+  z-index: 1; /* ترتيب العنصر */
+}
+
+.drop-zone.image-selected {
+  background-color: transparent; /* عندما يكون هناك صورة نزيل الخلفية البيضاء */
+  background-size: contain;  /* تكبير الصورة داخل الحاوية */
+}
+
+.image-input-wrapper {
+  width: 100%;
+  height: 250px;  /* تحديد الارتفاع */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+
+.drag-text {
+  text-align: center;
+  color: #888;
+  font-size: 16px;
+  line-height: 1.4;
+  z-index: 2;
+}
+
+.drag-text.d-none {
+  display: none; /* إخفاء النص عندما تكون الصورة موجودة */
+}
+
+.remove-image-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(255, 0, 0, 0.7);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+  z-index: 3;
+  display: none; /* مخفي افتراضيًا */
+}
+
+.drop-zone.image-selected .remove-image-btn {
+  display: flex; /* يظهر الزر عند اختيار صورة */
+}
+
+.remove-image-btn:hover {
+  background: rgba(255, 0, 0, 0.9);
+}
+

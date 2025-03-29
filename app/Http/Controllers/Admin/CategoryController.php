@@ -30,7 +30,7 @@ class CategoryController extends Controller
     public function index()
     {
         try {
-            $categories = $this->category->latest()->get();
+            $categories = $this->category->latest()->paginate(10);
             return view('admin.crud.categories.index', compact('categories'))
                 ->with('i', (request()->input('category', 1) - 1) * 5);
         } catch (Exception $e) {
@@ -98,7 +98,7 @@ class CategoryController extends Controller
      * @param  \App\Models\portfolio  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(CategoryRequest $request, Category $category)
     {
         try {
             $data = $request->except('image','profile_avatar_remove');

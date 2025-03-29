@@ -18,9 +18,10 @@ class CreateSettingTranslationsTable extends Migration
             $table->text('address')->nullable();
             $table->string('title')->nullable();
             $table->text('description')->nullable();
-            $table->text('appointment1')->nullable();
+            $table->text('appointment')->nullable();
             $table->text('copyright')->nullable();
             $table->text('meta_data')->nullable();
+            $table->text('policy')->nullable();
             $table->unsignedBigInteger('setting_id');
             $table->string('locale')->index();
             $table->unique(['setting_id', 'locale']);

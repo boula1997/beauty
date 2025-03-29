@@ -24,7 +24,7 @@ class NewsletterRequest extends FormRequest
     public function rules()
     {
         $rules= [
-            'newsletterEmail'=>'required|email',
+            'newsletterEmail'=>'required|email|unique:newsletters,newsletterEmail',
         ];
 
         return $rules;

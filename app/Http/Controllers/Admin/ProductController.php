@@ -4,11 +4,24 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\ProductRequest;
+use App\Http\Resources\GoalResource;
+use App\Models\Brand;
+use App\Models\Category;
+use App\Models\Color;
+use App\Models\Company;
 use Illuminate\Support\Facades\File;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Models\File as ModelsFile;
+use App\Models\ProductOffer;
+use App\Models\ProductVariation;
+use App\Models\Size;
+use App\Models\Store;
+use App\Models\Subcategory;
 use Exception;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Http\UploadedFile;
+
 
 class ProductController extends Controller
 {
@@ -25,12 +38,13 @@ class ProductController extends Controller
         $this->middleware('permission:product-edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:product-delete', ['only' => ['destroy']]);
         $this->product = $product;
+
     }
 
     public function index()
     {
         try {
-            $products = $this->product->latest()->get();
+            $products = $this->product->latest()->paginate(10);
             return view('admin.crud.products.index', compact('products'))
                 ->with('i', (request()->input('product', 1) - 1) * 5);
         } catch (Exception $e) {
@@ -46,7 +60,13 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('admin.crud.products.create');
+        $categories=Category::get();
+        $subcategories=Subcategory::get();
+        $brands=Brand::get();
+        $stores=Store::get();
+        $sizes=Size::get();
+        $colors=Color::get();
+        return view('admin.crud.products.create',compact('categories','subcategories','brands','stores','sizes','colors'));
     }
 
     /**
@@ -55,17 +75,56 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ProductRequest $request)
+    public function store(Request $request)
     {
+        DB::beginTransaction();
         try {
-            $data = $request->except('image','profile_avatar_remove');
+            // dd($request->all());
+            $data = $request->except('image','images','profile_avatar_remove','variations','offers','startDate','endDate','percentage');
+            if($request->offers)
+            {
+                $productOffer=ProductOffer::create([
+                    'startDate' => $request->startDate,
+                    'endDate' => $request->endDate,
+                    'percentage' => $request->percentage,
+                ]);
+
+                $data['productOffer_id']=$productOffer->id;
+            }
+
+        
             $product = $this->product->create($data);
             $product->uploadFile();
+            $product->uploadFiles();
+            
+            // Create the variations
+            foreach ($request->variations as $variationData) {
+               $variation= ProductVariation::create([
+                    'product_id' => $product->id,
+                    'color_id' => $variationData['color_id'],
+                    'size_id' => $variationData['size_id'],
+                    'price' => $variationData['price'],
+                    'quantity' => $variationData['quantity'],
+                ]);
+                
+                if (isset($variationData['image']) && $variationData['image']->isValid()) {
+                    $file = $variationData['image'];
+        
+                    $fileName = time() . '_' . $file->getClientOriginalName();
+                    $file->move(public_path('images'), $fileName);
+                    
+                    $variation->file()->create(['url' => 'images/' . $fileName]);
+                }
+                
+            }         
+            DB::commit();
+       
             return redirect()->route('products.index')
                 ->with('success', trans('general.created_successfully'));
         } catch (Exception $e) {
-            dd($e->getMessage());
-            return redirect()->back()->with(['error' => __('general.something_wrong')]);
+            // dd($e->getMessage());
+            DB::rollBack();
+            return redirect()->back()->with(['error' => __('general.something_wrong')])->withInput();
         }
     }
 
@@ -77,7 +136,8 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        return view('admin.crud.products.show', compact('product'));
+        $images = $product->images;
+        return view('admin.crud.products.show', compact('product','images'));
     }
 
     /**
@@ -88,8 +148,16 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        // dd($product);
-        return view('admin.crud.products.edit', compact('product'));
+        $categories=Category::get();
+        $subcategories=Subcategory::get();
+        $brands=Brand::get();
+        $stores=Store::get();
+        $sizes=Size::get();
+        $colors=Color::get();
+        $images = $product->images;
+        $availableSizes = $product->store->sizes;  // Retrieve available sizes for the store
+        $availableColors = $product->store->colors; 
+        return view('admin.crud.products.edit', compact('product','categories','subcategories','brands','stores','sizes','colors','images','availableSizes','availableColors'));
     }
     /**
      * Update the specified resource in storage.
@@ -98,17 +166,85 @@ class ProductController extends Controller
      * @param  \App\Models\portfolio  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(ProductRequest $request, Product $product)
     {
+        DB::beginTransaction();
         try {
-            $data = $request->except('image','profile_avatar_remove');
+            // dd($request->all());
+            $data = $request->except('image','images','profile_avatar_remove','variations','offers','startDate','endDate','percentage');
+            
             $product->update($data);
             $product->updateFile();
+            $product->uploadFiles();
+
+            if (isset($request->variations)) {
+               
+                $product->productVariations()->each(function ($variation) {
+                    if ($variation->file) {
+                        $oldImagePath = public_path($variation->file->url);
+                        if (file_exists($oldImagePath)) {
+                            unlink($oldImagePath); 
+                        }
+                        $variation->file()->delete(); 
+                    }
+                    $variation->delete(); 
+                });
+            
+                foreach ($request->variations as $variationData) {
+                    $newVariation = $product->productVariations()->create([
+                        'size_id' => $variationData['size_id'],
+                        'color_id' => $variationData['color_id'],
+                        'price' => $variationData['price'],
+                        'quantity' => $variationData['quantity'],
+                    ]);
+            
+                    if (isset($variationData['image']) && $variationData['image']->isValid()) {
+                        $file = $variationData['image'];
+            
+                        $fileName = time() . '_' . $file->getClientOriginalName();
+                        $file->move(public_path('images'), $fileName);
+            
+                        $newVariation->file()->create(['url' => 'images/' . $fileName]);
+                    }
+                }
+            }
+            
+            if ($request->has('offers')) {
+                
+                if ($product->productOffer) {
+                    $product->productOffer->update([
+                        'startDate' => $request->startDate,
+                        'endDate' => $request->endDate,
+                        'percentage' => $request->percentage,
+                    ]);
+                } else {
+                    
+                    $productOffer = ProductOffer::create([
+                        'startDate' => $request->startDate,
+                        'endDate' => $request->endDate,
+                        'percentage' => $request->percentage,
+                    ]);
+            
+                   
+                    $product->update(['productOffer_id' => $productOffer->id]);
+                }
+            } else {
+                
+                if ($product->productOffer) {
+                    $product->update(['productOffer_id' => null]);
+                    $product->productOffer->delete();
+                }
+            }
+            
+
+      
+            DB::commit();
+            
             return redirect()->route('products.index', compact('product'))
                 ->with('success', trans('general.update_successfully'));
         } catch (Exception $e) {
-            dd($e->getMessage());
-            return redirect()->back()->with(['error' => __('general.something_wrong')]);
+            DB::rollBack();
+            return redirect()->back()->with(['error' => __('general.something_wrong')])->withInput();
         }
     }
     /**
@@ -129,4 +265,12 @@ class ProductController extends Controller
             return redirect()->back()->with(['error' => __('general.something_wrong')]);
         }
     }
+
+    // public function newF()
+    // {
+        // validation
+        // logic between try and  catch sensitive transaction  files by storage  
+        // return
+    // }
+
 }

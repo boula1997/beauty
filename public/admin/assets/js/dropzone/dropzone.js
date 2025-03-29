@@ -1,49 +1,12 @@
 "use strict";
 
-var _createClass = function () {
-  function defineProperties(target, props) {
-    for (var i = 0; i < props.length; i++) {
-      var descriptor = props[i];
-      descriptor.enumerable = descriptor.enumerable || false;
-      descriptor.configurable = true;
-      if ("value" in descriptor) descriptor.writable = true;
-      Object.defineProperty(target, descriptor.key, descriptor);
-    }
-  }
-  return function (Constructor, protoProps, staticProps) {
-    if (protoProps) defineProperties(Constructor.prototype, protoProps);
-    if (staticProps) defineProperties(Constructor, staticProps);
-    return Constructor;
-  };
-}();
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-function _possibleConstructorReturn(self, call) {
-  if (!self) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }
-  return call && (typeof call === "object" || typeof call === "function") ? call : self;
-}
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
-  }
-  subClass.prototype = Object.create(superClass && superClass.prototype, {
-    constructor: {
-      value: subClass,
-      enumerable: false,
-      writable: true,
-      configurable: true
-    }
-  });
-  if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-}
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /*
  *
@@ -522,13 +485,7 @@ var Dropzone = function (_Emitter) {
          * Allows you to translate the different units. Starting with `tb` for terabytes and going down to
          * `b` for bytes.
          */
-        dictFileSizeUnits: {
-          tb: "TB",
-          gb: "GB",
-          mb: "MB",
-          kb: "KB",
-          b: "b"
-        },
+        dictFileSizeUnits: { tb: "TB", gb: "GB", mb: "MB", kb: "KB", b: "b" },
         /**
          * Called when dropzone initialized
          * You can add event listeners here
@@ -1057,7 +1014,7 @@ var Dropzone = function (_Emitter) {
     var _this = _possibleConstructorReturn(this, (Dropzone.__proto__ || Object.getPrototypeOf(Dropzone)).call(this));
 
     var fallback = void 0,
-      left = void 0;
+        left = void 0;
     _this.element = el;
     // For backwards compatibility since the version was in the prototype previously
     _this.version = Dropzone.version;
@@ -1103,9 +1060,9 @@ var Dropzone = function (_Emitter) {
       _this.options.url = _this.element.getAttribute("action");
     }
 
-    // if (!_this.options.url) {
-    //   throw new Error("No URL provided.");
-    // }
+    if (!_this.options.url) {
+      throw new Error("No URL provided.");
+    }
 
     if (_this.options.acceptedFiles && _this.options.acceptedMimeTypes) {
       throw new Error("You can't provide both 'acceptedFiles' and 'acceptedMimeTypes'. 'acceptedMimeTypes' is deprecated.");
@@ -1386,8 +1343,7 @@ var Dropzone = function (_Emitter) {
           // "paste": (e) =>
           //   noPropagation e
           //   @paste e
-        }
-      }];
+        } }];
 
       this.clickableElements.forEach(function (clickableElement) {
         return _this3.listeners.push({
@@ -1492,7 +1448,7 @@ var Dropzone = function (_Emitter) {
     key: "getFallbackForm",
     value: function getFallbackForm() {
       var existingFallback = void 0,
-        form = void 0;
+          form = void 0;
       if (existingFallback = this.getExistingFallback()) {
         return existingFallback;
       }
@@ -1689,8 +1645,8 @@ var Dropzone = function (_Emitter) {
     key: "paste",
     value: function paste(e) {
       if (__guard__(e != null ? e.clipboardData : undefined, function (x) {
-          return x.items;
-        }) == null) {
+        return x.items;
+      }) == null) {
         return;
       }
 
@@ -2643,8 +2599,8 @@ var Dropzone = function (_Emitter) {
           chunk.total = e.total;
           chunk.bytesSent = e.loaded;
           var fileProgress = 0,
-            fileTotal = void 0,
-            fileBytesSent = void 0;
+              fileTotal = void 0,
+              fileBytesSent = void 0;
           file.upload.progress = 0;
           file.upload.total = 0;
           file.upload.bytesSent = 0;
@@ -2893,7 +2849,7 @@ var Dropzone = function (_Emitter) {
     value: function uuidv4() {
       return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
         var r = Math.random() * 16 | 0,
-          v = c === 'x' ? r : r & 0x3 | 0x8;
+            v = c === 'x' ? r : r & 0x3 | 0x8;
         return v.toString(16);
       });
     }
@@ -3026,9 +2982,8 @@ Dropzone.discover = function () {
 // incorrectly **
 //
 Dropzone.blacklistedBrowsers = [
-  // The mac os and windows phone version of opera 12 seems to have a problem with the File drag'n'drop API.
-  /opera.*(Macintosh|Windows Phone).*version\/12/i
-];
+// The mac os and windows phone version of opera 12 seems to have a problem with the File drag'n'drop API.
+/opera.*(Macintosh|Windows Phone).*version\/12/i];
 
 // Checks if the browser is supported
 Dropzone.isBrowserSupported = function () {
@@ -3082,9 +3037,7 @@ Dropzone.dataURItoBlob = function (dataURI) {
   }
 
   // write the ArrayBuffer to a blob
-  return new Blob([ab], {
-    type: mimeString
-  });
+  return new Blob([ab], { type: mimeString });
 };
 
 // Returns an array without the rejected item
@@ -3138,7 +3091,7 @@ Dropzone.getElement = function (el, name) {
 
 Dropzone.getElements = function (els, name) {
   var el = void 0,
-    elements = void 0;
+      elements = void 0;
   if (els instanceof Array) {
     elements = [];
     try {
@@ -3291,7 +3244,7 @@ var detectVerticalSquash = function detectVerticalSquash(img) {
   ctx.drawImage(img, 0, 0);
 
   var _ctx$getImageData = ctx.getImageData(1, 0, 1, ih),
-    data = _ctx$getImageData.data;
+      data = _ctx$getImageData.data;
 
   // search image edge pixel position in case it is squashed vertically.
 
@@ -3564,7 +3517,6 @@ contentLoaded(window, Dropzone._autoDiscoverFunction);
 function __guard__(value, transform) {
   return typeof value !== 'undefined' && value !== null ? transform(value) : undefined;
 }
-
 function __guardMethod__(obj, methodName, transform) {
   if (typeof obj !== 'undefined' && obj !== null && typeof obj[methodName] === 'function') {
     return transform(obj, methodName);

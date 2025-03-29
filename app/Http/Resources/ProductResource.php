@@ -2,8 +2,10 @@
 
 namespace App\Http\Resources;
 
+use App\Models\ProductSize;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Auth;
 
 class ProductResource extends JsonResource
 {
@@ -14,13 +16,24 @@ class ProductResource extends JsonResource
      */
     public function toArray($request)
     {
+        $user = $request->bearerToken() ? Auth::guard('api')->user() : null;
         return [
             "id" => $this->id,
             "image" => $this->image,
-            "icon" => $this->icon,
+            "images" => $this->images,
             "title" => $this->title,
-            "subtitle" => $this->subtitle,
-            "description" => $this->description,
+            "description" => strip_tags($this->description),
+            "weight" => $this->weight,
+            "SKU" => $this->SKU,
+            "backgroundColor" => $this->backgroundColor,
+            "rate" => $this->rate,
+            "merchant" => new StoreResource($this->store),
+            "brand" => new BrandResource($this->brand),
+            "category" => new CategoryResource($this->category),
+            "subcategory" => new SubcategoryResource($this->subcategory),
+            "productVariations" =>ProductVariationResource::collection($this->productVariations->unique('color_id')),
+            'isFavourite' => $user ? $this->isFavoritedByUser($user->id) : false
+
         ];
     }
 }

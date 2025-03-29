@@ -9,25 +9,34 @@
                         {{ __('general.file') }}</label>
                 </div>
                 <div class="input-group-append">
-                    <span class="input-group-text">@lang('general.upload_file')</span>
+                    <span class="input-group-text">{{ __('general.upload_file') }}</span>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 @if (isset($images))
     <div class="row">
-        @include('admin.components.selectAll',['on'=>'danger','off'=>'success'])
+        @include('admin.components.selectAll', ['on' => 'danger', 'off' => 'success'])
         @foreach ($images as $image)
             @if (isset($image->id))
                 <div class="col-md-3 mt-3">
                     <div class="custom-control custom-switch custom-switch-off-success custom-switch-on-danger">
-                        <input type="checkbox" name="delimages[]" value="{{ $image->id }}"
+                        <input type="checkbox" name="delimages[]" @checked(isset($delImages)&&in_array(asset($image->url),$delImages)) value="{{ $image->id }}"
                             class="custom-control-input" id="customSwitch{{ $image->id }}">
                         <img width="100" height="100" src="{{ asset($image->url) }}" alt=""
                             for="customSwitch{{ $image->id }}">
                         <label class="custom-control-label" for="customSwitch{{ $image->id }}"></label>
+                    </div>
+                </div>
+            @else
+                <div class="col-md-3 mt-3">
+                    <div class="custom-control custom-switch custom-switch-off-success custom-switch-on-danger">
+                        <input type="checkbox" name="delimages[]" @checked(isset($delImages)&&in_array(asset($image),$delImages)) value="{{ $image }}"
+                            class="custom-control-input" id="customSwitch{{ $image }}">
+                        <img width="100" height="100" src="{{ asset($image) }}" alt=""
+                            for="customSwitch{{ $image }}">
+                        <label class="custom-control-label" for="customSwitch{{ $image }}"></label>
                     </div>
                 </div>
             @endif

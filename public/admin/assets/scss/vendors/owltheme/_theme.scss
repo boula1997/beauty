@@ -1,5 +1,5 @@
-.owl-theme {
 
+.owl-theme {
 	// Styling Next and Prev buttons
 	.owl-nav {
 		margin-top: 10px;
@@ -18,11 +18,10 @@
 
 			&:hover {
 				background: $nav-background-hover;
-				color: $nav-color-hover;
+				color:$nav-color-hover;
 				text-decoration: none;
 			}
 		}
-
 		.disabled {
 			opacity: $nav-disabled-opacity;
 			cursor: default;
@@ -30,7 +29,7 @@
 	}
 
 	// Styling dots
-	.owl-nav.disabled+.owl-dots {
+	.owl-nav.disabled + .owl-dots {
 		margin-top: 10px;
 	}
 
@@ -49,7 +48,7 @@
 				margin: $dot-margin;
 				background: $dot-background;
 				display: block;
-				backface-visibility: visible;
+				-webkit-backface-visibility: visible;
 				transition: opacity 200ms ease;
 				border-radius: $dot-rounded;
 			}

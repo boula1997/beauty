@@ -5,6 +5,12 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\AdminRequest;
 use App\Models\Admin;
+use App\Models\Sessiontable;
+use App\Models\Session;
+use App\Models\CategorySkill;
+use App\Models\CategoryTrainer;
+use App\Models\City;
+use App\Models\Country;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use DB;
@@ -13,7 +19,8 @@ use Illuminate\Support\Arr;
 use App\Models\File as ModelsFile;
 use Exception;
 use Illuminate\Support\Facades\File;
-
+use DateTime;
+use DateInterval;
 class AdminController extends Controller
 {
     /**
@@ -28,15 +35,16 @@ class AdminController extends Controller
         $this->middleware('permission:admin-create', ['only' => ['create', 'store']]);
         $this->middleware('permission:admin-edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:admin-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:admin-verify', ['only' => ['verify']]);
     }
 
 
-    public function index(Request $request)
+    public function index()
     {
+
         try {
-            $data = Admin::orderBy('id', 'DESC')->get();
-            return view('admin.crud.admins.index', compact('data'))
-                ->with('i', ($request->input('page', 1) - 1) * 5);
+            $data = Admin::latest()->paginate(10);
+            return view('admin.crud.admins.index', compact('data'));
         } catch (Exception $e) {
             dd($e->getMessage());
             return redirect()->back()->with(['error' => __('general.something_wrong')]);
@@ -50,7 +58,7 @@ class AdminController extends Controller
      */
     public function create()
     {
-        $roles = Role::all();
+        $roles = Role::pluck('name', 'name')->all();
         return view('admin.crud.admins.create', compact('roles'));
     }
 
@@ -62,10 +70,11 @@ class AdminController extends Controller
      */
     public function store(AdminRequest $request)
     {
+        // dd($request->input('roles'));
         try {
-            $input = $request->except('image','profile_avatar_remove');
+            $input = $request->except('image','profile_avatar_remove',);
             $input['password'] = Hash::make($input['password']);
-            $input['type']=strtolower($request->input('roles'));
+            $input['type'] = $request->input('roles');
             $admin = Admin::create($input);
             $admin->assignRole($request->input('roles'));
             $admin->uploadFile();
@@ -98,10 +107,8 @@ class AdminController extends Controller
     public function edit($id)
     {
         $admin = Admin::find($id);
-        $roles = Role::all();
+        $roles = Role::pluck('name', 'name')->all();
         $adminRole = $admin->roles->pluck('name', 'name')->all();
-
-
         return view('admin.crud.admins.edit', compact('admin', 'roles', 'adminRole'));
     }
 
@@ -115,13 +122,15 @@ class AdminController extends Controller
     public function update(AdminRequest $request, $id)
     {
         try {
-            $input = $request->except('image','profile_avatar_remove');
+            $input = $request->except('image','profile_avatar_remove','category_skill_id');
             if (!empty($input['password'])) {
                 $input['password'] = Hash::make($input['password']);
             } else {
                 $input = Arr::except($input, array('password'));
             }
-            $input['type']=strtolower($request->input('roles'));
+            if (!empty($input['type'])) {
+                $input['type'] =  $request->input('roles');
+            }
             $admin = Admin::find($id);
             $admin->update($input);
             DB::table('model_has_roles')->where('model_id', $id)->delete();
@@ -148,10 +157,147 @@ class AdminController extends Controller
             $admin->delete();
             $admin->deleteFile();
             File::delete($admin->image);
-            return redirect()->route('admins.index')
+            return redirect()->route('admin.index',$admin->type)
                 ->with('success', 'Admin deleted successfully');
         } catch (Exception $e) {
             dd($e->getMessage());
+            return redirect()->back()->with(['error' => __('general.something_wrong')]);
+        }
+    }
+
+    public function verify($id){
+
+        try {
+            $verification = Admin::findorfail($id);
+            $verification->update(['verified'=>1]);
+            return response()->json(['success' => trans('general.edit_successfully')]);
+            
+        } catch (Exception $e) {
+            dd($e->getMessage());
+            return response()->json(['error' => __($e->getMessage())]);
+        }
+    }
+
+
+    public function sessionsCreate(Request $request, $id)
+    {
+        try {
+            $admin = admin::find($id);
+            $input = $request->all();
+            $startDate = new DateTime($input['start_date']);
+            $endDate = new DateTime($input['end_date']);
+            $startTime = new DateTime($input['start_time']);
+            $endTime = new DateTime($input['end_time']);
+            $interval = new DateInterval('PT1H'); // 1-hour interval
+    
+
+
+            
+            // Get selected days from the request
+            $selectedDays = $input['days'] ?? [];
+            $daysMap = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+    
+            // Check the action
+            if ($input['action'] === 'create') {
+                // Validate if sessions already exist
+                $sessionsExist = false;
+    
+                for ($date = clone $startDate; $date <= $endDate; $date->modify('+1 day')) {
+                    $dayOfWeek = $date->format('w');
+                    
+                    // Check if the current day is selected
+                    if (in_array($daysMap[$dayOfWeek], $selectedDays)) {
+                        for ($time = clone $startTime; $time <= $endTime; $time->add($interval)) {
+                            $sessionExists = Sessiontable::where('trainer_id', $admin->id)
+                                ->where('date', $date->format('Y-m-d'))
+                                ->where('time', $time->format('H:i:s'))
+                                ->exists();
+    
+                            if ($sessionExists) {
+                                $sessionsExist = true; // At least one session exists
+                                break; // No need to check further
+                            }
+                        }
+                    }
+    
+                    if ($sessionsExist) {
+                        break; // Exit outer loop as well
+                    }
+                }
+    
+                // If sessions exist, return an error
+                if ($sessionsExist) {
+                    return redirect()->back()->with('error', __('general.sessions_already_exist'));
+                }
+    
+                // Create sessions
+                for ($date = clone $startDate; $date <= $endDate; $date->modify('+1 day')) {
+                    $dayOfWeek = $date->format('w');
+    
+                    // Check if the current day is selected
+                    if (in_array($daysMap[$dayOfWeek], $selectedDays)) {
+                        for ($time = clone $startTime; $time <= $endTime; $time->add($interval)) {
+                            Sessiontable::create([
+                                'trainer_id' => $admin->id,
+                                'date' => $date->format('Y-m-d'),
+                                'time' => $time->format('H:i:s'),
+                            ]);
+                        }
+                    }
+                }
+                return redirect()->route('admins.show', $admin->id)->with('success', 'Sessions created successfully.');
+    
+            } elseif ($input['action'] === 'delete') {
+                // Validate if sessions exist to delete
+                $sessionsToDeleteExist = false;
+    
+                for ($date = clone $startDate; $date <= $endDate; $date->modify('+1 day')) {
+                    $dayOfWeek = $date->format('w');
+    
+                    // Check if the current day is selected
+                    if (in_array($daysMap[$dayOfWeek], $selectedDays)) {
+                        for ($time = clone $startTime; $time <= $endTime; $time->add($interval)) {
+                            $sessionExists = Sessiontable::where('trainer_id', $admin->id)
+                                ->where('date', $date->format('Y-m-d'))
+                                ->where('time', $time->format('H:i:s'))
+                                ->exists();
+    
+                            if ($sessionExists) {
+                                $sessionsToDeleteExist = true; // At least one session to delete
+                                break; // No need to check further
+                            }
+                        }
+                    }
+    
+                    if ($sessionsToDeleteExist) {
+                        break; // Exit outer loop as well
+                    }
+                }
+    
+                // If no sessions exist to delete, return an error
+                if (!$sessionsToDeleteExist) {
+                    return redirect()->back()->with('error', __('general.no_sessions_to_delete'));
+                }
+    
+                // Delete sessions in the specified date and time range
+                for ($date = clone $startDate; $date <= $endDate; $date->modify('+1 day')) {
+                    $dayOfWeek = $date->format('w');
+    
+                    // Check if the current day is selected
+                    if (in_array($daysMap[$dayOfWeek], $selectedDays)) {
+                        for ($time = clone $startTime; $time <= $endTime; $time->add($interval)) {
+                            Sessiontable::where('trainer_id', $admin->id)
+                                ->where('date', $date->format('Y-m-d'))
+                                ->where('time', $time->format('H:i:s'))
+                                ->delete();
+                        }
+                    }
+                }
+                return redirect()->route('admins.show', $admin->id)->with('success', 'Sessions deleted successfully.');
+            } else {
+                return redirect()->back()->with('error', 'Invalid action specified.');
+            }
+        } catch (Exception $e) {
             return redirect()->back()->with(['error' => __('general.something_wrong')]);
         }
     }

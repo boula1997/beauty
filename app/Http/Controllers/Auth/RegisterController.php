@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Mail\VerifyAdminMail;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use App\Models\Admin;
@@ -10,6 +11,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 
 
@@ -56,7 +58,8 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'email' => ['nullable', 'string', 'email', 'max:255', 'unique:users'],
+            'phone' => ['required', 'numeric',  'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
@@ -72,23 +75,30 @@ class RegisterController extends Controller
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
+            'phone' => $data['phone'],
             'password' => Hash::make($data['password']),
         ]);
     }
 
     public function showAdminRegisterForm()
     {
-        return view('auth.register', ['route' => route('admin.register-view'), 'title'=>'Admin']);
+        return view('auth.register', ['route' => route('admin.register'), 'title'=>'Admin']);
     }
 
     protected function createAdmin(Request $request)
     {
+      
         $this->validator($request->all())->validate();
         $admin = Admin::create([
             'name' => $request['name'],
             'email' => $request['email'],
+            'phone' => $request['phone'],
             'password' => Hash::make($request['password']),
         ]);
-        return redirect()->intended('/admin/login');
+        if(isset($request->email)){
+            Mail::to(env('MAIL_FROM_NAME'))->send(new VerifyAdminMail($admin));
+        }
+
+        return redirect()->intended('/dashboard/login');
     }
 }

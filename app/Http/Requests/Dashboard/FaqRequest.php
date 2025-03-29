@@ -15,7 +15,7 @@ class FaqRequest extends FormRequest
     {
         return true;
     }
-  
+ 
     public function rules()
     {
         //to add or remove input from request in validation class use $this->merge
@@ -26,7 +26,7 @@ class FaqRequest extends FormRequest
         ];
         foreach (config('translatable.locales') as $locale) {
             $rules += [$locale . '.title' => ['required', 'string']];
-            $rules += [$locale . '.description' => ['required']];
+            $rules += [$locale . '.description' => ['required', 'string']];
         }
         return  $rules;
     }

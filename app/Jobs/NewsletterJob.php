@@ -26,6 +26,6 @@ class NewsletterJob implements ShouldQueue
 
     public function handle()
     {
-        Mail::to($this->emails)->send(new NewsLetterMail($this->data));
+        // Mail::to($this->emails)->send(new NewsLetterMail($this->data));
     }
 }

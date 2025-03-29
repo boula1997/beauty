@@ -43,6 +43,16 @@ return [
         'admin' => [
             'driver' => 'session',
             'provider' => 'admins',
+        ]
+        ,
+        'api' => [
+            'driver' => 'passport',
+            'provider' => 'users',
+            'hash' => false,
+        ],
+        'merchant' => [  
+            'driver' => 'session',
+            'provider' => 'merchants',
         ],
     ],
 
@@ -69,10 +79,17 @@ return [
             'model' => App\Models\User::class,
         ],
 
-        'admins' => [
+        'admins' => [  
             'driver' => 'eloquent',
-            'model' => App\Models\Admin::class,
+            'model' => App\Models\Admin::class,  
         ],
+        
+        'merchants' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Merchant::class,
+        ],
+
+    
 
         // 'users' => [
         //     'driver' => 'database',
@@ -102,12 +119,7 @@ return [
             'expire' => 60,
             'throttle' => 60,
         ],
-        'admins' => [
-            'provider' => 'admins',
-            'table' => 'password_resets',
-            'expire' => 60,
-            'throttle' => 60,
-        ],
+
     ],
 
     /*

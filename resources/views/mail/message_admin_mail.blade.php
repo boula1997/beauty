@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="{{app()->getLocale()}}">
+<html lang="en">
 
 <head>
   <meta charset="utf-8">
@@ -7,7 +7,7 @@
   <meta name="description" content="">
   <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
   <meta name="generator" content="Hugo 0.72.0">
-  <title>Album example · Bootstrap</title>
+  <title>{{ settings()->title }}</title>
 
   <link rel="canonical" href="https://v5.getbootstrap.com/docs/5.0/examples/album/">
 

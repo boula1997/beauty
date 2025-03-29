@@ -5,6 +5,10 @@ namespace App\Http\Requests\API;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+
 
 class MessageRequest extends FormRequest
 {
@@ -17,7 +21,7 @@ class MessageRequest extends FormRequest
     {
         return true;
     }
- 
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -27,7 +31,7 @@ class MessageRequest extends FormRequest
     {
         return [
             'name' => 'string|required',
-            'type' => 'required|string',
+            'subject' => 'required',
             'phone' => 'required',
             'email' => 'email|required',
             'message' => 'string|required',
@@ -35,8 +39,9 @@ class MessageRequest extends FormRequest
     }
 
     protected function failedValidation(Validator $validator)
-    {
-        $response = failedResponse($validator->errors());
-        throw new ValidationException($validator,$response);
+    {    
+        return validationFailedResponse($validator->errors());
+        
+        throw new ValidationException($validator, $response);
     }
 }

@@ -44,8 +44,8 @@ class RoleController extends Controller
      */
     public function create()
     {
-        $permissions = Permission::get();
-        return view('admin.crud.roles.create',compact('permissions'));
+        $permission = Permission::get();
+        return view('admin.crud.roles.create',compact('permission'));
     }
     
     /**
@@ -58,11 +58,11 @@ class RoleController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|unique:roles,name',
-            'permissions' => 'required',
+            'permission' => 'required',
         ]);
     
         $role = Role::create(['name' => $request->input('name')]);
-        $role->syncPermissions($request->input('permissions'));
+        $role->syncPermissions($request->input('permission'));
     
         return redirect()->route('roles.index')
                         ->with('success','Role created successfully');
@@ -76,13 +76,11 @@ class RoleController extends Controller
     public function show($id)
     {
         $role = Role::find($id);
-        $permissions = Permission::get();
-        $rolePermissions = DB::table("role_has_permissions")
-            ->where("role_has_permissions.role_id", $id)
-            ->pluck('role_has_permissions.permission_id', 'role_has_permissions.permission_id')
-            ->all();
-
-        return view('admin.crud.roles.show', compact('role', 'permissions', 'rolePermissions'));
+        $rolePermissions = Permission::join("role_has_permissions","role_has_permissions.permission_id","=","permissions.id")
+            ->where("role_has_permissions.role_id",$id)
+            ->get();
+    
+        return view('admin.crud.roles.show',compact('role','rolePermissions'));
     }
     
     /**
@@ -94,12 +92,12 @@ class RoleController extends Controller
     public function edit($id)
     {
         $role = Role::find($id);
-        $permissions = Permission::get();
+        $permission = Permission::get();
         $rolePermissions = DB::table("role_has_permissions")->where("role_has_permissions.role_id",$id)
             ->pluck('role_has_permissions.permission_id','role_has_permissions.permission_id')
             ->all();
     
-        return view('admin.crud.roles.edit',compact('role','permissions','rolePermissions'));
+        return view('admin.crud.roles.edit',compact('role','permission','rolePermissions'));
     }
     
     /**
@@ -113,14 +111,14 @@ class RoleController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
-            'permissions' => 'required',
+            'permission' => 'required',
         ]);
     
         $role = Role::find($id);
         $role->name = $request->input('name');
         $role->save();
     
-        $role->syncPermissions($request->input('permissions'));
+        $role->syncPermissions($request->input('permission'));
     
         return redirect()->route('roles.index')
                         ->with('success','Role updated successfully');

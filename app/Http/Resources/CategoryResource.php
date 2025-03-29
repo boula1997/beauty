@@ -16,12 +16,8 @@ class CategoryResource extends JsonResource
     {
         return [
             "id" => $this->id,
-            "image" => $this->image,
-            "icon" => $this->icon,
             "title" => $this->title,
-            "subtitle" => $this->subtitle,
-            "description" => $this->description,
-            "projects" => ProjectResource::collection($this->projects),
+            "image" => $this->image,
         ];
     }
 }

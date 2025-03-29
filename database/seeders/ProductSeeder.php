@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Product;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class ProductSeeder extends Seeder
 {
@@ -13,92 +14,140 @@ class ProductSeeder extends Seeder
      */
     public function run(): void
     {
-        $title_en = ["Custom Website Development",
-                     "E-commerce Development",
-                     "Website Maintenance and Support",
-                     "Website Hosting"];
-        $subtitle_en = [null,null,null,null];
-        $description_en = [ "<p>We specialize in creating custom websites that fit your specific business needs. Our team of experienced developers and designers work closely with you to understand your requirements and develop a website that reflects your brand identity. We take advantage of the latest web technologies and responsive design principles to ensure that your website looks amazing and works flawlessly across devices and in addition to a control panel to make you able to control all     site content</p>",
-                            "<p>If you're looking to sell products or products online, our e-commerce development products can help. We have expertise in building secure and scalable e-commerce platforms that offer seamless user experiences and robust payment integration. From product catalogs and shopping carts to inventory management and order processing, we create e-commerce solutions that drive conversions and maximize revenue</p>",
 
-                            "<p>We believe in long-term partnerships with our clients. Our website maintenance and support products ensure that your website remains secure, up-to-date, and optimized for performance. We provide regular updates, security patches, and backups to protect your website from vulnerabilities. Our support team is available to address any issues, answer questions, and provide ongoing technical assistance </p>",
-                            "<p>At our web development company, we offer comprehensive hosting products to ensure that your website performs optimally and remains accessible to your visitors. Our hosting product provides a reliable and secure environment for your website to thrive. Here's an overview of our hosting product:
 
-                                Reliable Hosting Infrastructure: We maintain a robust hosting infrastructure with state-of-the-art servers and network equipment. Our servers are optimized for performance, offering fast load times and minimal downtime. We prioritize reliability to ensure that your website is accessible to visitors around the clock.
-                                
-                                Scalable Solutions: Our hosting product is designed to accommodate your website's growth. Whether you have a small business website or a complex web application, we offer scalable hosting solutions that can adapt to your changing needs. As your website expands, we can seamlessly scale up the hosting resources to handle increased traffic and data requirements.
-                                
-                                Security Measures: We prioritize the security of your website and the data it contains. Our hosting product includes robust security measures such as firewalls, intrusion detection systems, and regular security updates. We also implement SSL certificates to encrypt data transmission, safeguarding sensitive information and building trust with your visitors.
-                                
-                                Backup and Disaster Recovery: We understand the importance of data protection. Our hosting product includes regular backups of your website and its associated data. In the event of a technical issue or unexpected event, we can quickly restore your website to minimize downtime and data loss.
-                                
-                                Technical Support: Our dedicated support team is available to assist you with any hosting-related concerns or technical issues. Whether you have questions about server configurations, need assistance with DNS settings, or require troubleshooting, our knowledgeable support staff is just a phone call or email away.
-                                
-                                Compatibility with Web Technologies: Our hosting product supports a wide range of web technologies and programming languages. Whether your website is built with PHP, Python, Node.js, or other frameworks, our hosting environment can accommodate your specific requirements.
-                                
-                                Content Delivery Network (CDN): To enhance the performance of your website, we can integrate a Content Delivery Network (CDN) into our hosting product. A CDN helps deliver your website content quickly to visitors from various geographical locations, improving load times and user experience.
-                                
-                                Email Hosting: Along with website hosting, we also offer email hosting products. You can have professional email addresses associated with your domain name, providing a seamless and unified communication experience for your business.
-                                
-                                 </p>"];
+        $title_en = [
+            "Men's Classic Shirt",
+            "Women's Casual Dress",
+            "Men's Sports Jacket",
+            "Women's Formal Blouse",
+            "Unisex Hoodie",
+            "Children's T-shirt",
+            "Men's Slim-fit Jeans",
+            "Women's Maxi Skirt",
+            "Men's Leather Belt",
+            "Women's Winter Coat",
+        ];
+        
+        $title_ar = [
+            "قميص كلاسيكي للرجال",
+            "فستان كاجوال للنساء",
+            "جاكيت رياضي للرجال",
+            "بلوزة رسمية للنساء",
+            "هودي للجنسين",
+            "تيشيرت للأطفال",
+            "جينز ضيق للرجال",
+            "تنورة ماكسي للنساء",
+            "حزام جلدي للرجال",
+            "معطف شتوي للنساء",
+        ];
+        
+        $title_fr = [
+            "Chemise classique pour homme",
+            "Robe décontractée pour femme",
+            "Veste de sport pour homme",
+            "Blouse formelle pour femme",
+            "Sweat à capuche unisexe",
+            "T-shirt pour enfants",
+            "Jean slim pour homme",
+            "Jupe longue pour femme",
+            "Ceinture en cuir pour homme",
+            "Manteau d'hiver pour femme",
+        ];
+        
+        $description_en = [
+            "<p>A stylish and comfortable shirt, perfect for formal or casual occasions.</p>",
+            "<p>A casual and elegant dress, ideal for day outings or relaxed evenings.</p>",
+            "<p>A lightweight sports jacket, combining comfort and style for men.</p>",
+            "<p>A formal blouse suitable for professional settings or formal gatherings.</p>",
+            "<p>A cozy unisex hoodie, perfect for chilly days and casual wear.</p>",
+            "<p>A fun and colorful T-shirt designed for active kids.</p>",
+            "<p>Stylish slim-fit jeans made with durable, high-quality fabric.</p>",
+            "<p>A flowy maxi skirt that is both chic and comfortable for all-day wear.</p>",
+            "<p>Classic leather belt, a must-have accessory for any wardrobe.</p>",
+            "<p>A warm and fashionable coat designed to keep you stylish in winter.</p>",
+        ];
+        
+        $description_ar = [
+            "<p>قميص أنيق ومريح، مثالي للمناسبات الرسمية أو الكاجوال.</p>",
+            "<p>فستان كاجوال أنيق، مثالي للخروجات النهارية أو السهرات المريحة.</p>",
+            "<p>جاكيت رياضي خفيف الوزن، يجمع بين الراحة والأناقة للرجال.</p>",
+            "<p>بلوزة رسمية تناسب أماكن العمل أو الاجتماعات الرسمية.</p>",
+            "<p>هودي مريح للجنسين، مثالي للأيام الباردة والملابس الكاجوال.</p>",
+            "<p>تيشيرت ممتع وملون مصمم للأطفال النشطين.</p>",
+            "<p>جينز ضيق أنيق مصنوع من قماش عالي الجودة ومتين.</p>",
+            "<p>تنورة ماكسي انسيابية تجمع بين الأناقة والراحة لارتداء طوال اليوم.</p>",
+            "<p>حزام جلدي كلاسيكي، قطعة أساسية لأي خزانة ملابس.</p>",
+            "<p>معطف دافئ وأنيق مصمم ليحافظ على أناقتك في الشتاء.</p>",
+        ];
+        
+        $description_fr = [
+            "<p>Une chemise élégante et confortable, parfaite pour les occasions formelles ou décontractées.</p>",
+            "<p>Une robe décontractée et élégante, idéale pour les sorties en journée ou les soirées détendues.</p>",
+            "<p>Une veste de sport légère, combinant confort et style pour homme.</p>",
+            "<p>Une blouse formelle adaptée aux environnements professionnels ou aux réunions formelles.</p>",
+            "<p>Un sweat à capuche unisexe confortable, parfait pour les journées fraîches et les tenues décontractées.</p>",
+            "<p>Un T-shirt amusant et coloré conçu pour les enfants actifs.</p>",
+            "<p>Jean slim élégant fabriqué en tissu durable et de haute qualité.</p>",
+            "<p>Une jupe longue fluide à la fois chic et confortable pour une tenue quotidienne.</p>",
+            "<p>Ceinture en cuir classique, un accessoire indispensable pour toute garde-robe.</p>",
+            "<p>Un manteau chaud et à la mode conçu pour rester stylé en hiver.</p>",
+        ];
+ 
 
-        $title_ar = ["انشاء مواقع الويب",
-                     "انشاء مواقع تجارة الكترونية",
-                     "صيانة ودعم الموقع",
-                     "استضافت مواقع "];  
+        $images = [
+                    //    [ "images/7CzapEFYzk8hZLNXPXyHoY1KPb3h2MEQVndJ9I7T.jpg","images/3lu5xyBjdXLPmH7i5BrSLurgPnO3eaaFJ4JzqiFS.jpg"],
+                    //    [ "images/3lu5xyBjdXLPmH7i5BrSLurgPnO3eaaFJ4JzqiFS.jpg"],
+                    //    [ "images/QGoTeufhCJLyaypQmH2XfoLmFc76mRVOasKh5ThK.jpg"],
+                    //    [ "images/D0cYjhqSZxNlkoxaIEpYd8oYaBDNfaoI15lO0noq.jpg"],
+                       
+                  ];
 
-        $subtitle_ar = [null,null,null,null];
+        $single_image = [
+                            // "images/demo.png",
+                            // "images/demo.png",
+                            // "images/demo.png",
+                        ];
+                
+                  
 
-        $description_ar = [ "<p>نحن متخصصون في إنشاء مواقع ويب مخصصة تناسب احتياجات عملك المحددة. يعمل فريقنا من المطورين والمصممين ذوي الخبرة بشكل وثيق معك لفهم متطلباتك وتطوير موقع ويب يعكس هوية علامتك التجارية. نحن نستفيد من أحدث تقنيات الويب ومبادئ التصميم سريع الاستجابة لضمان أن يبدو موقع الويب الخاص بك مذهلاً ويعمل بشكل لا تشوبه شائبة عبر الأجهزة وبالاضافه الى لوحة تحكم لنجعلك قادر على التحكم فى جميع محتويات الموقع  </p>",
 
-                            "<p>إذا كنت تتطلع إلى بيع منتجات أو خدمات عبر الإنترنت، فيمكن أن تساعدك خدمات تطوير التجارة الإلكترونية لدينا. لدينا خبرة في بناء منصات تجارة إلكترونية آمنة وقابلة للتطوير توفر تجارب مستخدم سلسة وتكاملًا قويًا للدفع. بدءًا من كتالوجات المنتجات وعربات التسوق وحتى إدارة المخزون ومعالجة الطلبات، نقوم بإنشاء حلول للتجارة الإلكترونية تعمل على زيادة التحويلات وزيادة الإيرادات إلى أقصى حد</p>",
-
-                            "<p>نحن نؤمن بالشراكات طويلة الأمد مع عملائنا. تضمن خدمات صيانة ودعم موقع الويب لدينا بقاء موقع الويب الخاص بك آمنًا وحديثًا ومحسّنًا للأداء. نحن نقدم تحديثات منتظمة وتصحيحات أمنية ونسخًا احتياطية لحماية موقع الويب الخاص بك من نقاط الضعف. فريق الدعم لدينا متاح لمعالجة أية مشكلات والإجابة على الأسئلة وتقديم المساعدة الفنية المستمرة</p>",
-
-                            "<p>في شركة تطوير الويب لدينا، نقدم خدمات استضافة شاملة للتأكد من أن موقع الويب الخاص بك يعمل على النحو الأمثل ويظل في متناول زوار موقعك. توفر خدمة الاستضافة لدينا بيئة موثوقة وآمنة لازدهار موقع الويب الخاص بك. فيما يلي نظرة عامة على خدمة الاستضافة لدينا:
-
-بنية تحتية موثوقة للاستضافة: نحن نحافظ على بنية تحتية قوية للاستضافة مع خوادم ومعدات شبكات حديثة. تم تحسين خوادمنا من أجل الأداء، مما يوفر أوقات تحميل سريعة وأقل وقت توقف. نحن نعطي الأولوية للموثوقية للتأكد من أن موقع الويب الخاص بك في متناول الزوار على مدار الساعة.
-
-حلول قابلة للتطوير: تم تصميم خدمة الاستضافة لدينا لاستيعاب نمو موقع الويب الخاص بك. سواء كان لديك موقع ويب خاص بشركة صغيرة أو تطبيق ويب معقد، فإننا نقدم حلول استضافة قابلة للتطوير يمكنها التكيف مع احتياجاتك المتغيرة. مع توسع موقع الويب الخاص بك، يمكننا بسهولة زيادة موارد الاستضافة للتعامل مع زيادة حركة المرور ومتطلبات البيانات.
-
-التدابير الأمنية: نحن نعطي الأولوية لأمن موقع الويب الخاص بك والبيانات التي يحتوي عليها. تتضمن خدمة الاستضافة لدينا إجراءات أمنية قوية مثل جدران الحماية، وأنظمة كشف التسلل، والتحديثات الأمنية المنتظمة. نقوم أيضًا بتنفيذ شهادات SSL لتشفير نقل البيانات وحماية المعلومات الحساسة وبناء الثقة مع زوار موقعك.
-
-النسخ الاحتياطي والتعافي من الكوارث: نحن ندرك أهمية حماية البيانات. تتضمن خدمة الاستضافة لدينا نسخًا احتياطية منتظمة لموقعك على الويب والبيانات المرتبطة به. في حالة وجود مشكلة فنية أو حدث غير متوقع، يمكننا استعادة موقع الويب الخاص بك بسرعة لتقليل وقت التوقف عن العمل وفقدان البيانات.
-
-الدعم الفني: فريق الدعم المخصص لدينا متاح لمساعدتك في أي مخاوف أو مشكلات فنية متعلقة بالاستضافة. سواء كانت لديك أسئلة حول تكوينات الخادم، أو كنت بحاجة إلى مساعدة بشأن إعدادات DNS، أو كنت بحاجة إلى استكشاف الأخطاء وإصلاحها، فإن موظفي الدعم ذوي المعرفة لدينا ليسوا سوى مكالمة هاتفية أو بريد إلكتروني.
-
-التوافق مع تقنيات الويب: تدعم خدمة الاستضافة لدينا مجموعة واسعة من تقنيات الويب ولغات البرمجة. سواء تم إنشاء موقع الويب الخاص بك باستخدام PHP أو Python أو Node.js أو أطر عمل أخرى، يمكن لبيئة الاستضافة لدينا أن تلبي متطلباتك المحددة.
-
-شبكة تسليم المحتوى (CDN): لتحسين أداء موقع الويب الخاص بك، يمكننا دمج شبكة تسليم المحتوى (CDN) في خدمة الاستضافة لدينا. تساعد شبكة CDN على تقديم محتوى موقع الويب الخاص بك بسرعة للزائرين من مواقع جغرافية مختلفة، مما يحسن أوقات التحميل وتجربة المستخدم.
-
-استضافة البريد الإلكتروني: إلى جانب استضافة مواقع الويب، نقدم أيضًا خدمات استضافة البريد الإلكتروني. يمكنك الحصول على عناوين بريد إلكتروني احترافية مرتبطة باسم النطاق الخاص بك، مما يوفر تجربة اتصال سلسة وموحدة لشركتك. </p>"];
-
-        $images = ["images/lFm4BhN2x9t3xJnk42ivFtqCWzMCcLppx1Mlr9gN.jpg",
-                    "images/tqmoHh1nzC4Zg0IE4JykvWbBigfJpdIxMqxNcYPF.jpg",
-                    "images/fih4AHmLMdr3mBpXqeeellC00S18BZm5dDCHcntw.jpg",
-                    "images/yvxLurP4RFhTzwsih8n5pYC62eHgY74TDzQ3J8xF.jpg"];
-
-        $icons=["far fa-window-restore",
-                "fas fa-shopping-cart",
-                "fas fa-cog",
-                "fab fa-ioxhost"];
-
+     
+                
+        
         for ($i = 0; $i < count($title_ar); $i++) {
+
             $product = Product::create([
                 'ar' => [
                     'title' => $title_ar[$i],
                     'description' => $description_ar[$i],
-                    'subtitle' => $subtitle_ar[$i],
+                    
                 ],
                 'en' => [
                     'title' => $title_en[$i],
                     'description' => $description_en[$i],
-                    'subtitle' => $subtitle_en[$i],
+                   
                 ],
-                'icon'=>$icons[$i],
+                'fr' => [
+                    'title' => $title_fr[$i],
+                    'description' => $description_fr[$i],
+                   
+                ],
+                'category_id'=>rand(1,10),
+                'subcategory_id'=>rand(1,10),
+                'brand_id'=>rand(1,10),
+                'store_id'=>rand(1,10),
+                'weight'=>rand(50,150),
+                'rate'=>mt_rand(30, 50) / 10,
+                'sku' => 'SKU-' . strtoupper(Str::random(8)),
+                'productOffer_id'=>rand(1,15),
             ]);
 
-            $product->file()->create(["url"=>$images[$i]]);
+            // $product->file()->create(["url"=>$single_image[$i]]);
+            
+            if(isset($images[$i]))
+            foreach($images[$i] as $image)
+            $product->file()->create(["url"=>$image]);
         }
     }
 }

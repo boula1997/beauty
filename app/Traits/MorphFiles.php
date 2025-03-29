@@ -13,18 +13,19 @@ trait  MorphFiles
         return $this->morphMany(ModelsFile::class, 'fileable');
     }
 
-    public function uploadFiles()
+    public function uploadFiles($dbSave=true)
     {
         if (request()->hasFile('images')) {
             $files = request()->file('images');
             foreach ($files as $file) {
                 $data['image'] = $file->store('images');
                 $file->move('images', $data['image']);
+                if($dbSave)
                 $this->files()->create(['url' => $data['image']]);
             }
         }   
     }
-    public function updateFiles()
+    public function updateFiles($dbSave=true)
     {  
         $this->deleteSpecificFiles();
         if (request()->hasFile('images')) {
@@ -32,6 +33,7 @@ trait  MorphFiles
             foreach ($files as $file) {
                 $data['image'] = $file->store('images');
                 $file->move('images', $data['image']);
+                if($dbSave)
                 $this->files()->create(['url' => $data['image']]);
             }
            

@@ -4,80 +4,74 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\BenefitResource;
-use App\Http\Resources\CareerResource;
-use App\Http\Resources\CategoryResource;
-use App\Http\Resources\ChooseusResource;
 use App\Http\Resources\CounterResource;
+use App\Http\Resources\CountryResource;
 use App\Http\Resources\FaqResource;
 use App\Http\Resources\FeatureResource;
-use App\Http\Resources\LocationResource;
-use App\Http\Resources\MealResource;
-use App\Http\Resources\NewsResource;
-use App\Http\Resources\OfferResource;
-use App\Http\Resources\OutsideCategoryResource;
 use App\Http\Resources\PageResource;
 use App\Http\Resources\PartnerResource;
 use App\Http\Resources\ProjectResource;
-use App\Http\Resources\RestaurantResource;
 use App\Http\Resources\ServiceResource;
 use App\Http\Resources\SliderResource;
 use App\Http\Resources\TeamResource;
 use App\Http\Resources\TestimonialResource;
 use App\Models\Counter;
 use App\Models\Feature;
-use App\Models\Meal;
-use App\Models\Page;
 use App\Models\Partner;
-use App\Models\Restaurant;
 use App\Models\Service;
 use App\Models\Slider;
 use App\Models\Team;
+use App\Models\Country;
 use App\Models\Faq;
 use App\Models\Testimonial;
 use App\Models\Benefit;
-use App\Models\Chooseus;
 use App\Models\Project;
-use App\Models\Career;
-use App\Models\Gallery;
-use App\Models\Offer;
-use App\Models\OutsideCategory;
-use App\Models\Location;
-use App\Models\News;
-use App\Models\Story;
 use Exception;
 use Illuminate\Http\Request;
+use Khsing\World\World;
+
 
 class AboutController extends Controller
 {
+    private $slider;
     private $counter;
-    private $portfolio;
-    private $project;
+    private $country;
 
-    public function __construct(Counter $counter, Gallery $portfolio, Project $project)
+    public function __construct(Partner $partner,Slider $slider,Counter $counter,Country $country)
     {
         $this->counter = $counter;
-        $this->portfolio = $portfolio;
-        $this->project = $project;
-    }
+        $this->slider = $slider;
+        $this->country = $country;
 
+    }
     public function index()
     {
         try {
-            $data['about_section'] = new PageResource(page('aboutus-home'));
-            $data['vision_section'] = new PageResource(page('vision'));
-            $data['mission_section'] = new PageResource(page('mission'));
-            $data['what_we_section'] = new PageResource(page('what_we'));
-            $data['ceo_section'] = new PageResource(page('ceo'));
-            $data['projects'] = ProjectResource::collection($this->project->latest()->take(3)->get());
-            $data['counters'] = CounterResource::collection($this->counter->latest()->paginate(10));
-            $data['footer_section'] = new PageResource(page('footer-section'));
-            return response()->json($data);
+            // $china = Country::getByCode('cn');
+            // $china->has_division; // true, otherwise is false
+            // $regsions = $china->children();Lebanon
+            // foreach(World::Countries() as $key=>$value)
+            // if ($value->name=='Lebanon')
+            // dd($key);
+            // $china->setLocale('zh-cn');
+            // dd(World::Countries()[76]->children());
+            // new CountryResource('Egypt');
+            // $this->country->get()
+        
+                // dd($this->country->title->get());
+                // $data['countries']= new CountryResource($this->country->get()[10]);
+            
+            $data['about-section'] = new PageResource(page('about'));
+            $data['vision-section'] = new PageResource(page('vision'));
+            $data['mission-section'] = new PageResource(page('mission'));
+
+            $data['counters'] = CounterResource::collection($this->counter->get());
+            return successResponse($data);
         } catch (Exception $e) {
 
             return failedResponse($e->getMessage());
         }
     }
-
 
 
 }

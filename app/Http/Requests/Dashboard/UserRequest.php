@@ -4,7 +4,7 @@ namespace App\Http\Requests\Dashboard;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
-
+use Illuminate\Validation\ValidationException;
 class UserRequest extends FormRequest
 {
     /**
@@ -26,11 +26,15 @@ class UserRequest extends FormRequest
     {
         $image=request()->isMethod('put')?'nullable':'required';
         // dd(request()->all());
+        // TODO(boula): make phone request better easy
         return [
             'image' => $image,
-            'name' => 'required',
+            'fullname' => 'required',
+            'username' => ['required','username',Rule::unique('users', 'username')->ignore($this->id)],
+            'phone' => 'required|numeric',
             'email' => ['required','email',Rule::unique('users', 'email')->ignore($this->id)],
             'password' => 'required_without:_method|same:confirm-password',
         ];
     }
+
 }

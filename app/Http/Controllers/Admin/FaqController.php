@@ -4,10 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\FaqRequest;
-use App\Models\File as ModelsFile;
-use App\Models\Faq;
-use Exception;
 use Illuminate\Support\Facades\File;
+use App\Models\Faq;
+use Illuminate\Http\Request;
+use App\Models\File as ModelsFile;
+use Exception;
 
 class FaqController extends Controller
 {
@@ -17,7 +18,6 @@ class FaqController extends Controller
      * @return \Illuminate\Http\Responses
      */
     private $faq;
-
     function __construct(Faq $faq)
     {
         $this->middleware('permission:faq-list|faq-create|faq-edit|faq-delete', ['only' => ['index', 'show']]);
@@ -57,10 +57,10 @@ class FaqController extends Controller
      */
     public function store(FaqRequest $request)
     {
-
         try {
             $data = $request->except('image','profile_avatar_remove');
             $faq = $this->faq->create($data);
+            $faq->uploadFile();
             return redirect()->route('faqs.index')
                 ->with('success', trans('general.created_successfully'));
         } catch (Exception $e) {
@@ -98,11 +98,13 @@ class FaqController extends Controller
      * @param  \App\Models\portfolio  $faq
      * @return \Illuminate\Http\Response
      */
-    public function update(FaqRequest $request, Faq $faq)
+    public function update(Request $request, Faq $faq)
     {
         try {
             $data = $request->except('image','profile_avatar_remove');
             $faq->update($data);
+            $faq->updateFile();
+
             return redirect()->route('faqs.index', compact('faq'))
                 ->with('success', trans('general.update_successfully'));
         } catch (Exception $e) {
@@ -118,9 +120,9 @@ class FaqController extends Controller
      */
     public function destroy(Faq $faq)
     {
-
         try {
             $faq->delete();
+            $faq->deleteFile();
             return redirect()->route('faqs.index')
                 ->with('success', trans('general.deleted_successfully'));
         } catch (Exception $e) {

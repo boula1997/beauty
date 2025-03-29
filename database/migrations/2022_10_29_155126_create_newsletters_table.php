@@ -15,7 +15,7 @@ class CreateNewslettersTable extends Migration
     {
         Schema::create('newsletters', function (Blueprint $table) {
             $table->id();
-            $table->string('newsletterEmail')->nullable();
+            $table->string('newsletterEmail')->unique();
             $table->timestamps();
         });
     }

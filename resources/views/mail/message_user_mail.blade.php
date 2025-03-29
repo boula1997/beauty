@@ -1,115 +1,247 @@
-<!doctype html>
-<html lang="{{app()->getLocale()}}">
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="">
-  <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-  <meta name="generator" content="Hugo 0.72.0">
-  <title>Album example · Bootstrap</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-  <link rel="canonical" href="https://v5.getbootstrap.com/docs/5.0/examples/album/">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <link rel="icon" href="images/favicon.png" type="image/x-icon">
 
-  <!-- Bootstrap core CSS -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <title>{{ settings()->title }}</title>
 
-  <style>
-    .bd-placeholder-img {
-      font-size: 1.125rem;
-      text-anchor: middle;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-    }
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200;300;400;600;700;800;900&display=swap"
+        rel="stylesheet">
 
-    @media (min-width: 768px) {
-      .bd-placeholder-img-lg {
-        font-size: 3.5rem;
-      }
-    }
-  </style>
+    <style type="text/css">
+        body {
+            text-align: center;
+            margin: 0 auto;
+            /* width: 650px; */
+            font-family: 'Public Sans', sans-serif;
+            background-color: #e2e2e2;
+            display: block;
+        }
 
+        .mb-3 {
+            margin-bottom: 30px;
+        }
 
+        ul {
+            margin: 0;
+            padding: 0;
+        }
+
+        li {
+            display: inline-block;
+            text-decoration: unset;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        h5 {
+            margin: 10px;
+            color: #777;
+        }
+
+        .text-center {
+            text-align: center
+        }
+
+        .header-menu ul li+li {
+            margin-right: 20px;
+        }
+
+        .header-menu ul li a {
+            font-size: 14px;
+            color: #252525;
+            font-weight: 500;
+        }
+
+        .password-button {
+            background-color: #293f91;
+            border: none;
+            color: #fff;
+            padding: 14px 26px;
+            font-size: 18px;
+            border-radius: 6px;
+            font-weight: 700;
+            font-family: 'Nunito Sans', sans-serif;
+        }
+
+        .footer-table {
+            position: relative;
+        }
+
+        .footer-table::before {
+            position: absolute;
+            content: "";
+            background-image: url(images/footer-right.svg);
+            background-position: top right;
+            top: 0;
+            right: -71%;
+            width: 100%;
+            height: 100%;
+            background-repeat: no-repeat;
+            z-index: -1;
+            background-size: contain;
+            opacity: 0.3;
+        }
+
+        .footer-table::after {
+            position: absolute;
+            content: "";
+            background-image: url(images/footer-right.svg);
+            background-position: top right;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background-repeat: no-repeat;
+            z-index: -1;
+            background-size: contain;
+            opacity: 0.3;
+        }
+
+        .theme-color {
+            color: #293f91;
+        }
+
+        .main-logo{
+            height: 150px;
+        }
+    </style>
 </head>
 
-<body>
+<body style="margin: 20px auto;">
+    <table align="center" border="0" cellpadding="0" cellspacing="0"
+        style="background-color: white; width: 100%; box-shadow: 0px 0px 14px -4px rgba(0, 0, 0, 0.2705882353);-webkit-box-shadow: 0px 0px 14px -4px rgba(0, 0, 0, 0.2705882353);">
+        <tbody>
+            <tr>
+                <td>
+                    <table class="header-table" align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="display: flex; justify-content: center; align-items: center;">
+                        <tr class="header"
+                            style="background-color: #f7f7f7;display: flex;align-items: center;justify-content: space-between;width: 100%;">
+                         
+                            <td class="header-menu d-flex justify-content-center align-items-center" style="display: block; padding: 10px 32px;text-align: center;">
+                                <ul>
+                                    <li>
+                                        <a href="{{ route('front.home') }}">{{ __('general.home')}}</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('front.shopping_now') }}">{{ __('general.shop_now')}}</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('front.about') }}">{{ __('general.about')}}</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('front.message') }}">{{ __('general.contact')}}</a>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </table>
+                    <table style="display: flex; justify-content: center; align-items: center;">
+                        <tr>
+                            <td>
+                                <a href="{{ route('front.home') }}">
+                                    <img src="{{ settings()->logo }}" class=" img-fluid main-logo" alt="logo">
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
 
-  <header>
-    <div class="collapse bg-dark" id="navbarHeader">
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-8 col-md-7 py-4">
-            <h4 class="text-white">About</h4>
-            <p class="text-muted">Add some information about the album below, the author, or any other background
-              context. Make it a few sentences long so folks can pick up some informative tidbits. Then, link them off
-              to some social networking sites or contact information.</p>
-          </div>
-          <div class="col-sm-4 offset-md-1 py-4">
-            <h4 class="text-white">Contact</h4>
-            <ul class="list-unstyled">
-              <li><a href="#" class="text-white">Follow on Twitter</a></li>
-              <li><a href="#" class="text-white">Like on Facebook</a></li>
-              <li><a href="#" class="text-white">Email me</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="navbar navbar-dark bg-dark shadow-sm">
-      <div class="container">
-        <a href="#" class="navbar-brand d-flex align-items-center">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor"
-            stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="mr-2"
-            viewBox="0 0 24 24">
-            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
-            <circle cx="12" cy="13" r="4" /></svg>
-          <strong>Album</strong>
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader"
-          aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-      </div>
-    </div>
-  </header>
+                    <table class="contant-table" style="margin-bottom: -6px;" align="center" border="0" cellpadding="0"
+                        cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <td>
+                                    <img src="{{ asset('template/images/welcome-poster.jpg') }}" alt="">
+                                </td>
+                            </tr>
+                        </thead>
+                    </table>
 
-  <main>
+                    <table class="contant-table" style="margin-top: 40px; display: flex; justify-content: center; align-items: center; margin-botton:50px;"   align="center" border="0" cellpadding="0"
+                        cellspacing="0" width="100%">
+                        <thead>
+                            <tr style="display: block;">
+                                <td style="display: block;">
+                                    <h3
+                                        style="font-weight: 700; font-size: 20px; margin: 0; text-transform: uppercase;">
+                                        {{ __('general.hi')}}{{ $data->name }} </h3>
+                                        
+                                      
+                                </td>
 
-    <section class="py-5 text-center container">
-      <div class="row py-lg-5">
-        <div class="col-lg-6 col-md-8 mx-auto"> 
-          <h1 class="font-weight-light">{{ $data->name}}</h1>
-          <p class="lead text-muted">{{ $data->phone}}</p>
-          <p class="lead text-muted">{{ $data->message}}</p>
-          <p class="lead text-muted">{{ $data->email }}</p>
-          <p>
-            <a href="#" class="btn btn-primary my-2">Main call to action</a>
-            <a href="#" class="btn btn-secondary my-2">Secondary action</a>
-          </p>
-        </div>
-      </div>
-    </section>
+                                <td>
+                                    <p
+                                        style="font-size: 14px;font-weight: 600;margin: 8px auto 0;line-height: 1.5;color: #000000;font-family: 'Nunito Sans', sans-serif; margin-bottom:50px;">
+                                        {{ __('general.message_user')}}
+                                    </p>
+                                </td>
+                            </tr>
+                        </thead>
+                    </table>
 
+ 
 
-  </main>
+                    <table class="contant-table" align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
+                        <thead>
+                            <tr style="display: block;">
+                                <td style="display: block;">
+                                    <p
+                                        style="font-size: 14px; font-weight: 600; width: 82%; margin: 0 auto; line-height: 1.5; color: #939393; font-family: 'Nunito Sans', sans-serif;">
+                                        {{ __('general.weic_mail_desc2')}} <span
+                                            class="theme-color">{{ contacts('email')[0]->contact }}</span>  {{ __('general.weic_mail_desc3')}}<span
+                                            class="theme-color" href="{{ route('front.home') }}">{{ settings()->title }}.</span> {{ __('general.weic_mail_desc4')}}</p>
+                                </td>
+                            </tr>
+                        </thead>
+                    </table>
 
-  <footer class="text-muted py-5">
-    <div class="container">
-      <p class="float-right mb-1">
-        <a href="#">Back to top</a>
-      </p>
-      <p class="mb-1">Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
-      <p class="mb-0">New to Bootstrap? <a href="/">Visit the homepage</a> or read our <a
-          href="/docs/5.0/getting-started/introduction/">getting started guide</a>.</p>
-    </div>
-  </footer>
-
+                    <table class="text-center footer-table" align="center" border="0" cellpadding="0" cellspacing="0"
+                        width="100%"
+                        style="background-color: #282834; color: white; padding: 24px; overflow: hidden; z-index: 0; margin-top: 30px;">
+                        <tr>
+                            <td>
+                                <table border="0" cellpadding="0" cellspacing="0" class="footer-social-icon text-center"
+                                    align="center" style="margin: 8px auto 11px;">
+                                    <tr>
+                                        <td>
+                                            <h4 style="font-size: 19px; font-weight: 700; margin: 0;">{{ __('general.shop_for')}}<span
+                                                    class="theme-color">{{ settings()->title }}</span></h4>
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                           
+                                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                    <tr>
+                                        <td>
+                                            <h5 style="font-size: 13px; text-transform: uppercase; margin: 0; color:#ddd;
+                                letter-spacing:1px; font-weight: 500;">
+                                            </h5>
+                                            <h5 style="font-size: 13px; text-transform: uppercase; margin: 10px 0 0; color:#ddd;
+                                letter-spacing:1px; font-weight: 500;">{{ settings()->copyright }}</h5>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </body>
 
 </html>

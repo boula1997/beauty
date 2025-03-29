@@ -20,15 +20,20 @@ class SettingResource extends JsonResource
             "logo" => $this->logo,
             "white_logo" => $this->white_logo,
             "map" => $this->map,
+            "address" => $this->address,
             "phones" => contacts('phone'),
             "socials" => contacts('social'),
             "emails" => contacts('email'),
             "tab" => $this->tab,
-            "appointment1" => $this->appointment1,
+            "appointment" => $this->appointment,
             "copyright" => $this->copyright,
-            "description" => $this->description,
+            "description" => strip_tags($this->description),
             "meta_data" => $this->meta_data,
             "title" => $this->title,
+            "taxes" => $this->taxes,
+            "shipping"=>$this->shipping,
+            "policy" => $this->policy,
+            "breadcrumb" => asset($this->breadcrumb),
         ];
     }
 }

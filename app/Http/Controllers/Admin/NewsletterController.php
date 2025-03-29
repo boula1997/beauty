@@ -83,7 +83,7 @@ class NewsletterController extends Controller
     {
         try {
             $data = $request->all();
-            Mail::to()->send(new NewsletterMail($data));
+            // Mail::to()->send(new NewsletterMail($data));
             return redirect()->route('newsletters.index')
                 ->with('success', trans('general.replied_successfully'));
         } catch (\Exception $e) {

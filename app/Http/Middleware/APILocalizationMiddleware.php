@@ -18,7 +18,11 @@ class APILocalizationMiddleware
     {
         if ($request->header('locale') == 'en') {
             App::setLocale('en');
-        } else {
+        }
+        elseif($request->header('locale') == 'fr') {
+            App::setLocale('fr');
+        }
+        else  {
             App::setLocale('ar');
         }
         return $next($request);

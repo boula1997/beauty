@@ -1,0 +1,126 @@
+.activeNav {
+    color: #E7C361 !important;
+}
+
+
+.form-box {
+    margin-bottom: 10px; /* Adjust this value as needed */
+}
+
+.text-danger {
+    margin-top: 5px; /* Adjust this value as needed */
+    font-size: 0.875em; /* Optional: Adjust font size */
+}
+
+.login-page .theme-card .theme-form input {
+    margin-bottom: 10px;
+}
+
+.logo{
+    height: 70px !important;
+}
+.product-image-container {
+    border-radius: 20px;
+    overflow: hidden;
+    width: 600px;
+    height: 250px;
+    position: relative;
+    padding: 0 !important;
+}
+
+.product-image {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+}
+
+
+.text-limit {
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: var(--lines) !important;
+    line-clamp: var(--lines) !important;
+    -webkit-box-orient: vertical !important;
+}
+.text-limit {
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: var(--lines) !important;
+    line-clamp: var(--lines) !important;
+    -webkit-box-orient: vertical !important;
+}
+
+/* First element */
+.text-limit:nth-child(1) {
+      overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: var(--lines) !important;
+    line-clamp: var(--lines) !important;
+    -webkit-box-orient: vertical !important;
+}
+
+.currencySize{
+    height: 20px !important;
+}
+
+/* Second element */
+.text-limit:nth-child(2) {
+       overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: var(--lines) !important;
+    line-clamp: var(--lines) !important;
+    -webkit-box-orient: vertical !important;
+}
+
+/* Third element */
+.text-limit:nth-child(3) {
+       overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: var(--lines) !important;
+    line-clamp: var(--lines) !important;
+    -webkit-box-orient: vertical !important;
+}
+
+/* Fourth element (and so on) */
+.text-limit:nth-child(4) {
+        overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: var(--lines) !important;
+    line-clamp: var(--lines) !important;
+    -webkit-box-orient: vertical !important;
+}
+
+
+
+.img-wrapper {
+    height: 250px; /* Adjust as needed */
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.img-wrapper img {
+    height: 100%;
+    width: auto; /* Ensures the image scales properly */
+    object-fit: cover;
+}
+
+
+.price-slider-wrapper {
+    padding: 10px;
+}
+
+.price-values {
+    margin-top: 10px;
+    text-align: center;
+    font-weight: bold;
+}
+
+

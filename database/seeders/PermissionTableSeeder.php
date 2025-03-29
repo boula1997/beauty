@@ -1,10 +1,10 @@
 <?php
-
+  
 namespace Database\Seeders;
-
+  
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
-
+  
 class PermissionTableSeeder extends Seeder
 {
     /**
@@ -23,89 +23,28 @@ class PermissionTableSeeder extends Seeder
            'product-create',
            'product-edit',
            'product-delete',
-           'faq-list',
-           'faq-create',
-           'faq-edit',
-           'faq-delete',
-           'complain-list',
-           'complain-create',
-           'complain-edit',
-           'complain-delete',
-           'vaccancy-list',
-           'vaccancy-create',
-           'vaccancy-edit',
-           'vaccancy-delete',
-           'counter-list',
-           'counter-create',
-           'counter-edit',
-           'counter-delete',
-           'contact-list',
-           'contact-create',
-           'contact-edit',
-           'contact-delete',
+          
            'image-list',
            'image-create',
-           'image-edit',
-           'project-list',
-           'project-create',
-           'project-edit',
-           'project-delete',
+           'image-edit',          
            'image-delete',
-           'task-list',
-           'task-create',
-           'task-edit',
-           'task-delete',
-           'page-list',
-           'page-edit',
-           'page-delete',
-           'news-list',
-           'news-create',
-           'news-edit',
-           'news-delete',
-           'portfolio-list',
-           'portfolio-create',
-           'portfolio-edit',
-           'portfolio-delete',
-           'service-list',
-           'service-create',
-           'service-edit',
-           'service-delete',
-           'testimonial-list',
-           'testimonial-create',
-           'testimonial-edit',
-           'testimonial-delete',
+           'itemRequest-list',
+           'itemRequest-create',
+           'itemRequest-edit',
+           'itemRequest-delete',
+            
            'category-list',
            'category-create',
            'category-edit',
            'category-delete',
-           'product-list',
-           'product-create',
-           'product-edit',
-           'product-delete',
-           'process-list',
-           'process-create',
-           'process-edit',
-           'process-delete',
-           'setting-list',
-           'setting-create',
+          
            'setting-edit',
-           'setting-delete',
-           'partner-list',
-           'partner-create',
-           'partner-edit',
-           'partner-delete',
-           'team-list',
-           'team-create',
-           'team-edit',
-           'team-delete',
-           'video-list',
-           'video-create',
-           'video-edit',
-           'video-delete',
-           'user-list',
-           'user-create',
-           'user-edit',
-           'user-delete',
+           
+           'orderproduct-list',
+           'orderproduct-create',
+           'orderproduct-edit',
+           'orderproduct-delete',
+
            'admin-list',
            'admin-create',
            'admin-edit',
@@ -113,18 +52,52 @@ class PermissionTableSeeder extends Seeder
            'message-list',
            'message-delete',
            'message-reply',
+           'order-list',
+           'order-reply',
            'newsletter-list',
            'newsletter-delete',
            'newsletter-reply',
-           'feature-list',
-           'feature-create',
-           'feature-edit',
-           'feature-delete',
+        
 
-           'projectForm-list',
-           'projectForm-delete',
+        //    
+          
+           'store-list',
+           'store-create',
+           'store-edit',
+           'store-delete',
+           
+          
+           'size-list',
+           'size-create',
+           'size-edit',
+           'size-delete',
+           'color-list',
+           'color-create',
+           'color-edit',
+           'color-delete',
+           'brand-list',
+           'brand-create',
+           'brand-edit',
+           'brand-delete',
+           'subcategory-list',
+           'subcategory-create',
+           'subcategory-edit',
+           'subcategory-delete',
+
+           'banner-list',
+           'banner-create',
+           'banner-edit',
+           'banner-delete',
+
+           'slider-list',
+           'slider-create',
+           'slider-edit',
+           'slider-delete',
+           'merchantRequest-list',
+           'merchantRequest-delete',
         ];
-
+        
+     
         foreach ($permissions as $permission) {
              Permission::updateOrCreate(['name' => $permission,'guard_name'=>'admin']);
         }

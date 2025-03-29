@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\UserRequest;
+use App\Models\Admin;
 use App\Models\User;
 use DB;
 use Hash;
@@ -141,6 +142,20 @@ class UserController extends Controller
             $user->deleteFile();
             return redirect()->route('users.index')
                 ->with('success', 'User deleted successfully');
+        } catch (Exception $e) {
+            dd($e->getMessage());
+            return redirect()->back()->with(['error' => __('general.something_wrong')]);
+        }
+    }
+
+    public function show_map()
+    {
+        try {
+            $users_mosque=Admin::where('type','admin')->get();
+            $users_client=Admin::where('type','trainer')->get();
+            $users_house=Admin::where('type','company')->get();
+                // dd($users_house);
+            return view('admin.crud.users.show_map', compact('users_mosque','users_client','users_house',));
         } catch (Exception $e) {
             dd($e->getMessage());
             return redirect()->back()->with(['error' => __('general.something_wrong')]);

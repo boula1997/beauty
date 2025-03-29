@@ -14,7 +14,7 @@ class Category extends Model implements TranslatableContract
 {
     use HasFactory, Translatable, MorphFile;
     protected $table = 'categories';
-    public $translatedAttributes = ['title', 'subtitle', 'description'];
+    public $translatedAttributes = ['title'];
     protected $guarded = [];
     public $timestamps = true;
 
@@ -23,8 +23,14 @@ class Category extends Model implements TranslatableContract
    }
 
 
-   public function projects(){
-     return $this->hasMany(Project::class,'category_id');
+
+   public function products(){
+    return $this->hasMany(Product::class);
    }
+
+   public function subcategories(){
+    return $this->hasMany(Subcategory::class);
+   }
+
     
 }

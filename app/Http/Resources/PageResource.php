@@ -16,12 +16,12 @@ class PageResource extends JsonResource
     {
         return [
             "id" => $this->id,
-            "images" => $this->images,
+            "image" => $this->images,
             "title" => $this->title,
             "subtitle" => $this->subtitle,
-            "description" => $this->description,
             "identifier" => $this->identifier,
-            "youtube_link" => $this->youtube_link,
+            "description" => strip_tags($this->description),
+            'youtube_link'=>$this->youtube_link,
         ];
     }
 }

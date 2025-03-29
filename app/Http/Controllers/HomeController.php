@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Subcategory;
 use App\Models\Service;
-use App\Models\Testimonial;
-use App\Models\Process;
 use App\Models\Gallery;
-use App\Models\Team;
-use App\Models\Counter;
 use App\Models\Faq;
 use App\Models\Setting;
-use App\Models\Partner;
+use App\Models\Product;
+use App\Models\Address;
+use App\Models\ProductVariation;
+use App\Models\Category;
+use App\Models\Offer;
+use App\Models\Slider;
 use Exception;
 
 class HomeController extends Controller
@@ -20,29 +22,22 @@ class HomeController extends Controller
      *
      * @return void
      */
-    private $service;
-    private $testimonial;
-    private $team;
-    private $process;
-    private $counter;
-    private $portfolio;
-    private $faq;
-    // private $settings;
-    private $teams;
-    private $partners;
+    private $products;
+    private $s;
+    private $offers;
+    private $addresses;
+    private $sliders;
+    private $categories;
+    
 
-    public function __construct(Service $service, Testimonial $testimonial, Team $team, Process $process, Counter $counter, Gallery $portfolio,Faq $faq,Team $teams,Partner $partners)
+    public function __construct(Product $products,Offer $offers,Address $addresses,Slider $sliders, Category $categories)
     {
-        $this->service = $service;
-        $this->testimonial = $testimonial;
-        $this->team = $team;
-        $this->process = $process;
-        $this->counter = $counter;
-        $this->portfolio = $portfolio;
-        $this->faq=$faq;
-        $this->teams=$teams;
-        // $this->settings=$settings;
-        $this->partners=$partners;
+        $this->products=$products;
+        $this->offers=$offers;
+        $this->addresses=$addresses;
+        $this->sliders=$sliders;
+        $this->categories=$categories;
+        
     }
 
     /**
@@ -53,21 +48,31 @@ class HomeController extends Controller
     public function index()
     {
         try {
-            $services = $this->service->get();
-            $testimonials = $this->testimonial->get();
-            $processes = $this->process->take(9)->latest()->get();
-            $teams = $this->team->latest()->get();
-            $counters = $this->counter->get();
-            $portfolios = $this->portfolio->get();
-            $faqs=$this->faq->get();
-            // $settings=$this->settings->get();
-            $teams=$this->teams->get();
-            $partners=$this->partners->get();
+            $products=$this->products->latest()->paginate(6);
+            $variations=ProductVariation::where('quantity','>',0)->latest()->paginate(6);
+            $homeProducts=$this->products->latest()->get();
+            $offers=$this->offers->latest()->get();
+            $addresses=$this->addresses->latest()->get();
+            $sliders=$this->sliders->latest()->get();
+            $categories=$this->categories->latest()->get();
+            
 
-            return view('front.index', compact('testimonials', 'services', 'processes', 'portfolios', 'teams', 'counters','faqs','teams','partners'));
+            return view('front.index', compact('products','variations','offers','addresses','sliders','categories','homeProducts'));
         } catch (Exception $e) {
             dd($e->getMessage());
             return redirect()->back()->with(['error' => __('general.something_wrong')]);
         }
     }
+     public function showwishlist(){
+        $offers =Offer::get();    
+         return view('front.wishlist', compact('offers'));
+     }
+     public function showaddtocart(){
+        $offers =Offer::get();    
+         return view('front.cart', compact('offers'));
+     }
+     public function checkout(){
+         return view('front.checkout');
+     }
+    
 }
