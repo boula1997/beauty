@@ -19,8 +19,8 @@ class CreateProjectFormsTable extends Migration
             $table->string('name')->nullable();
             $table->string('phone')->nullable();
             $table->text('message')->nullable();
-            $table->unsignedBigInteger('project_id')->nullable(); 
-            $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
+            // $table->unsignedBigInteger('project_id')->nullable(); 
+            // $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
 
             $table->timestamps();
         });
