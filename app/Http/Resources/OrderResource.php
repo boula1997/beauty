@@ -19,7 +19,7 @@ class OrderResource extends JsonResource
             "total" => $this->total,
             "status"=>$this->status,
             "orderproducts"=>OrderProductResource::collection($this->orderproducts),
-            "address" => new AddressResource($this->address),
+            "address" => $this->address,
         ];
     }
 }
