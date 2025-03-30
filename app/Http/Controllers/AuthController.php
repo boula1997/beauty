@@ -46,10 +46,6 @@ class AuthController extends Controller
             if($user && $user->status == 3){
                 return failedResponse(__('general.account_deleted'));
             }
-            
-            if (!$user->is_verified) {
-                return response()->json(['success' => false, 'message' => __('general.account_must_be_verified')], 403);
-            }
 
             $token = $user->createToken('API Token')->accessToken;
 
@@ -117,8 +113,8 @@ class AuthController extends Controller
     public function register(Request $request) {
         $validator = Validator::make($request->all(), [
             'fullname' => 'required|string|between:2,100',
-            'email' => 'required|string|email|max:100|unique:users,email,NULL,id,is_verified,1',
-            'phone' => 'nullable|numeric|unique:users,phone,NULL,id,is_verified,1',
+            'email' => 'required|string|email|max:100|unique:users,email',
+            'phone' => 'nullable|numeric|unique:users,phone',
             'password' => 'required|string|confirmed|min:6',
         ]);
     
@@ -126,42 +122,30 @@ class AuthController extends Controller
             return validationFailedResponse($validator->errors());
         }
     
-        $otp = rand(100000, 999999);
         $user = User::where('email', $request->email)->first();
-    
-        if ($user) {
-            if ($user->is_verified) {
-                return validationFailedResponse([
-                    'email' => [__('validation.unique', ['attribute' => __('general.email')])]
-                ]);
-            }
-    
-            $user->update(['otp_code' => $otp]);
-            $user->notify(new OtpNotification($otp));
-    
-            return response()->json([
-                'success' => true,
-                'message' => __('general.verification_code_resent'),
-            ]);
-        }
+
     
         $user = User::create([
             'fullname' => $request->fullname,
             'email' => $request->email,
             'phone' => $request->phone,
             'password' => bcrypt($request->password),
-            'otp_code' => $otp,
+            'otp_code' => null,
             'is_verified' => false,
             'fcm_token' => $request->fcm_token,
             'app_lang' => $request->app_lang ?? 'en',
         ]);
-    
-        $user->notify(new OtpNotification($otp));
+
+        Auth::login($user);
+        $token = $user->createToken('API Token')->accessToken;
     
         return response()->json([
             'success' => true,
-            'message' => __('general.account_created_verify_email'),
+            'message' => __('general.create User successfully'),
+            'token' => $token,
+            'user' => $user
         ]);
+
     }
     
     public function verifyOtp(Request $request) 
