@@ -69,12 +69,9 @@ class OrderController extends Controller
             // Validating finished offers and out-of-stock items
             foreach (cart()->getItems() as $item) {
                 $product = Product::find($item->getId());
-                $variation = ProductVariation::where('color_id', $item->get('options')["color"])
-                ->where('size_id', $item->get('options')["size"])
-                ->where('product_id', $product->id)
-                ->first();
+             
                 // Check if item is out of stock
-                if ($item->get('quantity') > $variation->quantity) {
+                if ($item->get('quantity') > $product->quantity) {
                     //  return failedResponse (__('general.out_of_stock_items'));
                 }
 

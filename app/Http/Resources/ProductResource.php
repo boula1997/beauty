@@ -27,11 +27,12 @@ class ProductResource extends JsonResource
             "SKU" => $this->SKU,
             "backgroundColor" => $this->backgroundColor,
             "rate" => $this->rate,
+            "price" => $this->price,
+            "quantity" => $this->quantity,
             "merchant" => new StoreResource($this->store),
             "brand" => new BrandResource($this->brand),
             "category" => new CategoryResource($this->category),
             "subcategory" => new SubcategoryResource($this->subcategory),
-            "productVariations" =>ProductVariationResource::collection($this->productVariations->unique('color_id')),
             'isFavourite' => $user ? $this->isFavoritedByUser($user->id) : false
 
         ];

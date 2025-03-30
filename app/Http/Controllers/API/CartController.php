@@ -80,19 +80,9 @@ class CartController extends Controller
                 'model' => $product,
                 'id' => $uniqueId, 
                 'title' => $product->title,
-                'price' => $variation->offer_price,
+                'price' => $product->price,
                 'quantity' => 1,
-                'options' => [
-                    'image' => $variation->image,
-                    'color' => $request->color_id,
-                    'size' => $request->size_id,
-                    'variation_id' => $variation->id,
-                    'colorTitle' => Color::find($request->color_id)->title,
-                    'sizeTitle' => Size::find($request->size_id)->title,
-                    'offer_id' => $product->productOffer_id,
-                    'validOffer' => validOffer($product->productOffer),
-
-                ],
+              
             ]);
 
             updateUserCart();
