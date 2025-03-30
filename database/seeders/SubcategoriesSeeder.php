@@ -14,47 +14,44 @@ class SubcategoriesSeeder extends Seeder
     public function run(): void
     {
         $title_en = [
-            'T-Shirts',
-            'Jeans',
-            'Dresses',
-            'Jackets',
-            'Sweaters',
-            'Skirts',
-            'Shorts',
-            'Shoes',
-            'Accessories',
-            'Hats',
+            'Roses',
+            'Lilies',
+            'Tulips',
+            'Orchids',
+            'Sunflowers',
+            'Daisies',
+            'Carnations',
+            'Hydrangeas',
+            'Peonies',
+            'Gardenias',
         ];
         
         $title_fr = [
-            'T-shirts',
-            'Jeans',
-            'Robes',
-            'Vestes',
-            'Pulls',
-            'Jupes',
-            'Shorts',
-            'Chaussures',
-            'Accessoires',
-            'Chapeaux',
+            'Roses',
+            'Lys',
+            'Tulipes',
+            'Orchidées',
+            'Tournesols',
+            'Marguerites',
+            'Œillets',
+            'Hortensias',
+            'Pivoines',
+            'Gardenias',
         ];
         
         $title_ar = [
-            'تيشيرتات',
-            'جينزات',
-            'فساتين',
-            'جاكيتات',
-            'بلوفرات',
-            'تنانير',
-            'شورتات',
-            'أحذية',
-            'إكسسوارات',
-            'قبعات',
+            'ورود',
+            'زنابق',
+            'توليب',
+            'أوركيد',
+            'عباد الشمس',
+            'أقحوان',
+            'قرنفل',
+            'هيدرانجيا',
+            'فاوانيا',
+            'غاردينيا',
         ];
         
-        
-       
-
         for ($i = 0; $i < count($title_ar); $i++) {
             $subcategory = Subcategory::create([
                 'ar' => [
@@ -69,7 +66,7 @@ class SubcategoriesSeeder extends Seeder
                     'title' => $title_fr[$i],
                   
                 ],
-                'category_id'=>rand(1,10),
+                'category_id'=>rand(2,11),
             ]);
           }
     }
