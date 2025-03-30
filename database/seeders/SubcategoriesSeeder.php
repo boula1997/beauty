@@ -66,7 +66,7 @@ class SubcategoriesSeeder extends Seeder
                     'title' => $title_fr[$i],
                   
                 ],
-                'category_id'=>rand(2,11),
+                'category_id'=>rand(1,10),
             ]);
           }
     }
