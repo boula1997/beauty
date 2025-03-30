@@ -17,82 +17,83 @@ class ProductSeeder extends Seeder
 
 
         $title_en = [
-            "Men's Classic Shirt",
-            "Women's Casual Dress",
-            "Men's Sports Jacket",
-            "Women's Formal Blouse",
-            "Unisex Hoodie",
-            "Children's T-shirt",
-            "Men's Slim-fit Jeans",
-            "Women's Maxi Skirt",
-            "Men's Leather Belt",
-            "Women's Winter Coat",
+            "Romantic Red Roses",
+            "Elegant White Lilies",
+            "Sunshine Sunflower Bouquet",
+            "Mixed Spring Flowers",
+            "Luxury Orchid Arrangement",
+            "Valentine's Special Roses",
+            "Pink Peony Delight",
+            "Tulip Love Bouquet",
+            "Classic Carnation Bunch",
+            "Garden Fresh Lavender"
         ];
-        
+
         $title_ar = [
-            "قميص كلاسيكي للرجال",
-            "فستان كاجوال للنساء",
-            "جاكيت رياضي للرجال",
-            "بلوزة رسمية للنساء",
-            "هودي للجنسين",
-            "تيشيرت للأطفال",
-            "جينز ضيق للرجال",
-            "تنورة ماكسي للنساء",
-            "حزام جلدي للرجال",
-            "معطف شتوي للنساء",
+            "ورود حمراء رومانسية",
+            "زنابق بيضاء أنيقة",
+            "باقة عباد الشمس المشرقة",
+            "زهور الربيع المختلطة",
+            "تنسيق أوركيد فاخر",
+            "ورود خاصة لعيد الحب",
+            "بهجة الفاونيا الوردية",
+            "باقة حب التوليب",
+            "مجموعة القرنفل الكلاسيكية",
+            "لافندر طازج من الحديقة"
         ];
-        
+
         $title_fr = [
-            "Chemise classique pour homme",
-            "Robe décontractée pour femme",
-            "Veste de sport pour homme",
-            "Blouse formelle pour femme",
-            "Sweat à capuche unisexe",
-            "T-shirt pour enfants",
-            "Jean slim pour homme",
-            "Jupe longue pour femme",
-            "Ceinture en cuir pour homme",
-            "Manteau d'hiver pour femme",
+            "Roses rouges romantiques",
+            "Lys blancs élégants",
+            "Bouquet de tournesols ensoleillés",
+            "Fleurs de printemps mélangées",
+            "Arrangement luxueux d'orchidées",
+            "Roses spéciales Saint-Valentin",
+            "Délice de pivoines roses",
+            "Bouquet d'amour de tulipes",
+            "Botte classique d'œillets",
+            "Lavande fraîche du jardin"
         ];
-        
+
         $description_en = [
-            "<p>A stylish and comfortable shirt, perfect for formal or casual occasions.</p>",
-            "<p>A casual and elegant dress, ideal for day outings or relaxed evenings.</p>",
-            "<p>A lightweight sports jacket, combining comfort and style for men.</p>",
-            "<p>A formal blouse suitable for professional settings or formal gatherings.</p>",
-            "<p>A cozy unisex hoodie, perfect for chilly days and casual wear.</p>",
-            "<p>A fun and colorful T-shirt designed for active kids.</p>",
-            "<p>Stylish slim-fit jeans made with durable, high-quality fabric.</p>",
-            "<p>A flowy maxi skirt that is both chic and comfortable for all-day wear.</p>",
-            "<p>Classic leather belt, a must-have accessory for any wardrobe.</p>",
-            "<p>A warm and fashionable coat designed to keep you stylish in winter.</p>",
+            "<p>A bouquet of deep red roses, perfect for expressing love and romance.</p>",
+            "<p>Elegant white lilies that symbolize purity and grace, ideal for any occasion.</p>",
+            "<p>Bright sunflowers that bring warmth and happiness into any space.</p>",
+            "<p>A mix of spring flowers to add freshness and color to your home.</p>",
+            "<p>Luxury orchids arranged beautifully for a touch of sophistication.</p>",
+            "<p>Specially crafted red roses bouquet for Valentine's Day surprises.</p>",
+            "<p>Soft pink peonies for a delicate and charming floral arrangement.</p>",
+            "<p>A vibrant tulip bouquet, a symbol of perfect love.</p>",
+            "<p>Classic carnations that represent deep admiration and love.</p>",
+            "<p>Fresh lavender, known for its calming scent and elegant look.</p>"
         ];
-        
+
         $description_ar = [
-            "<p>قميص أنيق ومريح، مثالي للمناسبات الرسمية أو الكاجوال.</p>",
-            "<p>فستان كاجوال أنيق، مثالي للخروجات النهارية أو السهرات المريحة.</p>",
-            "<p>جاكيت رياضي خفيف الوزن، يجمع بين الراحة والأناقة للرجال.</p>",
-            "<p>بلوزة رسمية تناسب أماكن العمل أو الاجتماعات الرسمية.</p>",
-            "<p>هودي مريح للجنسين، مثالي للأيام الباردة والملابس الكاجوال.</p>",
-            "<p>تيشيرت ممتع وملون مصمم للأطفال النشطين.</p>",
-            "<p>جينز ضيق أنيق مصنوع من قماش عالي الجودة ومتين.</p>",
-            "<p>تنورة ماكسي انسيابية تجمع بين الأناقة والراحة لارتداء طوال اليوم.</p>",
-            "<p>حزام جلدي كلاسيكي، قطعة أساسية لأي خزانة ملابس.</p>",
-            "<p>معطف دافئ وأنيق مصمم ليحافظ على أناقتك في الشتاء.</p>",
+            "<p>باقة من الورود الحمراء العميقة، مثالية للتعبير عن الحب والرومانسية.</p>",
+            "<p>زنابق بيضاء أنيقة ترمز إلى النقاء والرقي، مناسبة لجميع المناسبات.</p>",
+            "<p>زهور عباد الشمس المشرقة التي تضيف الدفء والسعادة لأي مكان.</p>",
+            "<p>خليط من زهور الربيع يضفي لمسة منعشة ومفعمة بالألوان.</p>",
+            "<p>تنسيق فاخر من زهور الأوركيد لإضافة لمسة من الأناقة.</p>",
+            "<p>باقة ورد حمراء مصممة خصيصًا لمفاجآت عيد الحب.</p>",
+            "<p>فاونيا وردية ناعمة لتنسيق زهور رقيق وساحر.</p>",
+            "<p>باقة توليب نابضة بالحياة، رمز الحب المثالي.</p>",
+            "<p>قرنفل كلاسيكي يعبر عن الإعجاب العميق والحب.</p>",
+            "<p>لافندر طازج معروف برائحته الهادئة ومظهره الأنيق.</p>"
         ];
-        
+
         $description_fr = [
-            "<p>Une chemise élégante et confortable, parfaite pour les occasions formelles ou décontractées.</p>",
-            "<p>Une robe décontractée et élégante, idéale pour les sorties en journée ou les soirées détendues.</p>",
-            "<p>Une veste de sport légère, combinant confort et style pour homme.</p>",
-            "<p>Une blouse formelle adaptée aux environnements professionnels ou aux réunions formelles.</p>",
-            "<p>Un sweat à capuche unisexe confortable, parfait pour les journées fraîches et les tenues décontractées.</p>",
-            "<p>Un T-shirt amusant et coloré conçu pour les enfants actifs.</p>",
-            "<p>Jean slim élégant fabriqué en tissu durable et de haute qualité.</p>",
-            "<p>Une jupe longue fluide à la fois chic et confortable pour une tenue quotidienne.</p>",
-            "<p>Ceinture en cuir classique, un accessoire indispensable pour toute garde-robe.</p>",
-            "<p>Un manteau chaud et à la mode conçu pour rester stylé en hiver.</p>",
+            "<p>Un bouquet de roses rouges profondes, parfait pour exprimer l'amour et la romance.</p>",
+            "<p>Des lys blancs élégants qui symbolisent la pureté et la grâce, idéaux pour toute occasion.</p>",
+            "<p>Des tournesols lumineux qui apportent chaleur et bonheur à tout espace.</p>",
+            "<p>Un mélange de fleurs de printemps pour ajouter fraîcheur et couleur à votre maison.</p>",
+            "<p>Des orchidées luxueuses arrangées avec soin pour une touche de sophistication.</p>",
+            "<p>Un bouquet de roses rouges spécialement conçu pour la Saint-Valentin.</p>",
+            "<p>Des pivoines roses douces pour un arrangement floral délicat et charmant.</p>",
+            "<p>Un bouquet de tulipes éclatant, symbole de l'amour parfait.</p>",
+            "<p>Des œillets classiques représentant une profonde admiration et amour.</p>",
+            "<p>De la lavande fraîche, connue pour son parfum apaisant et son allure élégante.</p>"
         ];
+
  
 
         $images = [
@@ -133,14 +134,12 @@ class ProductSeeder extends Seeder
                     'description' => $description_fr[$i],
                    
                 ],
-                'category_id'=>rand(1,10),
-                'subcategory_id'=>rand(1,10),
-                'brand_id'=>rand(1,10),
-                'store_id'=>rand(1,10),
-                'weight'=>rand(50,150),
-                'rate'=>mt_rand(30, 50) / 10,
+                'category_id' => rand(1, 10),
+                'subcategory_id' => rand(1, 10),
+                'rate' => mt_rand(30, 50) / 10, 
                 'sku' => 'SKU-' . strtoupper(Str::random(8)),
-                'productOffer_id'=>rand(1,15),
+                'price' => rand(100, 1000), 
+                'quantity' => rand(5, 50), 
             ]);
 
             // $product->file()->create(["url"=>$single_image[$i]]);
