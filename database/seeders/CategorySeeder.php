@@ -14,44 +14,43 @@ class CategorySeeder extends Seeder
     public function run(): void
     {
         $title_en = [
-            'Men\'s Wear',
-            'Women\'s Wear',
-            'Kids\' Wear',
-            'Sportswear',
-            'Formal Wear',
-            'Casual Wear',
-            'Traditional Clothing',
-            'Accessories',
-            'Shoes',
-            'Winter Collection'
+            'Fresh Flowers',
+            'Artificial Flowers',
+            'Flower Bouquets',
+            'Wedding Flowers',
+            'Birthday Flowers',
+            'Anniversary Flowers',
+            'Valentine\'s Day Flowers',
+            'Indoor Plants',
+            'Outdoor Plants',
+            'Floral Accessories'
         ];
         
         $title_fr = [
-            'Vêtements pour hommes',
-            'Vêtements pour femmes',
-            'Vêtements pour enfants',
-            'Vêtements de sport',
-            'Tenue formelle',
-            'Tenue décontractée',
-            'Vêtements traditionnels',
-            'Accessoires',
-            'Chaussures',
-            'Collection hiver'
+            'Fleurs fraîches',
+            'Fleurs artificielles',
+            'Bouquets de fleurs',
+            'Fleurs de mariage',
+            'Fleurs d\'anniversaire',
+            'Fleurs de célébration',
+            'Fleurs de la Saint-Valentin',
+            'Plantes d\'intérieur',
+            'Plantes d\'extérieur',
+            'Accessoires floraux'
         ];
         
         $title_ar = [
-            'ملابس الرجال',
-            'ملابس النساء',
-            'ملابس الأطفال',
-            'ملابس رياضية',
-            'ملابس رسمية',
-            'ملابس كاجوال',
-            'ملابس تقليدية',
-            'إكسسوارات',
-            'أحذية',
-            'مجموعة الشتاء'
+            'زهور طبيعية',
+            'زهور صناعية',
+            'باقات زهور',
+            'زهور الزفاف',
+            'زهور أعياد الميلاد',
+            'زهور المناسبات',
+            'زهور عيد الحب',
+            'نباتات داخلية',
+            'نباتات خارجية',
+            'إكسسوارات زهور'
         ];
-        
                     
         for ($i = 0; $i < count($title_ar); $i++) {
            
