@@ -20,14 +20,6 @@ class OrderResource extends JsonResource
             "status"=>$this->status,
             "orderproducts"=>OrderProductResource::collection($this->orderproducts),
             "address" => new AddressResource($this->address),
-            
-            "merchant" => new StoreOrderResource(
-                collect($this->orderproducts)
-                    ->map(fn($orderProduct) => optional($orderProduct->product)->store) 
-                    ->filter() 
-                    ->unique('id') 
-                    ->first() 
-            ),
         ];
     }
 }

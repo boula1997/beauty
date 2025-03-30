@@ -20,11 +20,6 @@ class OrderProductResource extends JsonResource
             "title" => $this->product->title,
             "count" => $this->count,
             "total" => $this->total,
-            "variations" => [
-                "size" => isset($this->variation->size)?$this->variation->size->title:'',
-                "color" => isset($this->variation->color)?$this->variation->color->title:'',
-            ],     
-
         ];
     }
 }
