@@ -4,6 +4,7 @@ namespace App\Traits;
 
 use Illuminate\Support\Facades\DB;
 use App\Models\Order;
+use App\Models\Product;
 use App\Models\ProductVariation;
 use App\Models\Transaction;
 use Carbon\Carbon;
@@ -19,12 +20,13 @@ trait HandlesOrders
             $order = $this->order->create($data);
 
             foreach (cart()->getItems() as $item) {
-                
+                $productId = strtok($item->getId(), '-'); 
+                $product = Product::find($productId);
                 $orderproduct = $this->orderproduct->create([
                     'order_id' => $order->id,
-                    'product_id' => strtok($item->getId(), '-'),
+                    'product_id' => $productId,
                     'count' => $item->get('quantity'),
-                    'total' => $item->get('quantity') ,
+                    'total' => $item->get('quantity') * $product->price ,
                 ]);
 
 
