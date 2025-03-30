@@ -43,6 +43,7 @@ class OrderController extends Controller
 
     public function store(OrderRequest $request)
     {
+        dd($request->all());
         DB::beginTransaction();
         try {
             cart()->clearItems();
