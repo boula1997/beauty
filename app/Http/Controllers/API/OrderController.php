@@ -99,6 +99,7 @@ class OrderController extends Controller
                 // Create order
                 $order = $this->createOrderWithProducts($data);
 
+                dd($order);
                 // Deduct balance
                 $user->update(['balance' => $user->balance - $order->total]);
                                 
