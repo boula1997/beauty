@@ -70,15 +70,15 @@ class CartController extends Controller
             updateUserCart();
             
             $product = $this->product->findorfail($id);
-            $variation=ProductVariation::where('product_id',$product->id)->where('color_id',$request->color_id)->where('size_id',$request->size_id)->first();
-            $uniqueId = $id . '-' . $request->color_id.'c'.$request->size_id.'s';
+            // $variation=ProductVariation::where('product_id',$product->id)->where('color_id',$request->color_id)->where('size_id',$request->size_id)->first();
+            // $uniqueId = $id . '-' . $request->color_id.'c'.$request->size_id.'s';
 
 
             
              
             $item = $this->cart->addItem([
                 'model' => $product,
-                'id' => $uniqueId, 
+                'id' => $product->id, 
                 'title' => $product->title,
                 'price' => $product->price,
                 'quantity' => 1,
@@ -90,7 +90,7 @@ class CartController extends Controller
             return response()->json(['success' => trans('general.sent_successfully'),'count'=>count(cart()->getItems()),
             'hash'=>$item->getHash(),
             'image'=>asset(cartItem($item->getId())->image),
-            'inCart'=>isInCart($uniqueId),
+            'inCart'=>isInCart($product->id),
             'total'=>cart()->getTotal(),
             'quantity'=>$item->get('quantity'),
             'cart'=>cart()->getItems(),
