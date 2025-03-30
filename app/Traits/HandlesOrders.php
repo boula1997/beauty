@@ -17,6 +17,7 @@ trait HandlesOrders
         DB::beginTransaction();
         try {
             $order = $this->order->create($data);
+            dd($order);
             foreach (cart()->getItems() as $item) {
                 
                 $orderproduct = $this->orderproduct->create([
