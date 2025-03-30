@@ -369,9 +369,9 @@ if (!function_exists('orderCheckoutData()')) {
         // Calculate discount
         foreach ($order->orderproducts as $item) {
             $product = Product::find($item->product_id);
-            $variation = $product->variation; // Ensure correct variation retrieval
-            $discount += $variation->price - $variation->offer_price;
-            $allTotal+=$variation->price;
+            if ($product) {
+                $allTotal += $product->price; 
+            }
 
         }
 
