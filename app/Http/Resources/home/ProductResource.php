@@ -28,9 +28,6 @@ class ProductResource extends JsonResource
             "rate" => $this->rate,
             "price" => $this->price,
             "quantity" => $this->quantity,
-            "startDate" => isset($this->productOffer->startDate)?$this->productOffer->startDate:0,
-            "endDate" => isset($this->productOffer->endDate)?$this->productOffer->endDate:0,
-            "percentage" => isset($this->productOffer->percentage)?$this->productOffer->percentage:0,
             'isFavourite' => $user ? $this->isFavoritedByUser($user->id) : false
 
         ];

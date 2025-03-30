@@ -42,12 +42,15 @@ class CartController extends Controller
             // Convert associative cart array to indexed array with hash keys
             $cartItems = [];
             foreach ($cartData as $hash => $item) {
-                $cartItems[] = array_merge(['hash' => $hash], $item);
+                $product = Product::find($item['id']);
+                $cartItems[] = array_merge(['hash' => $hash,
+                'image' => $product ? $product->image : null,
+                ], $item);
             }
     
             cart()->clearItems();
             loadUserCart(auth()->user()->id);
-    
+            
             return response()->json([
                 'success' => trans('general.sent_successfully'),
                 'count' => count(cart()->getItems()),
