@@ -43,7 +43,7 @@ class OrderController extends Controller
 
     public function store(OrderRequest $request)
     {
-        DB::beginTransaction();
+        // DB::beginTransaction();
         try {
             cart()->clearItems();
             loadUserCart(auth()->user()->id);
@@ -106,8 +106,8 @@ class OrderController extends Controller
                 cart()->clearItems();
                 updateUserCart();
                 
-                DB::commit();
-               
+                // DB::commit();
+               dd($order);
                 return response()->json(['success' => __('general.sent_successfully'), 'order'=>new OrderResource($order)]);
             }
             else{
