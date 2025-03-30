@@ -107,7 +107,7 @@ class OrderController extends Controller
                 
                 DB::commit();
                
-                return response()->json(['success' => __('general.sent_successfully'), 'order'=>new OrderResource($order)]);
+                return response()->json(['success' => __('general.sent_successfully'), 'order'=>50]);
             }
             else{
 
