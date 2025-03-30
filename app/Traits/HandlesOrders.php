@@ -18,26 +18,12 @@ trait HandlesOrders
         try {
             $order = $this->order->create($data);
             foreach (cart()->getItems() as $item) {
-
-                $variation = ProductVariation::where('color_id', $item->get('options')["color"])
-                    ->where('size_id', $item->get('options')["size"])
-                    ->where('product_id', strtok($item->getId(), '-'))
-                    ->first();
-                   
-                    // dd([
-                    //     'order_id' => $order->id,
-                    //     'variation_id' => $variation->id,
-                    //     'product_id' => strtok($item->getId(), '-'),
-                    //     'count' => $item->get('quantity'),
-                    //     'total' => $item->get('quantity') * $variation->offer_price,
-                    // ],$item,cart()->getItems());
                 
                 $orderproduct = $this->orderproduct->create([
                     'order_id' => $order->id,
-                    'variation_id' => $variation->id,
                     'product_id' => strtok($item->getId(), '-'),
                     'count' => $item->get('quantity'),
-                    'total' => $item->get('quantity') * $variation->offer_price,
+                    'total' => $item->get('quantity') ,
                 ]);
 
 

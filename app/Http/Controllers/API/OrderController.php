@@ -48,7 +48,7 @@ class OrderController extends Controller
             cart()->clearItems();
             loadUserCart(auth()->user()->id);
 
-            $data = $request->except('color', 'size','paymentMethod','flexRadioDefault');
+            $data = $request->except('paymentMethod','flexRadioDefault');
             $data['total'] = cart()->getTotal();
             $data['address_id'] = $request->address_id;
             if($request->paymentMethod=="wallet"){
@@ -102,25 +102,6 @@ class OrderController extends Controller
                 // Deduct balance
                 $user->update(['balance' => $user->balance - $order->total]);
                                 
-                //todo:: send notification
-                if( $order && isset($order->id) )
-                {
-                    
-                    $notification = [
-                        'title' => __('general.order_push_title', [], $user->app_lang),
-                        'title_ar' => __('general.order_push_title', [], 'ar'),
-                        'title_en' => __('general.order_push_title', [], 'en'),
-                        'title_fr' => __('general.order_push_title', [], 'fr'),
-                        'body' => __('general.new_order_push_body', [], $user->app_lang),
-                        'body_ar' => __('general.new_order_push_body', [], 'ar'),
-                        'body_en' => __('general.new_order_push_body', [], 'en'),
-                        'body_fr' => __('general.new_order_push_body', [], 'fr'),
-                        'order_id' => $order->id,
-                        'type' => 'wallet',
-                    ];
-                    $this->sendFCMNotification($notification, $user->fcm_token);
-                    
-                }
                 cart()->clearItems();
                 updateUserCart();
                 
