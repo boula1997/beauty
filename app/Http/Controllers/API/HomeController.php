@@ -40,17 +40,12 @@ class HomeController extends Controller
     public function index()
     {
         try {
+            $data['about_section']= new PageResource(page('about'));
+            
             $data['categories'] = CategoryResource::collection($this->category->latest()->paginate(10));
+
             
-            $data['flashSale'] = HomeProductResource::collection($flashSales = $this->product->whereHas('productOffer', function ($query) {
-                $query->whereDate('startDate', '<=', now()) 
-                      ->whereDate('endDate', '>=', now());  
-            })->get());
-            $data['banners'] = BannerResource::collection($this->banner->latest()->paginate(10));
-            
-            $data['topBrands'] = BrandResource::collection($this->brand->where('isTop',true)->latest()->paginate(10));
-            
-            $data['recommendations'] = RecommendationResource::collection(topRated(5));
+            // $data['recommendations'] = RecommendationResource::collection(topRated(5));
             
             return successResponse($data);
         } catch (Exception $e) {
