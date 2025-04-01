@@ -31,7 +31,6 @@ class MessageRequest extends FormRequest
     {
         return [
             'name' => 'string|required',
-            'subject' => 'required',
             'phone' => 'required',
             'email' => 'email|required',
             'message' => 'string|required',
