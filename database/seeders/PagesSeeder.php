@@ -76,7 +76,8 @@ class PagesSeeder extends Seeder
 
 
             for ($i = 0; $i < count($title_ar); $i++) 
-            { $page=Page::create([ 'ar'=> [
+            { 
+                $page=Page::updateOrCreate([ 'ar'=> [
                 'title' => $title_ar[$i],
                 'description' => $description_ar[$i],
                 'subtitle' => $subtitle_ar[$i],
