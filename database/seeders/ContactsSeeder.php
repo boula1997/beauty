@@ -15,25 +15,17 @@ class ContactsSeeder extends Seeder
     {
        
         $icon=[ 
-                "ri-facebook-fill",
-                "ri-twitter-fill",
-                "ri-instagram-fill",
-                "ri-pinterest-fill",
                 "ri-phone-fill",
-                "ri-mail-fill",
-
+                "ri-whatsapp-fill",
             ];
 
         $contacts=[
-                    "https://facebook.com/",
-                    "https://twitter.com/",
-                    "https://instagram.com/",
-                    "https://pinterest.com/",
-                    "+96658787952",
-                    "aloodot@gmail.com",
+                    "+201070718676",
+                    "+201070718676",
+                    
                     ];
 
-        $type=['social','social','social','social','phone','email'];
+        $type=['phone','whatsapp',];
       
 
         for ($i = 0; $i < count($contacts); $i++) {
