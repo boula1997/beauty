@@ -43,9 +43,6 @@ class HomeController extends Controller
             $data['about_section']= new PageResource(page('about'));
             
             $data['categories'] = CategoryResource::collection($this->category->latest()->paginate(10));
-
-            
-            // $data['recommendations'] = RecommendationResource::collection(topRated(5));
             
             return successResponse($data);
         } catch (Exception $e) {
