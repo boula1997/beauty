@@ -122,6 +122,7 @@ Route::post('/newsletter', [NewsletterController::class, 'store']);
 // Route::post('/order', [OrderController::class, 'store']);
 Route::post('/products', [ProductController::class, 'store']);
 Route::post('/products', [ProductController::class, 'store']);
+Route::post('/message', [MessageController::class, 'store']);
 
 
 
