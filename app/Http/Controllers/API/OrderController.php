@@ -107,7 +107,6 @@ class OrderController extends Controller
                 updateUserCart();
                 
                 // DB::commit();
-               dd($order);
                 return response()->json(['success' => __('general.sent_successfully'), 'order'=>new OrderResource($order)]);
             }
             else{
