@@ -16,14 +16,14 @@ class APILocalizationMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if ($request->header('locale') == 'en') {
-            App::setLocale('en');
+        if ($request->header('locale') == 'ar') {
+            App::setLocale('ar');
         }
         elseif($request->header('locale') == 'fr') {
             App::setLocale('fr');
         }
         else  {
-            App::setLocale('ar');
+            App::setLocale('en');
         }
         return $next($request);
     }
