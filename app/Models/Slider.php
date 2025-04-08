@@ -15,7 +15,7 @@ class Slider extends Model implements TranslatableContract
 {
     use HasFactory, Translatable, MorphFile;
     protected $table = 'sliders';
-    public $translatedAttributes = [];
+    public $translatedAttributes = ['title','subtitle'];
     protected $guarded = [];
     public $timestamps = true;
 
