@@ -18,6 +18,7 @@ class OrderResource extends JsonResource
             "id" => $this->id,
             "total" => $this->total,
             "status"=>$this->status,
+            "created_at"=>$this->created_at,
             "orderproducts"=>OrderProductResource::collection($this->orderproducts),
             "address" => $this->address,
         ];
