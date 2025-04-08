@@ -5,6 +5,7 @@ namespace App\Http\Requests\API;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\JsonResponse;
 
 
@@ -31,11 +32,10 @@ class NewsletterRequest extends FormRequest
             'newsletterEmail' => 'email|required|unique:newsletters,newsletterEmail',
         ];
     }
-
     protected function failedValidation(Validator $validator)
     {
-        return validationFailedResponse($validator->errors());
-
-        throw new ValidationException($validator,$response);
+        throw new HttpResponseException(
+            validationFailedResponse($validator->errors())
+        );
     }
 }
