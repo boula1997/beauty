@@ -15,6 +15,7 @@ use App\Models\Offer;
 use App\Models\Order;
 use App\Models\Page;
 use App\Models\ItemRequest;
+use App\Models\Orderproduct;
 use App\Models\Product;
 use App\Models\Setting;
 use App\Models\User;
@@ -284,6 +285,22 @@ if (!function_exists('contacts')) {
         return isset($type) ?  Contact::where('type', $type)->get() : Contact::latest()->get();;
     }
 }
+
+if (!function_exists('bestSellingProducts')) {
+
+    function bestSellingProducts()
+    {
+        return OrderProduct::select('product_id')
+            ->with('product') 
+            ->selectRaw('count(*) as total_sales') 
+            ->groupBy('product_id') 
+            ->orderByDesc('total_sales')
+            ->take(10) 
+            ->get() 
+            ->pluck('product'); 
+    }
+}
+
 
 if (!function_exists('isInCart()')) {
 

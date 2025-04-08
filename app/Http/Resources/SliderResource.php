@@ -17,7 +17,8 @@ class SliderResource extends JsonResource
         return [
             "id" => $this->id,
             "image" => $this->image,
-            "store_id" => $this->store->id,
+            "title" => $this->title,
+            "subtitle" => $this->subtitle,
         ];
     }
 }
