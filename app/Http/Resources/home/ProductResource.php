@@ -22,11 +22,10 @@ class ProductResource extends JsonResource
             "id" => $this->id,
             "image" => $this->image,
             "title" => $this->title,
-            "SKU" => $this->SKU,
+            "description" => $this->description,
             "rate" => $this->rate,
             "price" => $this->price,
-            "quantity" => $this->quantity,
-            'isFavourite' => $user ? $this->isFavoritedByUser($user->id) : false
+            // 'isFavourite' => $user ? $this->isFavoritedByUser($user->id) : false
 
         ];
     }
