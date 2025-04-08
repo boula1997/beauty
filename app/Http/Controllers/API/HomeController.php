@@ -16,6 +16,7 @@ use App\Models\Offer;
 use App\Models\Category;
 use App\Models\Brand;
 use App\Models\Banner;
+use App\Models\Orderproduct;
 use App\Models\Product;
 use App\Models\Slider;
 use Exception;
@@ -50,6 +51,10 @@ class HomeController extends Controller
             $data['products'] = HomeProductResource::collection($this->product->latest()->paginate(10));
             $data['categories'] = CategoryResource::collection($this->category->latest()->paginate(10));
             
+            
+            $data['bestSellingProducts'] = HomeProductResource::collection(bestSellingProducts());
+
+            
             return successResponse($data);
         } catch (Exception $e) {
 
@@ -69,6 +74,8 @@ class HomeController extends Controller
             return failedResponse($e->getMessage());
         }
     }
+
+    
 
 
 }
