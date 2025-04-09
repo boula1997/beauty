@@ -17,10 +17,10 @@ class CreateChooseUsTranslationsTable extends Migration
             $table->id();
             $table->string('title')->nullable();
             $table->text('description')->nullable();
-            $table->unsignedBigInteger('chooseUs_id');
+            $table->unsignedBigInteger('choose_us_id');
             $table->string('locale')->index();
-            $table->unique(['chooseUs_id', 'locale']);
-            $table->foreign('chooseUs_id')->references('id')->on('chooseUss')->onDelete('cascade');
+            $table->unique(['choose_us_id', 'locale']);
+            $table->foreign('choose_us_id')->references('id')->on('chooseUss')->onDelete('cascade');
             $table->timestamps();
         });
     }
