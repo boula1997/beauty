@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ChooseUsController;
 use App\Http\Controllers\Admin\ItemRequestController;
 use App\Http\Controllers\Admin\ColorController;
 use App\Http\Controllers\Admin\OfferController;
@@ -79,6 +80,7 @@ Route::group(
                 Route::resource('banners', BannerController::class);
                 Route::resource('brands', BrandController::class);
                 Route::resource('sliders', SliderController::class);
+                Route::resource('chooseUss', ChooseUsController::class);
                 Route::post('/storesList/sotrable', [BrandController::class, 'sotrable'])->name('brands.sortable');
                 Route::get('/brand/{id}/toggle-is-top', [BrandController::class, 'toggleIsTop'])->name('brands.toggleIsTop');
 

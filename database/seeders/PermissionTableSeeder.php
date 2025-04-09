@@ -101,6 +101,11 @@ class PermissionTableSeeder extends Seeder
 
            'message-list',
            'message-delete',
+           
+           'chooseUs-list',
+           'chooseUs-create',
+           'chooseUs-edit',
+           'chooseUs-delete',
         ];
         
      

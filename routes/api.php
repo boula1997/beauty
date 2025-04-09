@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AboutController as ControllersAboutController;
+use App\Http\Controllers\API\ChooseUsController;
 use App\Http\Controllers\API\AboutController;
 use App\Http\Controllers\API\AddressController;
 use App\Http\Controllers\API\BannerController;
@@ -107,6 +108,9 @@ Route::group(['middleware' => ['apiLocalization','cors']], function () {
     Route::get('/search', [ProductController::class, 'search']);
 
     Route::post('customer-block', [UserController::class, 'customerBlock']);
+
+    Route::get('/chooseUss', [ChooseUsController::class, 'index']);
+    Route::get('/chooseUs/{id}', [ChooseUsController::class, 'show']);
 });
 
     // Config
