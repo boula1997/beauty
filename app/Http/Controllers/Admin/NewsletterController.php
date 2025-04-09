@@ -31,7 +31,7 @@ class NewsletterController extends Controller
     public function index()
     {
         try {
-            $data = $this->newsletter->latest()->get();
+            $data = $this->newsletter->latest()->paginate(10);
             return view('admin.crud.newsletters.index', compact('data'))
                 ->with('i', (request()->input('page', 1) - 1) * 5);
         } catch (Exception $e) {
