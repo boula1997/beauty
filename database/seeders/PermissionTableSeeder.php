@@ -95,6 +95,12 @@ class PermissionTableSeeder extends Seeder
            'slider-delete',
            'merchantRequest-list',
            'merchantRequest-delete',
+
+           'newsletter-list',
+           'newsletter-delete',
+
+           'message-list',
+           'message-delete',
         ];
         
      

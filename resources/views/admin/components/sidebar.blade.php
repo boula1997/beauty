@@ -89,32 +89,6 @@
                     </li>
                 @endcan
 
-                {{-- brands --}}
-                @can('brand-list') 
-                    <li>
-                        <a class="sidebar-header" href="javascript:void(0)">
-                            <i data-feather="user-plus"></i>
-                            <span>{{ __('general.brands') }}</span>
-                            <i class="fa fa-angle-right pull-right {{ app()->getLocale()=="ar"?"rotate":"" }}"></i>
-                        </a>
-                        <ul class="sidebar-submenu">
-                            <li>
-                                <a href="{{ route('brands.index') }}">
-                                    <i class="fa fa-circle"></i>{{ __('general.brand_list') }}
-                                </a>
-                            </li>
-                        
-                            @can('brand-create')   
-                                <li>
-                                    <a href="{{ route('brands.create') }}">
-                                        <i class="fa fa-circle"></i>{{ __('general.create_brand') }}
-                                    </a>
-                                </li>
-                            @endcan
-                        </ul>
-                    </li>
-                @endcan
-
                 {{-- categories, subcategories --}}
                 @canany(['category-list','subcategory-list']) 
                     <li>
@@ -143,60 +117,6 @@
                     </li>
                 @endcan
 
-                {{-- stores --}}
-                @can('store-list') 
-                    <li>
-                        <a class="sidebar-header" href="javascript:void(0)">
-                            <i data-feather="user-plus"></i>
-                            <span>{{ __('general.stores') }}</span>
-                            <i class="fa fa-angle-right pull-right {{ app()->getLocale()=="ar"?"rotate":"" }}"></i>
-                        </a>
-                        <ul class="sidebar-submenu">
-                            
-                            <li>
-                                <a href="{{ route('stores.index') }}">
-                                    <i class="fa fa-circle"></i>{{ __('general.store_list') }}
-                                </a>
-                            </li>
-                        
-                            @can('store-create')   
-                                <li>
-                                    <a href="{{ route('stores.create') }}">
-                                        <i class="fa fa-circle"></i>{{ __('general.create_store') }}
-                                    </a>
-                                </li>
-                            @endcan
-                        </ul>
-                    </li>
-                @endcan
-
-                {{-- product Attributes --}}
-                @canany(['size-list','color-list'])  
-                    <li>
-                        <a class="sidebar-header" href="javascript:void(0)">
-                            <i data-feather="user-plus"></i>
-                            <span>{{ __('general.product_attributes') }}</span>
-                            <i class="fa fa-angle-right pull-right {{ app()->getLocale()=="ar"?"rotate":"" }}"></i>
-                        </a>
-                        <ul class="sidebar-submenu">
-                            @can('size-list') 
-                                <li>
-                                    <a href="{{ route('sizes.index') }}">
-                                        <i class="fa fa-circle"></i>{{ __('general.sizes') }}
-                                    </a>
-                                </li>
-                            @endcan
-                            
-                            @can('color-list')   
-                                <li>
-                                    <a href="{{ route('colors.index') }}">
-                                        <i class="fa fa-circle"></i>{{ __('general.colors') }}
-                                    </a>
-                                </li>
-                            @endcan
-                        </ul>
-                    </li>
-                @endcan
 
                 {{-- products --}}
                 @canany(['product-list','product-create']) 
@@ -224,55 +144,9 @@
                         </ul>
                     </li>
                 @endcan
-                {{-- productRequests --}}
-                @canany(['productRequest-list','productRequest-create']) 
-                    <li>
-                        <a class="sidebar-header" href="javascript:void(0)">
-                            <i data-feather="box"></i>
-                            <span>{{ __('general.productRequests') }}</span>
-                            <i class="fa fa-angle-right pull-right {{ app()->getLocale()=="ar"?"rotate":"" }}"></i>
-                        </a>
-                        <ul class="sidebar-submenu">
-                            
-                            <li>
-                                <a href="{{ route('productRequests.index') }}">
-                                    <i class="fa fa-circle"></i>{{ __('general.productRequest_list') }}
-                                </a>
-                            </li>
-                        
-                            @can('productRequest-create')   
-                                <li>
-                                    <a href="{{ route('productRequests.create') }}">
-                                        <i class="fa fa-circle"></i>{{ __('general.create_productRequest') }}
-                                    </a>
-                                </li>
-                            @endcan
-                        </ul>
-                    </li>
-                @endcan
 
-                
-                {{-- banners --}}
-                @can('banner-list') 
-                    <li>
-                        <a class="sidebar-header" href="javascript:void(0)">
-                            <i data-feather="box"></i>
-                            <span>{{ __('general.banners') }}</span>
-                            <i class="fa fa-angle-right pull-right {{ app()->getLocale()=="ar"?"rotate":"" }}"></i>
-                        </a>
-                        <ul class="sidebar-submenu">
-                            
-                            <li>
-                                <a href="{{ route('banners.index') }}">
-                                    <i class="fa fa-circle"></i>{{ __('general.banner_list') }}
-                                </a>
-                            </li>
 
-                        </ul>
-                    </li>
-                @endcan
-
-                    {{-- sliders --}}
+                {{-- sliders --}}
                 @can('slider-list') 
                     <li>
                         <a class="sidebar-header" href="javascript:void(0)">
@@ -323,6 +197,46 @@
                             </li> --}}
                         </ul>
                     </li>   
+                @endcan
+
+                {{-- newsletters --}}
+                @can('newsletter-list') 
+                    <li>
+                        <a class="sidebar-header" href="javascript:void(0)">
+                            <i data-feather="box"></i>
+                            <span>{{ __('general.newsletters') }}</span>
+                            <i class="fa fa-angle-right pull-right {{ app()->getLocale()=="ar"?"rotate":"" }}"></i>
+                        </a>
+                        <ul class="sidebar-submenu">
+                            
+                            <li>
+                                <a href="{{ route('newsletters.index') }}">
+                                    <i class="fa fa-circle"></i>{{ __('general.newsletter_list') }}
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
+                @endcan
+
+                {{-- messages --}}
+                @can('message-list') 
+                    <li>
+                        <a class="sidebar-header" href="javascript:void(0)">
+                            <i data-feather="box"></i>
+                            <span>{{ __('general.messages') }}</span>
+                            <i class="fa fa-angle-right pull-right {{ app()->getLocale()=="ar"?"rotate":"" }}"></i>
+                        </a>
+                        <ul class="sidebar-submenu">
+                            
+                            <li>
+                                <a href="{{ route('messages.index') }}">
+                                    <i class="fa fa-circle"></i>{{ __('general.message_list') }}
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
                 @endcan
 
                 {{-- logout --}}
