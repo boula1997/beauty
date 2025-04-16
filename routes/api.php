@@ -24,6 +24,7 @@ use App\Http\Controllers\API\OrderController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\SettingController;
 use App\Http\Controllers\API\ProductController;
+use App\Http\Controllers\API\ServiceController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\SizeController;
 use App\Http\Controllers\API\StoreController;
@@ -111,6 +112,9 @@ Route::group(['middleware' => ['apiLocalization','cors']], function () {
 
     Route::get('/chooseUss', [ChooseUsController::class, 'index']);
     Route::get('/chooseUs/{id}', [ChooseUsController::class, 'show']);
+
+    Route::get('/services', [ServiceController::class, 'index']);
+    Route::get('/service/{id}', [ServiceController::class, 'show']);
 });
 
     // Config
