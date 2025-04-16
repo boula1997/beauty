@@ -12,7 +12,9 @@
         <div class="row product-adding">
             <div class="col-xl-12">
                 <div class="card">
-                 
+                    <div class="card-header">
+                        <h5>General</h5>
+                    </div>
                     <div class="card-toolbar px-3">
                         <ul class="nav nav-tabs nav-bold nav-tabs-line">
                             @foreach (config('translatable.locales') as $key => $locale)
