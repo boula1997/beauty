@@ -36,7 +36,7 @@
                                                 <div class="card-title fw-bold">
                                                     <h5 class="col-form-label pt-0">{{ __('general.title') }}:</h5>
                                                     <p style="margin: 0; store: inherit; font-weight: normal;">
-                                                        {{ $size->translate($locale)->title }}</p>
+                                                        {{ $service->translate($locale)->title }}</p>
                                                 </div>
                                             </div>
                                         </div>
