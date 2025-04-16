@@ -166,6 +166,26 @@
                     </li>
                 @endcan
 
+                {{-- services --}}
+                @can('service-list') 
+                    <li>
+                        <a class="sidebar-header" href="javascript:void(0)">
+                            <i data-feather="box"></i>
+                            <span>{{ __('general.services') }}</span>
+                            <i class="fa fa-angle-right pull-right {{ app()->getLocale()=="ar"?"rotate":"" }}"></i>
+                        </a>
+                        <ul class="sidebar-submenu">
+                            
+                            <li>
+                                <a href="{{ route('services.index') }}">
+                                    <i class="fa fa-circle"></i>{{ __('general.service_list') }}
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
+                @endcan
+
                 @can('order-list')
                     <li>
                         <a class="sidebar-header" href="javascript:void(0)">

@@ -22,6 +22,7 @@ use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\MerchantRequestController;
 use App\Http\Controllers\API\ProjectController;
 use App\Http\Controllers\Admin\ProductSizeController;
+use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\SizeController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\StoreController;
@@ -68,6 +69,7 @@ Route::group(
                 Route::resource('reviews', ReviewController::class);
                 Route::resource('categories', CategoryController::class);
                 Route::resource('offers', OfferController::class);                
+                Route::resource('services', ServiceController::class);                
 
                 Route::resource('pages', PageController::class);
                 Route::resource('contacts', ContactController::class);

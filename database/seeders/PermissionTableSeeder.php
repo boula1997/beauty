@@ -106,6 +106,11 @@ class PermissionTableSeeder extends Seeder
            'chooseUs-create',
            'chooseUs-edit',
            'chooseUs-delete',
+
+           'service-list',
+           'service-create',
+           'service-edit',
+           'service-delete',
         ];
         
      
