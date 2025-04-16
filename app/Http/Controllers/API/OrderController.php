@@ -50,6 +50,7 @@ class OrderController extends Controller
 
             $data = $request->except('paymentMethod','flexRadioDefault');
             $data['total'] = cart()->getTotal();
+            $data['address'] = $request->address;
             if($request->paymentMethod=="wallet"){
                 $data['payment_method'] ="wallet";
                 $data['payment_name'] ="wallet";
