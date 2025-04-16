@@ -104,7 +104,7 @@ class ServiceController extends Controller
     public function update(Request $request, Service $service)
     {
         try {
-            $data = $request->except('image','profile_avatar_remove','images');
+            $data = $request->except('image','profile_avatar_remove','images','delimages');
             $service->update($data);
             $service->updateFile();
             $service->uploadFiles();
