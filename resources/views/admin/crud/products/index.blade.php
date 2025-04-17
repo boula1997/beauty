@@ -28,8 +28,6 @@
                                         <th>{{__('general.title')}}</th>
                                         <th>{{__('general.category')}}</th>
                                         <th>{{__('general.subcategory')}}</th>
-                                        <th>{{__('general.brand')}}</th>
-                                        <th>{{__('general.store')}}</th>
                                         <th>{{__('general.controls')}}</th>
                                     </tr>
                                 </thead>
@@ -42,8 +40,6 @@
                                             <td>{{ $product->title }}</td>              
                                             <td>{{ $product->category->title }}</td>
                                             <td>{{ optional($product->subcategory)->title }}</td>
-                                            <td>{{ $product->brand->title }}</td>
-                                            <td>{{ $product->store->title }}</td>
                                             <td>
                                                 @include('admin.components.controls', [
                                                     'route' => 'products',
