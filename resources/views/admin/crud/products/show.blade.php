@@ -62,18 +62,7 @@
                     <div class="card-body">
                         <div class="digital-add needs-validation">
                             <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <h5 class="font-weight-bolder text-dark">{{__('general.store')}}:</h5>
-                                        <p style="margin: 0; color: inherit; font-weight: normal;">{{ $product->store->title }}</p>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <h5 class="font-weight-bolder text-dark">{{__('general.brand')}}:</h5>
-                                        <p style="margin: 0; color: inherit; font-weight: normal;">{{ $product->brand->title }}</p>
-                                    </div>
-                                </div>
+                       
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <h5 class="font-weight-bolder text-dark">{{__('general.category')}}:</h5>
@@ -86,13 +75,7 @@
                                         <p style="margin: 0; color: inherit; font-weight: normal;">{{ optional($product->subcategory)->title }}</p>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <h5 class="font-weight-bolder text-dark">{{__('general.weight')}}:</h5>
-                                        <p style="margin: 0; color: inherit; font-weight: normal;">{{ $product->weight }}</p>
-                                    </div>
-                                </div>
-
+                               
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <h5 class="font-weight-bolder text-dark">{{__('general.SKU')}}:</h5>
@@ -100,82 +83,27 @@
                                     </div>
                                 </div>
 
-                                <div class="card card-custom mt-5 mb-5">
-                                    <div class="card-header">
-                                        <h3 class="card-title">{{ __('general.productVariations') }}</h3>
-                                    </div>
-                                    <div class="card-body">
-                                        @if($product->productVariations && $product->productVariations->count() > 0)
-                                            <div class="table-responsive table-desi">
-                                                <table class="table list-digital all-package table-category">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>{{ __('general.id') }}</th>
-                                                            <th>{{ __('general.image') }}</th>
-                                                            <th>{{ __('general.color') }}</th>
-                                                            <th>{{ __('general.size') }}</th>
-                                                            <th>{{ __('general.price') }}</th>
-                                                            <th>{{ __('general.quantity') }}</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        @foreach($product->productVariations as $variation)
-                                                            <tr>
-                                                                <td>{{ $variation->id }}</td>
-                                                                <td>
-                                                                    <img src="{{ asset($variation->file->url ?? 'default-image.jpg') }}" alt="Variation Image" width="150" height="50">
-                                                                </td>
-                                                                <td>{{ $variation->color->title }}</td>
-                                                                <td>{{ $variation->size->title }}</td>
-                                                                <td>{{ $variation->price }}</td>
-                                                                <td>{{ $variation->quantity }}</td>
-                                                            
-                                                            </tr>
-                                                        @endforeach
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        @else
-                                            <p>{{ __('general.no_variations_found') }}</p>
-                                        @endif
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <h5 class="font-weight-bolder text-dark">{{__('general.rate')}}:</h5>
+                                        <p style="margin: 0; color: inherit; font-weight: normal;">{{ $product->rate }}</p>
                                     </div>
                                 </div>
-                                
 
-                                
-                                <div class="card card-custom mt-5 mb-5">
-                                    <div class="card-header">
-                                        <h3 class="card-title">{{ __('general.productOffer') }}</h3>
-                                    </div>
-                                    <div class="card-body">
-                                        @if($product->productOffer && $product->productOffer->count() > 0)
-                                            <div class="table-responsive table-desi">
-                                                <table class="table list-digital all-package table-category">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>{{ __('general.id') }}</th>
-                                                            <th>{{ __('general.startDate') }}</th>
-                                                            <th>{{ __('general.endDate') }}</th>
-                                                            <th>{{ __('general.percentage') }}</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>{{ $product->productOffer->id }}</td>
-                                                            <td>{{ $product->productOffer->startDate}}</td>
-                                                            <td>{{ $product->productOffer->endDate }}</td>
-                                                            <td>{{ $product->productOffer->percentage }}</td>                                                        
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        @else
-                                            <p>{{ __('general.no_offers_found') }}</p>
-                                        @endif
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <h5 class="font-weight-bolder text-dark">{{__('general.price')}}:</h5>
+                                        <p style="margin: 0; color: inherit; font-weight: normal;">{{ $product->price }}</p>
                                     </div>
                                 </div>
-                            
 
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <h5 class="font-weight-bolder text-dark">{{__('general.quantity')}}:</h5>
+                                        <p style="margin: 0; color: inherit; font-weight: normal;">{{ $product->quantity }}</p>
+                                    </div>
+                                </div>
+                         
                                 <div class="form-group">
                                     <img src="{{ $product->image }}" class="w-50">
                                 </div>

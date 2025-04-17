@@ -62,11 +62,8 @@ class ProductController extends Controller
     {
         $categories=Category::get();
         $subcategories=Subcategory::get();
-        $brands=Brand::get();
-        $stores=Store::get();
-        $sizes=Size::get();
-        $colors=Color::get();
-        return view('admin.crud.products.create',compact('categories','subcategories','brands','stores','sizes','colors'));
+
+        return view('admin.crud.products.create',compact('categories','subcategories',));
     }
 
     /**
@@ -80,43 +77,12 @@ class ProductController extends Controller
         DB::beginTransaction();
         try {
             // dd($request->all());
-            $data = $request->except('image','images','profile_avatar_remove','variations','offers','startDate','endDate','percentage');
-            if($request->offers)
-            {
-                $productOffer=ProductOffer::create([
-                    'startDate' => $request->startDate,
-                    'endDate' => $request->endDate,
-                    'percentage' => $request->percentage,
-                ]);
-
-                $data['productOffer_id']=$productOffer->id;
-            }
-
-        
+            $data = $request->except('image','images','profile_avatar_remove',);
+          
             $product = $this->product->create($data);
             $product->uploadFile();
             $product->uploadFiles();
-            
-            // Create the variations
-            foreach ($request->variations as $variationData) {
-               $variation= ProductVariation::create([
-                    'product_id' => $product->id,
-                    'color_id' => $variationData['color_id'],
-                    'size_id' => $variationData['size_id'],
-                    'price' => $variationData['price'],
-                    'quantity' => $variationData['quantity'],
-                ]);
-                
-                if (isset($variationData['image']) && $variationData['image']->isValid()) {
-                    $file = $variationData['image'];
-        
-                    $fileName = time() . '_' . $file->getClientOriginalName();
-                    $file->move(public_path('images'), $fileName);
-                    
-                    $variation->file()->create(['url' => 'images/' . $fileName]);
-                }
-                
-            }         
+                  
             DB::commit();
        
             return redirect()->route('products.index')
@@ -150,14 +116,9 @@ class ProductController extends Controller
     {
         $categories=Category::get();
         $subcategories=Subcategory::get();
-        $brands=Brand::get();
-        $stores=Store::get();
-        $sizes=Size::get();
-        $colors=Color::get();
         $images = $product->images;
-        $availableSizes = $product->store->sizes;  // Retrieve available sizes for the store
-        $availableColors = $product->store->colors; 
-        return view('admin.crud.products.edit', compact('product','categories','subcategories','brands','stores','sizes','colors','images','availableSizes','availableColors'));
+       
+        return view('admin.crud.products.edit', compact('product','categories','subcategories','images',));
     }
     /**
      * Update the specified resource in storage.
@@ -171,72 +132,11 @@ class ProductController extends Controller
         DB::beginTransaction();
         try {
             // dd($request->all());
-            $data = $request->except('image','images','profile_avatar_remove','variations','offers','startDate','endDate','percentage');
+            $data = $request->except('image','images','profile_avatar_remove');
             
             $product->update($data);
             $product->updateFile();
             $product->uploadFiles();
-
-            if (isset($request->variations)) {
-               
-                $product->productVariations()->each(function ($variation) {
-                    if ($variation->file) {
-                        $oldImagePath = public_path($variation->file->url);
-                        if (file_exists($oldImagePath)) {
-                            unlink($oldImagePath); 
-                        }
-                        $variation->file()->delete(); 
-                    }
-                    $variation->delete(); 
-                });
-            
-                foreach ($request->variations as $variationData) {
-                    $newVariation = $product->productVariations()->create([
-                        'size_id' => $variationData['size_id'],
-                        'color_id' => $variationData['color_id'],
-                        'price' => $variationData['price'],
-                        'quantity' => $variationData['quantity'],
-                    ]);
-            
-                    if (isset($variationData['image']) && $variationData['image']->isValid()) {
-                        $file = $variationData['image'];
-            
-                        $fileName = time() . '_' . $file->getClientOriginalName();
-                        $file->move(public_path('images'), $fileName);
-            
-                        $newVariation->file()->create(['url' => 'images/' . $fileName]);
-                    }
-                }
-            }
-            
-            if ($request->has('offers')) {
-                
-                if ($product->productOffer) {
-                    $product->productOffer->update([
-                        'startDate' => $request->startDate,
-                        'endDate' => $request->endDate,
-                        'percentage' => $request->percentage,
-                    ]);
-                } else {
-                    
-                    $productOffer = ProductOffer::create([
-                        'startDate' => $request->startDate,
-                        'endDate' => $request->endDate,
-                        'percentage' => $request->percentage,
-                    ]);
-            
-                   
-                    $product->update(['productOffer_id' => $productOffer->id]);
-                }
-            } else {
-                
-                if ($product->productOffer) {
-                    $product->update(['productOffer_id' => null]);
-                    $product->productOffer->delete();
-                }
-            }
-            
-
       
             DB::commit();
             
