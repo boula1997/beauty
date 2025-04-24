@@ -87,6 +87,11 @@ class PermissionTableSeeder extends Seeder
 
            'page-list',
            'page-edit',
+
+           'contact-list',
+           'contact-create',
+           'contact-edit',
+           'contact-delete',
            
         ];
         

@@ -259,6 +259,26 @@
                     </li>   
                 @endcan
 
+                  {{-- contacts --}}
+                @can('contact-list') 
+                    <li>
+                        <a class="sidebar-header" href="javascript:void(0)">
+                            <i data-feather="box"></i>
+                            <span>{{ __('general.contacts') }}</span>
+                            <i class="fa fa-angle-right pull-right {{ app()->getLocale()=="ar"?"rotate":"" }}"></i>
+                        </a>
+                        <ul class="sidebar-submenu">
+                            
+                            <li>
+                                <a href="{{ route('contacts.index') }}">
+                                    <i class="fa fa-circle"></i>{{ __('general.contact_list') }}
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
+                @endcan
+
                 {{-- newsletters --}}
                 @can('newsletter-list') 
                     <li>
