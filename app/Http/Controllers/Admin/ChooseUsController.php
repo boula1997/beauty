@@ -77,8 +77,9 @@ class ChooseUsController extends Controller
      * @param  \App\Models\ChooseUs  $chooseUs
      * @return \Illuminate\Http\Response
      */
-    public function show(ChooseUs $chooseUs)
+    public function show( $id)
     {
+        $chooseUs=ChooseUs::find($id);
         return view('admin.crud.chooseUss.show', compact('chooseUs'));
     }
 
@@ -88,10 +89,11 @@ class ChooseUsController extends Controller
      * @param  \App\Models\ChooseUs  $chooseUs
      * @return \Illuminate\Http\Response
      */
-    public function edit(ChooseUs $chooseUs)
+    public function edit( $id)
     {
         // dd($chooseUs);
         $stores=Store::get();
+        $chooseUs=ChooseUs::find($id);
         return view('admin.crud.chooseUss.edit', compact('chooseUs','stores'));
     }
     /**
