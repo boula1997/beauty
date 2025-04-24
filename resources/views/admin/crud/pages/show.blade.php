@@ -21,46 +21,45 @@
                                 @endforeach
                             </ul>
                         </div>
-                        <div class="card-body p-10">
-                            <div class="tab-content">
-                                @foreach (config('translatable.locales') as $key => $locale)
-                                    <div class="tab-pane fade show @if ($key == 0) active @endif"
-                                        id="{{ $locale }}" role="tabpanel">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="mb-5 bg-light p-3 rounded h-100">
-                                                    <div class="card-title fw-bold">
-                                                        <h5 class="font-weight-bolder text-dark">{{__('general.title')}}:</h5>
-                                                        <p style="margin: 0; color: inherit; font-weight: normal;">{{ $page->translate($locale)->title }}</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-6">
-                                                <div class="mb-5 bg-light p-3 rounded h-100">
-                                                    <div class="card-title fw-bold">
-                                                        <h5 class="font-weight-bolder text-dark">{{__('general.subtitle')}}:</h5>
-                                                        <p style="margin: 0; color: inherit; font-weight: normal;">{{ $page->translate($locale)->subtitle }}</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-
-                                        </div>
-                                        <br>
-                                        <br>
-                                        <div class="row">
+    
+                        <div class="card-body">
+                            <div class="digital-add needs-validation">
+                                <div class="tab-content">
+                                    @foreach (config('translatable.locales') as $key => $locale)
+                                        <div class="tab-pane fade show @if ($key == 0) active @endif"
+                                            id="{{ $locale }}" role="tabpanel">
+    
                                             <div class="col-md-12">
-                                                <div class="mb-5 bg-light p-3 rounded h-100">
+                                                <div class="mb-5 p-3 rounded h-100">
                                                     <div class="card-title fw-bold">
-                                                        <h5 class="font-weight-bolder text-dark">{{__('general.description')}}:</h5>
-                                                        <p style="margin: 0; color: inherit; font-weight: normal;">{!! $page->translate($locale)->description !!}</p>
+                                                        <h5 class="col-form-label pt-0">{{ __('general.title') }}:</h5>
+                                                        <p style="margin: 0; store: inherit; font-weight: normal;">
+                                                            {{ $page->translate($locale)->title }}</p>
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="col-md-12">
+                                                <div class="mb-5 p-3 rounded h-100">
+                                                    <div class="card-title fw-bold">
+                                                        <h5 class="col-form-label pt-0">{{ __('general.subtitle') }}:</h5>
+                                                        <p style="margin: 0; store: inherit; font-weight: normal;">
+                                                            {{ $page->translate($locale)->subtitle }}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="mb-5 p-3 rounded h-100">
+                                                    <div class="card-title fw-bold">
+                                                        <h5 class="col-form-label pt-0">{{ __('general.description') }}:</h5>
+                                                        <p style="margin: 0; store: inherit; font-weight: normal;">
+                                                            {!! $page->translate($locale)->description !!}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                          
                                         </div>
-                                    </div>
-                                @endforeach
+                                    @endforeach
+                                </div>
                             </div>
                         </div>
 
