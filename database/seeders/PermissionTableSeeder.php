@@ -19,6 +19,7 @@ class PermissionTableSeeder extends Seeder
            'role-create',
            'role-edit',
            'role-delete',
+           
            'product-list',
            'product-create',
            'product-edit',
@@ -28,10 +29,6 @@ class PermissionTableSeeder extends Seeder
            'image-create',
            'image-edit',          
            'image-delete',
-           'itemRequest-list',
-           'itemRequest-create',
-           'itemRequest-edit',
-           'itemRequest-delete',
             
            'category-list',
            'category-create',
@@ -49,52 +46,28 @@ class PermissionTableSeeder extends Seeder
            'admin-create',
            'admin-edit',
            'admin-delete',
+           
            'message-list',
            'message-delete',
            'message-reply',
+           
            'order-list',
            'order-reply',
+           
            'newsletter-list',
            'newsletter-delete',
            'newsletter-reply',
-        
 
-        //    
-          
-           'store-list',
-           'store-create',
-           'store-edit',
-           'store-delete',
-           
-          
-           'size-list',
-           'size-create',
-           'size-edit',
-           'size-delete',
-           'color-list',
-           'color-create',
-           'color-edit',
-           'color-delete',
-           'brand-list',
-           'brand-create',
-           'brand-edit',
-           'brand-delete',
+
            'subcategory-list',
            'subcategory-create',
            'subcategory-edit',
            'subcategory-delete',
 
-           'banner-list',
-           'banner-create',
-           'banner-edit',
-           'banner-delete',
-
            'slider-list',
            'slider-create',
            'slider-edit',
            'slider-delete',
-           'merchantRequest-list',
-           'merchantRequest-delete',
 
            'newsletter-list',
            'newsletter-delete',
@@ -111,6 +84,10 @@ class PermissionTableSeeder extends Seeder
            'service-create',
            'service-edit',
            'service-delete',
+
+           'page-list',
+           'page-edit',
+           
         ];
         
      

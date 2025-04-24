@@ -85,7 +85,6 @@
 
                         </div>
 
-                    <!-- Normal title input --> <div class="col-md-12"> <div class="form-group"> <label>{{__('general.youtube_link')}} <span class="text-danger"> * </span></label> <div class="input-group"> <div class="input-group-prepend"> <span class="input-group-text"><i class="fas fa-pen"></i></span> </div> <input type="text" name="youtube_link" placeholder="{{__('general.youtube_link')}}" class="form-control pl-1 min-h-40px @error('youtube_link') is-invalid @enderror" value="{{ old('youtube_link') }}"> </div> </div> </div>
                     </div>
                     @include('admin.components.images')
                 </div>
