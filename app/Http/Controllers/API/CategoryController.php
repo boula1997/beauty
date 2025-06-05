@@ -36,7 +36,9 @@ class CategoryController extends Controller
     public function show($id)
     {
         try {
-            $data['category'] = new CategoryResource($this->category->findorfail($id));
+            $category=$this->category->findorfail($id);
+            $data['category'] = new CategoryResource($category);
+            $data['products'] = ProductResource::collection($category->products);
             return successResponse($data);
         } catch (Exception $e) {
 
