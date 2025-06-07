@@ -1665,4 +1665,6 @@ Looking for the latest trends in clothing, shoes and accessories? Welcome to our
     'account_created_verify_email' => 'Account created successfully. Please verify your email using the code sent to you.',
     'verification_code_resent' => 'The verification code has been resent to your email.',
     'email' => 'Email',
+    'order_confirmation_subject' => 'Order Confirmation - Order #:id',
+
 ];

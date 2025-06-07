@@ -49,7 +49,7 @@ trait HandlesOrders
             
             $to = $order->user->email;
             $toName = $order->user->fullname;
-            $subject="Your Verification Code";
+            $subject=__('general.order_confirmation_subject', ['id' => $order->id]);
             $body = view('mail.order_user_mail', compact('order'))->render();
              
             // Call the MailService to send the email
