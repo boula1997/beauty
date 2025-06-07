@@ -46,9 +46,9 @@ trait HandlesOrders
             {
                 $paymentId = $data['transaction_reference']; 
             }
-
+dd($order->user->email);
             $to = $order->user->email;
-            $toName = $order->user->name;
+            $toName = $order->user->fullname;
             $subject="Your Verification Code";
             $body = view('mail.order_user_mail', compact('order'))->render();
              

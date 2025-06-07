@@ -220,7 +220,6 @@
                                     <table class="product-table" align="center" border="0" cellpadding="0"
                                         cellspacing="0" width="100%">
                                         <tbody>
-                                            @dd($order)
                                             @foreach ($order->orderproducts as $orderproduct)
                                                 <tr>
                                                     <td
@@ -233,9 +232,9 @@
                                                         <ul class="product-detail">
                                                             <li>{{ $orderproduct->product->title }}</li>
                                                             <li>{{ __('general.qty') }}:
-                                                                <span>{{ $orderproduct->count }} {{ $orderproduct->product->translate(app()->getLocale())->unit }}</span></li>
+                                                                <span>{{ $orderproduct->count }} </span></li>
                                                             <li>{{ __('general.price') }}:
-                                                                <span>{{ $orderproduct->total }} ر.س </span></li>
+                                                                <span>{{ $orderproduct->total }} ج.م</span></li>
                                                         </ul>
                                                     </td>
                                                 </tr>
@@ -258,7 +257,7 @@
                                                     {{ __('general.subtotal') }}</td>
                                                 <td
                                                     style="text-align: right;font-size: 15px;font-weight: 400;padding: 15px 0;border-bottom: 1px solid rgba(217, 217, 217, 0.5);">
-                                                    {{ $order->total - settings()->shipping }} ر.س </td>
+                                                    {{ $order->total - settings()->shipping }} ج.م</td>
                                             </tr>
                                             <tr>
                                                 <td
@@ -266,7 +265,7 @@
                                                     {{ __('general.discount') }}</td>
                                                 <td
                                                     style="text-align: right;font-size: 15px;font-weight: 400;padding: 15px 0;border-bottom: 1px solid rgba(217, 217, 217, 0.5);">
-                                                    00,00 ر.س </td>
+                                                    00,00 ج.م</td>
                                             </tr>
                                             <tr>
                                                 <td
@@ -274,7 +273,7 @@
                                                     {{ __('general.shipping_value') }}</td>
                                                 <td
                                                     style="text-align: right;font-size: 15px;font-weight: 400;padding: 15px 0;border-bottom: 1px solid rgba(217, 217, 217, 0.5);">
-                                                    {{ settings()->shipping }} ر.س </td>
+                                                    {{ settings()->shipping }} ج.م</td>
                                             </tr>
                                             <tr>
                                                 <td
