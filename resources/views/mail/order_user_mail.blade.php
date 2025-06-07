@@ -156,7 +156,7 @@
                         </tr>
                     </table>
 
-                    <table style="padding: 27px;" align="center" border="0" cellpadding="0" cellspacing="0"
+                    {{-- <table style="padding: 27px;" align="center" border="0" cellpadding="0" cellspacing="0"
                         width="100%">
                         <tr>
                             <td>
@@ -164,7 +164,7 @@
                                     style="width: 100%; height: 100%;">
                             </td>
                         </tr>
-                    </table>
+                    </table> --}}
 
                     <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%"
                         style="padding: 0 27px;">
