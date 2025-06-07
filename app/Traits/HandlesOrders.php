@@ -50,7 +50,7 @@ trait HandlesOrders
             $to = $order->user->email;
             $toName = $order->user->name;
             $subject="Your Verification Code";
-            $body = view('mail.userOrder', compact('order'))->render();
+            $body = view('mail.order_user_mail', compact('order'))->render();
              
             // Call the MailService to send the email
             $result = MailService::sendMail($to, $toName, $subject, $body);
