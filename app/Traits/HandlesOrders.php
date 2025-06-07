@@ -10,6 +10,8 @@ use App\Models\Transaction;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Exception;
+use App\Services\MailService;
+
 
 trait HandlesOrders
 {
@@ -44,6 +46,14 @@ trait HandlesOrders
             {
                 $paymentId = $data['transaction_reference']; 
             }
+
+            $to = $order->user->email;
+            $toName = $order->user->name;
+            $subject="Your Verification Code";
+            $body = view('mail.userOrder', compact('order'))->render();
+             
+            // Call the MailService to send the email
+            $result = MailService::sendMail($to, $toName, $subject, $body);
             
             $transaction=Transaction::create([
                 'order_id'=>$order->id, 
