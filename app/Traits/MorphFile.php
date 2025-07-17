@@ -7,6 +7,7 @@ use App\Models\File as ModelsFile;
 use Exception;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Support\Facades\File;
+use Intervention\Image\Facades\Image;
 
 trait  MorphFile
 {
@@ -15,15 +16,20 @@ trait  MorphFile
         return $this->morphOne(ModelsFile::class, 'fileable');
     }
 
-    public function uploadFile($dbSave=true)
+    public function uploadFile()
     {
         if (request()->hasFile('image')) {
             try{
                 $file = request()->file('image');
                 $image = request()->image->store('images');
                 $file->move('images',  $image);
-                if($dbSave)
                 $this->file()->create(['url' =>  $image]);
+                Image::make($image)
+                    ->resize(2400, 1600, function ($constraint) {
+                        $constraint->aspectRatio();
+                        $constraint->upsize();
+                    })
+                    ->save($image,25);
             }catch(Exception $e){
                 dd($e->getMessage());
                 return redirect()->back()->with(['error' => __('general.something_wrong')]);
@@ -32,7 +38,7 @@ trait  MorphFile
         }
     }
 
-    public function updateFile($dbSave=true)
+    public function updateFile()
     {
         if (request()->hasFile('image')) {
             try{
@@ -40,8 +46,13 @@ trait  MorphFile
                 $file = request()->file('image');
                 $image = $file ->store('images');
                 $file->move('images', $image);
-                if($dbSave)
                 $this->file()->create(['url' => $image]);
+                Image::make($image)
+                    ->resize(2400, 1600, function ($constraint) {
+                        $constraint->aspectRatio();
+                        $constraint->upsize();
+                    })
+                    ->save($image,25);
             }catch(Exception $e){
                 dd($e->getMessage());
                 return redirect()->back()->with(['error' => __('general.something_wrong')]);

@@ -5,6 +5,7 @@ namespace App\Traits;
 use App\Models\File as ModelsFile;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Facades\File;
+use Intervention\Image\Facades\Image;
 
 trait  MorphFiles
 {
@@ -13,19 +14,24 @@ trait  MorphFiles
         return $this->morphMany(ModelsFile::class, 'fileable');
     }
 
-    public function uploadFiles($dbSave=true)
+    public function uploadFiles()
     {
         if (request()->hasFile('images')) {
             $files = request()->file('images');
             foreach ($files as $file) {
                 $data['image'] = $file->store('images');
                 $file->move('images', $data['image']);
-                if($dbSave)
                 $this->files()->create(['url' => $data['image']]);
+                Image::make($data['image'])
+                    ->resize(2400, 1600, function ($constraint) {
+                        $constraint->aspectRatio();
+                        $constraint->upsize();
+                    })
+                    ->save($data['image'],25);
             }
         }   
     }
-    public function updateFiles($dbSave=true)
+    public function updateFiles()
     {  
         $this->deleteSpecificFiles();
         if (request()->hasFile('images')) {
@@ -33,8 +39,13 @@ trait  MorphFiles
             foreach ($files as $file) {
                 $data['image'] = $file->store('images');
                 $file->move('images', $data['image']);
-                if($dbSave)
                 $this->files()->create(['url' => $data['image']]);
+                                Image::make($data['image'])
+                    ->resize(2400, 1600, function ($constraint) {
+                        $constraint->aspectRatio();
+                        $constraint->upsize();
+                    })
+                    ->save($data['image'],25);
             }
            
         }
@@ -64,4 +75,5 @@ trait  MorphFiles
             }
         }
     }
+
 }
