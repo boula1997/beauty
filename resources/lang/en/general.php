@@ -1666,5 +1666,6 @@ Looking for the latest trends in clothing, shoes and accessories? Welcome to our
     'verification_code_resent' => 'The verification code has been resent to your email.',
     'email' => 'Email',
     'order_confirmation_subject' => 'Order Confirmation - Order #:id',
+    'is_addition' => 'Is this product an addition?',
 
 ];

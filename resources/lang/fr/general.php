@@ -1380,4 +1380,7 @@ return [
     'account_created_verify_email' => 'Compte créé avec succès. Veuillez vérifier votre e-mail en utilisant le code envoyé.',
     'verification_code_resent' => 'Le code de vérification a été renvoyé à votre e-mail.',
     'email' => 'E-mail',
+
+    'is_addition' => 'Ce produit est-il un supplément ?',
+
 ];

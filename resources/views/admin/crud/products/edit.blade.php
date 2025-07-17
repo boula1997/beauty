@@ -197,6 +197,11 @@
                                         </span>
                                     @enderror
                                 </div>
+
+                                <input type="checkbox" name="is_addition" value="1"
+                                    {{ old('is_addition', $product->is_addition) ? 'checked' : '' }}>
+                                <label for="is_addition">{{ __('general.is_addition') }}</label>
+
     
                                    {{-- images --}}
                                 <div class="col-md-6">

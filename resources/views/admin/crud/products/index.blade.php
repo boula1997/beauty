@@ -26,6 +26,7 @@
                                         <th>#</th>
                                         <th>{{__('general.image')}}</th>
                                         <th>{{__('general.title')}}</th>
+                                        <th>{{__('general.is_addition')}}</th>
                                         <th>{{__('general.category')}}</th>
                                         <th>{{__('general.subcategory')}}</th>
                                         <th>{{__('general.controls')}}</th>
@@ -37,7 +38,14 @@
                                             <td>{{ $loop->iteration }}</td>
                                             <td><img src="{{ $product->image }}"
                                                     alt="{{ $product->title }}"></td>
-                                            <td>{{ $product->title }}</td>              
+                                            <td>{{ $product->title }}</td>  
+                                            <td>
+                                                @if($product->is_addition)
+                                                    <span class="badge bg-success">✔ {{ __('general.yes') }}</span>
+                                                @else
+                                                    <span class="badge bg-secondary">✖ {{ __('general.no') }}</span>
+                                                @endif
+                                            </td>            
                                             <td>{{ $product->category->title }}</td>
                                             <td>{{ optional($product->subcategory)->title }}</td>
                                             <td>

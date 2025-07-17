@@ -119,7 +119,7 @@
                                     </span>
                                 @enderror
                             </div>
-
+                           
                             <div class="col-md-6">
                                 <div class="col-form-label pt-0">
                                     <label>{{ __('general.SKU') }}<span class="text-danger"> * </span></label>
@@ -195,6 +195,12 @@
                                         {{ $message }}
                                     </span>
                                 @enderror
+                            </div>
+
+                            
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="is_addition" name="is_addition" value="1" {{ old('is_addition') ? 'checked' : '' }}>
+                                <label class="form-check-label" for="is_addition"> {{ __('general.is_addition') }}</label>
                             </div>
 
                            

@@ -78,7 +78,7 @@ class ProductController extends Controller
         try {
             // dd($request->all());
             $data = $request->except('image','images','profile_avatar_remove',);
-          
+            $data['is_addition'] = $request->has('is_addition') ? true : false;
             $product = $this->product->create($data);
             $product->uploadFile();
             $product->uploadFiles();
@@ -133,7 +133,8 @@ class ProductController extends Controller
         try {
             // dd($request->all());
             $data = $request->except('image','images','profile_avatar_remove');
-            
+            $data['is_addition'] = $request->has('is_addition') ? true : false;
+
             $product->update($data);
             $product->updateFile();
             $product->uploadFiles();

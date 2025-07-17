@@ -1394,5 +1394,6 @@ return [
     'verification_code_resent' => 'تم إعادة إرسال كود التحقق إلى بريدك الإلكتروني.',
     'email' => 'البريد الإلكتروني',
     'order_confirmation_subject' => 'تأكيد طلبك - رقم الطلب :id',
+    'is_addition' => 'هل هذا المنتج إضافة؟',
 
 ];
