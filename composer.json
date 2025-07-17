@@ -22,7 +22,6 @@
         "laravel/ui": "^4.2",
         "laravelcollective/html": "^6.4",
         "mcamara/laravel-localization": "^1.8",
-        "mews/captcha": "^3.4",
         "spatie/laravel-permission": "^5.10",
         "phpmailer/phpmailer": "^6.9",
         "intervention/image": "2.7.0"
