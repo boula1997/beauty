@@ -30,7 +30,19 @@ class ProductController extends Controller
     {
         try {
             $query=$this->product;
-            $data['products'] = ProductResource::collection($this->product->latest()->get());
+            $data['products'] = ProductResource::collection($this->product->where('is_addition',false)->latest()->get());
+            return successResponse($data);
+        } catch (Exception $e) {
+
+            return failedResponse($e->getMessage());
+        }
+    }
+
+    public function isAdditionndex()
+    {
+        try {
+            $query=$this->product;
+            $data['products'] = ProductResource::collection($this->product->where('is_addition',true)->latest()->get());
             return successResponse($data);
         } catch (Exception $e) {
 

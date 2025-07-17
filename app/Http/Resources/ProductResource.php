@@ -24,6 +24,7 @@ class ProductResource extends JsonResource
             "title" => $this->title,
             "description" => strip_tags($this->description),
             "SKU" => $this->SKU,
+            "is_addition" => $this->is_addition,
             "rate" => $this->rate,
             "price" => $this->price,
             "quantity" => $this->quantity,
