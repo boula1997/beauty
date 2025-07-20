@@ -31,8 +31,15 @@ class ProductResource extends JsonResource
             "category" => new CategoryResource($this->category),
             "subcategory" => new SubcategoryResource($this->subcategory),
             'isFavourite' => $user ? $this->isFavoritedByUser($user->id) : false,
-            "relatedProducts" => $this->category->products()->where('id', '!=', $this->id)->latest()->take(4)->get(),
-
+            "relatedProducts" => ProductResource::collection(
+                $this->category
+                    ? $this->category->products()
+                          ->where('id', '!=', $this->id)
+                          ->latest()
+                          ->take(4)
+                          ->get()
+                    : collect()
+            ),
         ];
     }
 }
