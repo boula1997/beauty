@@ -21,9 +21,11 @@ use Illuminate\Support\Facades\Validator;
 class ProductController extends Controller
 {
     private $product;
-    public function __construct(Product $product)
+    public $withRelated;
+    public function __construct(Product $product, $withRelated = true)
     {
         $this->product = $product;
+        $this->withRelated = $withRelated;
     }
 
     public function index()
