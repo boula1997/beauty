@@ -56,7 +56,7 @@ class ProductController extends Controller
     {
         try {
         
-            $data['product'] = new ProductResource($this->product->findorfail($id));
+            $data['product'] = new ProductResource($this->product->with('category.products')->findorfail($id));
             
             return successResponse($data);
         } catch (Exception $e) {
