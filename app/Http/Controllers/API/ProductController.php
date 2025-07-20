@@ -53,7 +53,16 @@ class ProductController extends Controller
     public function show($id)
     {
         try {
-            $data['product'] = new ProductResource($this->product->findorfail($id));
+            $product=$this->product->findorfail($id);
+            $data['product'] = new ProductResource($product);
+            
+            $relatedProducts = $this->product
+            ->where('category_id', $product->category_id)
+            ->where('id', '!=', $product->id)
+            ->limit(10)
+            ->get();
+
+        $data['related_products'] = ProductResource::collection($relatedProducts);
             return successResponse($data);
         } catch (Exception $e) {
 
