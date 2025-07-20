@@ -31,17 +31,15 @@ class ProductResource extends JsonResource
             "category" => new CategoryResource($this->category),
             "subcategory" => new SubcategoryResource($this->subcategory),
             'isFavourite' => $user ? $this->isFavoritedByUser($user->id) : false,
-            "relatedProducts" => $this->withRelated
-            ? ProductResource::collection(
+            "relatedProducts" => ProductResource::collection(
                 $this->category
                     ? $this->category->products()
                         ->where('id', '!=', $this->id)
                         ->latest()
                         ->take(4)
                         ->get()
-                    : collect()
-              )->map(fn($product) => new ProductResource($product, false)) // نعطّل relatedProducts داخلهم
-            : null,
+                    : collect([])
+            ),
         ];
     }
 }

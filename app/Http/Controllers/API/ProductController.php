@@ -21,11 +21,9 @@ use Illuminate\Support\Facades\Validator;
 class ProductController extends Controller
 {
     private $product;
-    public $withRelated;
-    public function __construct(Product $product, $withRelated = true)
+    public function __construct(Product $product)
     {
         $this->product = $product;
-        $this->withRelated = $withRelated;
     }
 
     public function index()
@@ -43,7 +41,6 @@ class ProductController extends Controller
     public function isAdditionndex()
     {
         try {
-            $query=$this->product;
             $data['products'] = ProductResource::collection($this->product->where('is_addition',true)->latest()->get());
             return successResponse($data);
         } catch (Exception $e) {
@@ -56,7 +53,7 @@ class ProductController extends Controller
     {
         try {
         
-            $data['product'] = new ProductResource($this->product->with('category.products')->findorfail($id));
+            $data['product'] = new ProductResource($this->product->findorfail($id));
             
             return successResponse($data);
         } catch (Exception $e) {
