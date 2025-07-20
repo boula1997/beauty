@@ -31,6 +31,7 @@ class ProductResource extends JsonResource
             "category" => new CategoryResource($this->category),
             "subcategory" => new SubcategoryResource($this->subcategory),
             'isFavourite' => $user ? $this->isFavoritedByUser($user->id) : false,
+            
             "relatedProducts" => $this->category
             ? $this->category->products()
                 ->where('id', '!=', $this->id)
@@ -49,10 +50,15 @@ class ProductResource extends JsonResource
                         "rate" => $related->rate,
                         "price" => $related->price,
                         "quantity" => $related->quantity,
-                        "category" => new CategoryResource($related->category),
-                        "subcategory" => new SubcategoryResource($related->subcategory),
+                        "category" => $related->category
+                            ? new CategoryResource($related->category)
+                            : null,
+                        "subcategory" => $related->subcategory
+                            ? new SubcategoryResource($related->subcategory)
+                            : null,
                     ];
                 })
+                
             : [],
         ];
     }
