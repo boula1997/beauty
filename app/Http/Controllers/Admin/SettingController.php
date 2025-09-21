@@ -27,7 +27,7 @@ class SettingController extends Controller
         try {
            
             $setting = $this->setting->first();
-            $data = $request->except('0', '1','3', 'profile_avatar_remove');
+            $data = $request->except('0', '1','3','', 'profile_avatar_remove');
             if ($request->hasFile('logo'))
                 {File::delete($setting->logo);
                 $file = $request->file('logo');
