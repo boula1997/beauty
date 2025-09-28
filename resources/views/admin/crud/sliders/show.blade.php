@@ -42,15 +42,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-12">
-                                            <div class="mb-5 p-3 rounded h-100">
-                                                <div class="card-title fw-bold">
-                                                    <h5 class="col-form-label pt-0">{{ __('general.description') }}:</h5>
-                                                    <p style="margin: 0; store: inherit; font-weight: normal;">
-                                                        {!! $slider->translate($locale)->description !!}</p>
-                                                </div>
-                                            </div>
-                                        </div>
+
                                       
                                     </div>
                                 @endforeach

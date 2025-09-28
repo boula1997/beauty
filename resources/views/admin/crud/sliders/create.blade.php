@@ -45,21 +45,6 @@
                                 @enderror
 
 
-                                <div class="col-form-group ">
-                                    <label>{{ __('general.description') }}(@lang('general.' . $locale))<span
-                                            class="text-danger"></span></label>
-                                    <textarea rows="5" class="summernote bg-light @error($locale . '.description') is-invalid @enderror"
-                                        name="{{ $locale . '[description]' }}">
-                                        {!! old($locale . '.description') !!} 
-                                    </textarea>
-
-                                    @error($locale . '.description')
-                                        <span class="text-danger" >
-                                            {{ $message }}
-                                        </span>
-                                    @enderror
-                                </div>
-
                             </div>
                         @endforeach
                     </div>
