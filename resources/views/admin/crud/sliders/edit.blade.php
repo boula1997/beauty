@@ -88,7 +88,6 @@
     
                                 </div>
     
-                                @include('admin.components.images', ['images' => $images])
     
                     </div>
                 </div>
