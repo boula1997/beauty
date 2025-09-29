@@ -119,19 +119,17 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(AdminRequest $request, $id)
+     public function update(AdminRequest $request, $id)
     {
         try {
-            $input = $request->except('image','profile_avatar_remove','category_skill_id');
+            $input = $request->except('image','profile_avatar_remove');
             if (!empty($input['password'])) {
                 $input['password'] = Hash::make($input['password']);
             } else {
                 $input = Arr::except($input, array('password'));
             }
-            if (!empty($input['type'])) {
-                $input['type'] =  $request->input('roles');
-            }
             $admin = Admin::find($id);
+            $input['type'] = $request->input('roles');
             $admin->update($input);
             DB::table('model_has_roles')->where('model_id', $id)->delete();
             $admin->assignRole($request->input('roles'));
@@ -157,7 +155,7 @@ class AdminController extends Controller
             $admin->delete();
             $admin->deleteFile();
             File::delete($admin->image);
-            return redirect()->route('admin.index',$admin->type)
+            return redirect()->route('admins.index',$admin->type)
                 ->with('success', 'Admin deleted successfully');
         } catch (Exception $e) {
             dd($e->getMessage());

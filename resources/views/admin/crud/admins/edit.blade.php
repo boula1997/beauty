@@ -1,11 +1,12 @@
 @extends('admin.components.form')
 @section('form_action', route('admins.update', $admin->id))
 @section('form_type', 'POST')
-@section('fields_content')
 
+@section('fields_content')
+    @method('PUT')   <!-- خليه هنا أول حاجة جوه الفورم -->
+
+    <!-- باقي الحقول -->
     <div class="content-wrapper">
-        
-        @method('PUT')
         <!-- Main content -->
         <section class="content">
             {{-- @include('admin.components.alert-error') --}}
@@ -83,16 +84,15 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-pen"></i></span>
                                                 </div>
-                                                <select name="roles" id="" class="form-control">
+                                                <select name="roles" class="form-control">
                                                     @foreach ($roles as $role)
-                                                        <option @selected($admin->type==$role) value="{{ $role }}">{{ $role }}</option>
+                                                        <option value="{{ $role }}" @selected(in_array($role, $adminRole))>{{ $role }}</option>
                                                     @endforeach
                                                 </select>
+
                                             </div>
-                                            @error('role')
-                                                <span class="text-danger" >
-                                                    {{ $message }}
-                                                </span>
+                                            @error('roles')
+                                                <span class="text-danger">{{ $message }}</span>
                                             @enderror
                                         </div>
                                     </div>
@@ -107,11 +107,6 @@
                                                 <input type="password" name="password" value="{{ old('password') }}"
                                                 class="form-control" id="exampleInputPassword" placeholder="{{__('general.password')}}">
                                             </div>
-                                            @error('password')
-                                                <span class="text-danger" >
-                                                    {{ $message }}
-                                                </span>
-                                            @enderror
                                         </div>
                                     </div>
 
@@ -126,11 +121,6 @@
                                                     class="form-control" id="exampleInputConfirmpassword"
                                                     placeholder="{{__('general.confirm_password')}}">
                                             </div>
-                                            @error('confirm-password')
-                                                <span class="text-danger" >
-                                                    {{ $message }}
-                                                </span>
-                                            @enderror
                                         </div>
                                     </div>
                                     <div class="col-md-12">

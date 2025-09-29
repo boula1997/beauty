@@ -33,8 +33,8 @@ class ProductRequest extends FormRequest
             
         ];
         foreach (config('translatable.locales') as $locale) {
-            $rules += [$locale . '.title' => ['sometimes','required', 'string']];
-            $rules += [$locale . '.description' => ['sometimes','required', 'string']];
+            $rules += [$locale . '.title' => ['required', 'string']];
+            $rules += [$locale . '.description' => ['required', 'string']];
 
         }
         return  $rules;
