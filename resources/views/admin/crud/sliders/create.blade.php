@@ -4,46 +4,83 @@
 @section('fields_content')
     @method('post')
     <div class="content-wrapper">
-        <div class="container p-3">
+                <div class="container p-3">
             <div class="card card-custom mb-2">
                 <div class="card-header card-header-tabs-line">
                     @include('admin.components.breadcrumb', ['module' => 'sliders', 'action' => 'create'])
                 </div>
+                <div class="card-toolbar px-3">
+                    <ul class="nav nav-tabs nav-bold nav-tabs-line">
+                        @foreach (config('translatable.locales') as $key => $locale)
+                            <li class="nav-item">
+                                <a class="nav-link  @if ($key == 0) active @endif" data-toggle="tab"
+                                    href="{{ '#' . $locale }}">@lang('general.' . $locale)</a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
 
-                <div class="card-body bg-white">
-                    <div class="digital-add needs-validation ">
-                        <div class="row">
+                <div class="card-body">
+                    <div class="tab-content">
 
-                            <div class="col-md-6">
+                        @foreach (config('translatable.locales') as $key => $locale)
+                            <div class="tab-pane fade show @if ($key == 0) active @endif"
+                                id="{{ $locale }}" role="tabpanel">
                                 <div class="form-group">
-                                    @include('admin.components.image', [
-                                        'label' => __('general.image'),
-                                        'value' => old('image'),
-                                        'name' => 'image',
-                                        'id' => 'kt_image_3',
-                                        'accept' => 'image/*',
-                                        'required' => true,
-                                    ])
-
+                                    <label>{{__('general.title')}}- @lang('general.' . $locale)<span class="text-danger"> * </span></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fas fa-pen"></i></span>
+                                        </div>
+                                        <input type="text" name="{{ $locale . '[title]' }}"
+                                            placeholder="{{__('general.title')}}"
+                                            class="form-control @error('') invalid @enderror  pl-1 min-h-40px @error($locale . '.title') is-invalid @enderror"
+                                            value="{{ old($locale . '.title') }}">
+                                    </div>
                                 </div>
-                                @error('image')
+                                @error($locale . '.title')
                                     <span class="text-danger" >
                                         {{ $message }}
                                     </span>
                                 @enderror
+
+
                             </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
             <div class="card card-custom">
+                <div class="card-body">
+                    <div class="row">
+
+                        <div class="col-md-6">
+                            @include('admin.components.image', [
+                                'label' => __('general.image'),
+                                'value' => old('image'),
+                                'name' => 'image',
+                                'id' => 'kt_image_3',
+                                'accept' => 'image/*',
+                                'required' => true,
+                            ])
+                            @error('image')
+                                <span class="text-danger" >
+                                    {{ $message }}
+                                </span>
+                            @enderror
+                        </div>
+                       
+                        @include('admin.components.images')
+
+                    </div>
+                </div>
                 <div class="card-footer mb-5">
                     <button type="submit"
                         class="btn btn-outline-primary px-5
-                          ">{{ __('general.save') }}</button>
+                          ">{{__('general.save')}}</button>
                     <a href="{{ route('sliders.index') }}"
                         class="btn btn-outline-danger px-5
-                            ">{{ __('general.cancel') }}</a>
+                            ">{{__('general.cancel')}}</a>
                 </div>
             </div>
         </div>
