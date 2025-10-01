@@ -3,24 +3,16 @@
 @section('form_type', 'POST')
 
 @section('fields_content')
-    @method('PUT')   <!-- خليه هنا أول حاجة جوه الفورم -->
-
-    <!-- باقي الحقول -->
+    @method('PUT')  
     <div class="content-wrapper">
-        <!-- Main content -->
         <section class="content">
-            {{-- @include('admin.components.alert-error') --}}
-
             <div class="container-fluid">
                 <div class="row">
-                    <!-- left column -->
                     <div class="col-md-12">
-                        <!-- general form elements -->
                         <div class="card card-custom">
                             <div class="card-header card-header-tabs-line">
                                 @include('admin.components.breadcrumb', ['module' => 'admins', 'action' => 'edit'])
                             </div>
-                            <!-- form start -->
                             <input type="hidden" name="id" value="{{ $admin->id }}">
                             <div class="card-body">
                                 <div class="row">

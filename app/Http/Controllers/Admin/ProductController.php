@@ -72,27 +72,35 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        DB::beginTransaction();
-        try {
-            // dd($request->all());
-            $data = $request->except('image','images','profile_avatar_remove',);
-            $data['is_addition'] = $request->has('is_addition') ? true : false;
-            $product = $this->product->create($data);
-            $product->uploadFile();
-            $product->uploadFiles();
-                  
-            DB::commit();
-       
-            return redirect()->route('products.index')
-                ->with('success', trans('general.created_successfully'));
-        } catch (Exception $e) {
-            // dd($e->getMessage());
-            DB::rollBack();
-            return redirect()->back()->with(['error' => __('general.something_wrong')])->withInput();
-        }
+   
+public function store(ProductRequest $request)
+{
+    DB::beginTransaction();
+
+    try {
+        $data = $request->except('image','images','profile_avatar_remove');
+
+        // flag
+        $data['is_addition'] = $request->has('is_addition') ? true : false;
+
+        // create product
+        $product = $this->product->create($data);
+
+        // handle single + multiple images
+        $product->uploadFile();
+        $product->uploadFiles();
+
+        DB::commit();
+
+        return redirect()->route('products.index')
+            ->with('success', trans('general.created_successfully'));
+
+    } catch (\Exception $e) {
+        DB::rollBack();
+        \Log::error($e->getMessage());
+        return redirect()->back()->with('error', __('general.something_wrong'));
     }
+}
 
     /**
      * Display the specified resource.

@@ -20,10 +20,12 @@ class ServiceRequest extends FormRequest
     {
         //to add or remove input from request in validation class use $this->merge
         //  $this->merge(['user_id' => auth('api')->user()->id]);
+        $image = request()->isMethod('put') ? '' : 'required';
 
 
         $rules = [
-            
+            'image'        => $image,
+
         ];
         foreach (config('translatable.locales') as $locale) {
             $rules += [$locale . '.title' => ['required', 'string']];

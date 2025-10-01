@@ -7,24 +7,25 @@
     <meta name="author" content="Medaht">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>لوحة التحكم @yield('title')</title>
-    <!-- Bootstrap -->
+
+    <!-- Bootstrap CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.css" rel="stylesheet">
 
-    <!-- Font Awesome JS -->
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
-        integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous">
-    </script>
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous">
-    </script>
+    <!-- Font Awesome CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+    <!-- IconPicker CSS -->
+    <link href="{{ asset('css/fontawesome-iconpicker.min.css') }}" rel="stylesheet">
 
     <style>
-        body{
+        body {
             text-align: right;
         }
 
-        h2{
+        h2 {
             text-align: center
         }
+
         .footer {
             position: fixed;
             left: 0;
@@ -34,19 +35,27 @@
             color: white;
             text-align: center;
         }
-
     </style>
-
 </head>
 
 <body>
     @section('sidebar')
-
     @show
 
     <div class="container">
         @yield('content')
     </div>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/js/bootstrap.min.js"></script>
+
+    <!-- IconPicker JS -->
+    <script src="{{ asset('js/fontawesome-iconpicker.min.js') }}"></script>
+
+    @stack('scripts')
 </body>
 
 </html>
