@@ -123,27 +123,21 @@
 
                             <div class="single-item">
                                 <div>
-                                    <div>
-                                        <h3>Welcome to FloriFlower</h3>
-                                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                            Lorem Ipsum has been the industry's standard dummy.</p>
-                                    </div>
+                                    <h3>{{ __('general.welcometolabmob') }}</h3>
+                                    <p>{{ __('general.1st_describtion') }}</p>
                                 </div>
+
                                 <div>
-                                    <div>
-                                        <h3>Welcome to FloriFlower</h3>
-                                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                            Lorem Ipsum has been the industry's standard dummy.</p>
-                                    </div>
+                                    <h3>{{ __('general.welcometolabmob') }}</h3>
+                                    <p>{{ __('general.2nd_describtion') }}</p>
                                 </div>
+
                                 <div>
-                                    <div>
-                                        <h3>Welcome to FloriFlower</h3>
-                                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                            Lorem Ipsum has been the industry's standard dummy.</p>
-                                    </div>
+                                    <h3>{{ __('general.welcometolabmob') }}</h3>
+                                    <p>{{ __('general.3rd_describtion') }}</p>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                     <div class="col-md-7 p-0 card-right">

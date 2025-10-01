@@ -12,7 +12,10 @@ return [
     | these language lines according to your application's requirements.
     |
     */
-
+'welcometolabmob' => 'Bienvenue chez LabMob',
+    '1st_describtion' => 'Découvrez les derniers ordinateurs portables et smartphones aux meilleurs prix et offres exclusives.',
+    '2nd_describtion' => 'Produits 100% authentiques avec garantie de qualité et service client disponible 24/7.',
+    '3rd_describtion' => 'Profitez d’un shopping facile avec des paiements sécurisés et une livraison rapide partout.',
 
 
     "saved_success" => "Enregistré avec succès",
