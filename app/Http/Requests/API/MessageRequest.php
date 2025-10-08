@@ -8,6 +8,8 @@ use Illuminate\Validation\ValidationException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Exceptions\HttpResponseException;
+
 
 
 class MessageRequest extends FormRequest
@@ -38,9 +40,9 @@ class MessageRequest extends FormRequest
     }
 
     protected function failedValidation(Validator $validator)
-    {    
-        return validationFailedResponse($validator->errors());
-        
-        throw new ValidationException($validator, $response);
+    {
+        throw new HttpResponseException(
+            validationFailedResponse($validator->errors())
+        );
     }
 }
