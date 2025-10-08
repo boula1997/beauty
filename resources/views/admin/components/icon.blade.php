@@ -2,13 +2,13 @@
     <div class="col-12 col-md-4">
         <div class="form-group">
             <label>
-                {{-- {{ $label }} --}}
-                {{__('general.icon')}}
+                {{ __('general.icon') }}
                 @if ($required)
                     <span class="text-danger"> * </span>
                 @endif
             </label>
             <div class="get-and-preview d-flex align-items-center">
+                <!-- Preview -->
                 <div class="icon-preview"
                     style="
                         float: left;
@@ -24,10 +24,16 @@
                     <i id="IconPreview" style="font-size: 40px;" class="{{ $value }}"></i>
                 </div>
 
+                <!-- Button -->
                 <button type="button" class="btn btn-warning ml-5 text-nowrap" id="GetIconPicker"
-                    data-iconpicker-input="input#IconInput"
-                    data-iconpicker-preview="i#IconPreview">{{ __('general.select_icon')}}</button>
-                <input type="text" class="form-control @error('') invalid @enderror iconpicker" id="IconInput" name="icon"
+                    data-iconpicker-input="#IconInput"
+                    data-iconpicker-preview="#IconPreview">
+                    {{ __('general.select_icon') }}
+                </button>
+
+                <!-- Hidden Input -->
+                <input type="text" class="form-control iconpicker"
+                    id="IconInput" name="icon"
                     value="{{ $value }}" hidden>
             </div>
         </div>
@@ -36,15 +42,18 @@
 
 @push('scripts')
     <script>
-        // Default options
-        IconPicker.Init({
-            // Required: You have to set the path of IconPicker JSON file to "jsonUrl" option. e.g. '/content/plugins/IconPicker/dist/iconpicker-1.5.0.json'
-            jsonUrl: "{{ asset('js/iconpicker-1.5.0.json') }}", // Optional: Change the buttons or search placeholder text according to the language.
-            searchPlaceholder: 'Search Icon',
-            showAllButton: "{{ __('general.show_all')}}",
-            cancelButton: "{{ __('general.cancel')}}",
-            noResultsFound: "{{ __('general.no_result')}}", // v1.5.0 and the next versionsborderRadius: '20px', // v1.5.0 and the next versions
+        $(document).ready(function () {
+            // Initialize IconPicker
+            IconPicker.Init({
+                jsonUrl: "{{ asset('js/iconpicker-1.5.0.json') }}",
+                searchPlaceholder: "{{ __('general.search') }}",
+                showAllButton: "{{ __('general.show_all')}}",
+                cancelButton: "{{ __('general.cancel')}}",
+                noResultsFound: "{{ __('general.no_result')}}"
+            });
+
+            // Run IconPicker on button
+            IconPicker.Run('#GetIconPicker');
         });
-        IconPicker.Run('#GetIconPicker');
     </script>
 @endpush

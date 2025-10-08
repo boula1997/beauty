@@ -18,26 +18,27 @@ class ProductRequest extends FormRequest
     }
 
     public function rules()
-    {
-        $image = request()->isMethod('put') ? 'nullable' : 'required';
-        $rules = [
-            'image' =>  $image ,
-            'SKU'          => ['sometimes','required','string',Rule::unique('products', 'SKU')->ignore($this->product)], // SKU must be unique for each product
-            'rate'       => 'sometimes|required|numeric|min:0|max:5', // rate must be a double in grams
-            'price'       => 'sometimes|required|numeric|min:0', // price must be a double in grams
-            'quantity'       => 'sometimes|required|numeric|min:0', // quantity must be a double in grams
+{
+    $image = request()->isMethod('put') ? '' : 'required';
 
-            // Relationships
-            'category_id' => 'sometimes|required|exists:categories,id', // Category must exist
-            'subcategory_id' => 'sometimes|required|exists:subcategories,id', // Subcategory must exist
-            
-        ];
-        foreach (config('translatable.locales') as $locale) {
-            $rules += [$locale . '.title' => ['sometimes','required', 'string']];
-            $rules += [$locale . '.description' => ['sometimes','required', 'string']];
+    $rules = [
+        'image'        => $image,
+        'SKU'          => ['sometimes','required','string',Rule::unique('products', 'SKU')->ignore($this->product)], // ✅ لازم يكون موجود
+        'rate'         => 'required|numeric|min:0|max:5', // ✅ لازم يكون موجود
+        'price'        => 'required|numeric|min:0',
+        'quantity'     => 'required|numeric|min:0',
 
-        }
-        return  $rules;
+        'category_id'    => 'required|exists:categories,id',
+        'subcategory_id' => 'required|exists:subcategories,id',
+    ];
+
+    foreach (config('translatable.locales') as $locale) {
+        $rules += [$locale . '.title' => ['required', 'string']];
+        $rules += [$locale . '.description' => ['required', 'string']];
     }
+
+    return $rules;
+}
+
 
 }

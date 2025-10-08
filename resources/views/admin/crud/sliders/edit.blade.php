@@ -23,29 +23,45 @@
                 <div class="card-body">
                     <div class="tab-content">
                         @foreach (config('translatable.locales') as $key => $locale)
-                            <div class="tab-pane fade show @if ($key == 0) active @endif"
-                                id="{{ $locale }}" role="tabpanel">
+                            <div class="tab-pane fade show @if ($key == 0) active @endif" id="{{ $locale }}" role="tabpanel">
+
+                                {{-- Title --}}
                                 <div class="form-group">
-                                    <label>{{__('general.title')}}- @lang('general.' . $locale)<span class="text-danger"> * </span></label>
+                                    <label>{{ __('general.title') }} - @lang('general.' . $locale) <span class="text-danger">*</span></label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fas fa-pen"></i></span>
                                         </div>
-                                        <input type="text" name="{{ $locale . '[title]' }}"
-                                            placeholder="{{__('general.title')}}"
-                                            class="form-control @error('') invalid @enderror  pl-1 min-h-40px @error($locale . '.title') is-invalid @enderror"
-                                            value="{{ old($locale . '.title', $slider->translate($locale)->title) }}">
+                                        <input type="text" 
+                                            name="{{ $locale . '[title]' }}" 
+                                            placeholder="{{ __('general.title') }}" 
+                                            class="form-control @error($locale . '.title') is-invalid @enderror"
+                                            value="{{ old($locale . '.title', optional($slider->translate($locale))->title) }}">
                                     </div>
+                                    @error($locale . '.title')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
-                                @error($locale . '.title')
-                                    <span class="text-danger" >
-                                        {{ $message }}
-                                    </span>
-                                @enderror
+
+                                {{-- Subtitle --}}
+                                <div class="form-group">
+                                    <label>{{ __('general.subtitle') }} - @lang('general.' . $locale) <span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fas fa-pen"></i></span>
+                                        </div>
+                                        <input type="text" 
+                                            name="{{ $locale . '[subtitle]' }}" 
+                                            placeholder="{{ __('general.subtitle') }}" 
+                                            class="form-control @error($locale . '.subtitle') is-invalid @enderror"
+                                            value="{{ old($locale . '.subtitle', optional($slider->translate($locale))->subtitle) }}">
+                                    </div>
+                                    @error($locale . '.subtitle')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
 
                             </div>
-
-
                         @endforeach
                     </div>
                 </div>

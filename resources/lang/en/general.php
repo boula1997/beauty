@@ -13,7 +13,10 @@ return [
     |
     */
 
-
+    'welcometolabmob' => 'Welcome to LabMob',
+    '1st_describtion' => 'Discover the latest laptops and smartphones at the best prices and exclusive offers.',
+    '2nd_describtion' => '100% original products with quality guarantee and 24/7 customer support.',
+    '3rd_describtion' => 'Enjoy easy shopping with secure payment options and fast nationwide delivery.',
     "saved_success" => "Saved successfully",
 
 "general_setting" => "General settings",
