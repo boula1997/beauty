@@ -26,6 +26,7 @@ use App\Http\Controllers\API\SettingController;
 use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\API\ServiceController;
 use App\Http\Controllers\API\UserController;
+use App\Http\Controllers\API\ActionController;
 use App\Http\Controllers\API\SizeController;
 use App\Http\Controllers\API\StoreController;
 use App\Http\Controllers\API\SubcategoryController;
