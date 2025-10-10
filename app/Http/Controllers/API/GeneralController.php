@@ -128,11 +128,73 @@ public function showEditCreate($table, $itemId = null)
         "IS_NULLABLE" => true,
     ];
 
+
+        $relatedOptions = [];
+
+        foreach ($columns as $col) {
+            $colName = $col['COLUMN_NAME'];
+
+            if (Str::endsWith($colName, '_id')) {
+                $baseTable = Str::plural(Str::beforeLast($colName, '_id'));
+                $singular = Str::singular($baseTable);
+                $translationTable = "{$singular}_translations";
+
+                if (!Schema::hasTable($baseTable)) {
+                    continue;
+                }
+
+                $mainColumns = Schema::getColumnListing($baseTable);
+
+                // Try to find a label column in the main table
+                $labelColumn = collect(['title', 'name', 'fullname'])->first(function ($field) use ($mainColumns) {
+                    return in_array($field, $mainColumns);
+                });
+
+                if ($labelColumn) {
+                    $relatedData = DB::table($baseTable)
+                        ->select('id', DB::raw("$labelColumn as label"))
+                        ->get();
+                } 
+
+                // Check in translations table if main table has no label column
+                elseif (Schema::hasTable($translationTable)) {
+                    $translationColumns = Schema::getColumnListing($translationTable);
+
+                    $translationLabel = collect(['title', 'name', 'fullname'])->first(function ($field) use ($translationColumns) {
+                        return in_array($field, $translationColumns);
+                    });
+
+                    if ($translationLabel) {
+                        $relatedData = DB::table($baseTable)
+                            ->leftJoin($translationTable, "{$translationTable}.{$singular}_id", '=', "{$baseTable}.id")
+                            ->where("{$translationTable}.locale", 'en')
+                            ->select("{$baseTable}.id", "{$translationTable}.{$translationLabel} as label")
+                            ->get();
+                    } else {
+                        // Fallback: Use just ID as label
+                        $relatedData = DB::table($baseTable)
+                            ->selectRaw("id, CONCAT('ID: ', id) as label")
+                            ->get();
+                    }
+                } 
+                // If no label column in either, fallback to ID
+                else {
+                    $relatedData = DB::table($baseTable)
+                        ->selectRaw("id, CONCAT('ID: ', id) as label")
+                        ->get();
+                }
+
+                $relatedOptions[$colName] = $relatedData;
+            }
+        }
+
     // ✅ Step 3: Skip data fetch if $itemId is null, "undefined", or not numeric
     if (!$itemId || $itemId === "undefined" || !is_numeric($itemId)) {
         return response()->json([
             'success' => trans('general.sent_successfully'),
             'columns' => $columns,
+            'related' => $relatedOptions, // ✅ send related options to the frontend
+
             'data' => [],
         ]);
     }
@@ -188,9 +250,14 @@ public function showEditCreate($table, $itemId = null)
         }
     }
 
+
+
+
+
     return response()->json([
         'success' => trans('general.sent_successfully'),
         'columns' => $columns,
+        'related' => $relatedOptions, // ✅ send related options to the frontend
         'data' => [$data],
     ]);
 }
@@ -237,58 +304,99 @@ public function deleteItem($table, $itemId)
 }
 
 
-public function index($table)
-{
+            public function index($table)
+            {
+                // 1. Get base columns
+            $columns = DB::select("
+                SELECT COLUMN_NAME, DATA_TYPE
+                FROM INFORMATION_SCHEMA.COLUMNS
+                WHERE TABLE_SCHEMA = ? AND TABLE_NAME = ?;
+            ", [env('DB_DATABASE'), $table]);
 
-    // Retrieve table columns and their data types
-    $columns = DB::select("
-        SELECT COLUMN_NAME, DATA_TYPE
-        FROM INFORMATION_SCHEMA.COLUMNS
-        WHERE TABLE_SCHEMA = ? AND TABLE_NAME = ?;
-    ", [env('DB_DATABASE'), $table]);
+            $columns = collect($columns)->map(fn($col) => (array)$col)->toArray();
 
-    $columns = collect($columns)->map(fn($col) => (array)$col)->toArray();
+            // 2. Translation handling
+            $translationTable = Str::singular($table) . '_translations';
+            $locale = request('locale', 'en');
 
-    // Add an extra "image" column manually
-    $columns[] = [
-        "COLUMN_NAME" => "image",
-        "DATA_TYPE" => "image",
-    ];
+            $translationExists = Schema::hasTable($translationTable);
 
-    // Use Laravel's paginate method with 10 items per page
-   $dataQuery = DB::table($table);
+            $translatedSelects = [];
 
-    // Apply filters from query string
-    foreach (request()->query() as $key => $value) {
-        if (!in_array($key, ['page'])) { // don't filter by 'page'
-            $dataQuery->where($key, 'like', '%' . $value . '%');
-        }
-    }
+            if ($translationExists) {
+                $translationColumns = DB::select("
+                    SELECT COLUMN_NAME, DATA_TYPE
+                    FROM INFORMATION_SCHEMA.COLUMNS
+                    WHERE TABLE_SCHEMA = ? AND TABLE_NAME = ?;
+                ", [env('DB_DATABASE'), $translationTable]);
 
-    // Get current page from request query string (?page=2)
-    $perPage = 10;
+                $excluded = ['id', Str::singular($table) . '_id', 'locale', 'created_at', 'updated_at', 'deleted_at'];
 
-    $data = $dataQuery->paginate($perPage);
+                $filtered = collect($translationColumns)
+                    ->map(fn($col) => (array)$col)
+                    ->filter(fn($col) => !in_array($col['COLUMN_NAME'], $excluded))
+                    ->toArray();
 
-    // Add the fake "image" field to each row
-    $data->getCollection()->transform(function ($item) {
-        $row = (array) $item;
-        $row["image"] = settings()->logo;
-        return (object)$row;
-    });
+                // Append simplified translation columns to columns array
+                foreach ($filtered as $col) {
+                    $columns[] = [
+                        'COLUMN_NAME' => $col['COLUMN_NAME'], // ✅ no prefix
+                        'DATA_TYPE' => $col['DATA_TYPE'],
+                    ];
 
-    return response()->json([
-        'success' => trans('general.sent_successfully'),
-        'columns' => $columns,
-        'data' => $data->items(),
-        'pagination' => [
-            'current_page' => $data->currentPage(),
-            'last_page' => $data->lastPage(),
-            'per_page' => $data->perPage(),
-            'total' => $data->total(),
-        ],
-    ]);
-}
+                    // Select as alias
+                    $translatedSelects[] = "$translationTable.{$col['COLUMN_NAME']} as {$col['COLUMN_NAME']}";
+                }
+            }
+
+            // 3. Add image column
+            $columns[] = [
+                "COLUMN_NAME" => "image",
+                "DATA_TYPE" => "image",
+            ];
+
+            // 4. Build query
+            $dataQuery = DB::table($table)->select($table . '.*');
+
+            if ($translationExists) {
+                $dataQuery->leftJoin($translationTable, "$translationTable." . Str::singular($table) . "_id", '=', "$table.id")
+                        ->where("$translationTable.locale", $locale);
+
+                $dataQuery->addSelect($translatedSelects);
+            }
+
+            // 5. Filters
+            foreach (request()->query() as $key => $value) {
+                if (!in_array($key, ['page'])) {
+                    $dataQuery->where($key, 'like', '%' . $value . '%');
+                }
+            }
+
+            // 6. Pagination
+            $paginated = $dataQuery->paginate(10);
+
+            // 7. Add image to each row
+            $paginated->getCollection()->transform(function ($item) {
+                $row = (array) $item;
+                $row['image'] = settings()->logo;
+                return (object) $row;
+            });
+
+            // 8. Return response
+            return response()->json([
+                'success' => trans('general.sent_successfully'),
+                'columns' => $columns,
+                'data' => $paginated->items(),
+                'pagination' => [
+                    'current_page' => $paginated->currentPage(),
+                    'last_page' => $paginated->lastPage(),
+                    'per_page' => $paginated->perPage(),
+                    'total' => $paginated->total(),
+                ],
+            ]);
+
+            }
+
 
 
 
