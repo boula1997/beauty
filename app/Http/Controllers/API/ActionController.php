@@ -14,8 +14,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Schema;
 class ActionController extends Controller
 {
+
+
 
 
 
@@ -23,38 +26,39 @@ public function show($table, $itemId)
 {
     $dbName = env('DB_DATABASE', 'webapp');
 
-    // Get main table columns
+    // Step 1: Get main table columns
     $columns = DB::select("
         SELECT COLUMN_NAME, DATA_TYPE
         FROM INFORMATION_SCHEMA.COLUMNS
         WHERE TABLE_SCHEMA = ? AND TABLE_NAME = ?;
     ", [$dbName, $table]);
 
-    // Prepare column array
     $columns = collect($columns)->map(function ($col) {
         return (array) $col;
     })->toArray();
 
-    // ✅ Add fake 'image' and 'images' columns manually
-    $columns[] = [
-        "COLUMN_NAME" => "image",
-        "DATA_TYPE" => "image",
-    ];
-    $columns[] = [
-        "COLUMN_NAME" => "images",
-        "DATA_TYPE" => "multimages",
+    // Step 2: Add fake image columns
+    $columns[] = ["COLUMN_NAME" => "image", "DATA_TYPE" => "image"];
+    $columns[] = ["COLUMN_NAME" => "images", "DATA_TYPE" => "multimages"];
+
+    // Step 3: Fetch main table data
+    $data = DB::table($table)->where('id', $itemId)->first();
+
+    if (!$data) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Record not found',
+        ], 404);
+    }
+
+    $data = (array) $data;
+    $data["image"] = "https://via.placeholder.com/150";
+    $data["images"] = [
+        "https://via.placeholder.com/150",
+        "https://via.placeholder.com/140"
     ];
 
-    // Get main table data
-    $data = DB::select("SELECT * FROM {$table} WHERE id = ?", [$itemId]);
-    $data = collect($data)->map(function ($item) {
-        $row = (array) $item;
-        $row["image"] = "https://via.placeholder.com/150";
-        $row["images"] = ["https://via.placeholder.com/150", "https://via.placeholder.com/140"];
-        return $row;
-    })->first(); // Only one record expected
-
-    // 🔍 Check if a _translations table exists
+    // Step 4: Merge translation table if exists
     $translationTable = Str::singular($table) . '_translations';
     $translationExists = DB::table('information_schema.tables')
         ->where('table_schema', $dbName)
@@ -62,14 +66,12 @@ public function show($table, $itemId)
         ->exists();
 
     if ($translationExists) {
-        // Get translation columns
         $translationColumns = DB::select("
             SELECT COLUMN_NAME, DATA_TYPE
             FROM INFORMATION_SCHEMA.COLUMNS
             WHERE TABLE_SCHEMA = ? AND TABLE_NAME = ?;
         ", [$dbName, $translationTable]);
 
-        // Add translation columns (if not duplicate)
         foreach ($translationColumns as $col) {
             if (!in_array($col->COLUMN_NAME, array_column($columns, 'COLUMN_NAME'))) {
                 $columns[] = [
@@ -79,24 +81,57 @@ public function show($table, $itemId)
             }
         }
 
-        // Get translation data for the item
-            $translationData = DB::table($translationTable)
-                ->where(Str::singular($table) . '_id', $itemId)
-                ->first();
+        $translationData = DB::table($translationTable)
+            ->where(Str::singular($table) . '_id', $itemId)
+            ->first();
 
         if ($translationData) {
-            foreach ((array) $translationData as $key => $value) {
-                $data[$key] = $value;
+            $data = array_merge($data, (array) $translationData);
+        }
+    }
+
+    // Step 5: Fetch related table options for *_id fields
+    $related = [];
+    foreach ($columns as $col) {
+        $columnName = $col['COLUMN_NAME'];
+
+        if (Str::endsWith($columnName, '_id') && $columnName !== 'id') {
+            // Example: admin_id => admins
+            $relatedTable = Str::plural(Str::before($columnName, '_id'));
+
+            $tableExists = DB::table('information_schema.tables')
+                ->where('table_schema', $dbName)
+                ->where('table_name', $relatedTable)
+                ->exists();
+
+            if ($tableExists) {
+                // Select id and title or name or fallback to id only
+                $selectable = Schema::hasColumn($relatedTable, 'title') ? 'title' :
+                              (Schema::hasColumn($relatedTable, 'name') ? 'name' : (Schema::hasColumn($relatedTable, 'fullname') ? 'fullname' : null));
+
+                if ($selectable) {
+                    $related[$columnName] = DB::table($relatedTable)
+                        ->select('id', $selectable)
+                        ->get();
+                } else {
+                    // Just return IDs
+                    $related[$columnName] = DB::table($relatedTable)
+                        ->select('id')
+                        ->get();
+                }
             }
         }
     }
 
+    // Final response
     return response()->json([
         'success' => trans('general.sent_successfully'),
         'columns' => $columns,
-        'data' => [$data], // wrapped in array to match original response structure
+        'data' => [$data],
+        'related' => $related, // 👈 includes admin_id, user_id, etc. options
     ]);
 }
+
 
 
 
