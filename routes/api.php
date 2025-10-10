@@ -132,7 +132,10 @@ Route::post('/newsletter', [NewsletterController::class, 'store']);
 Route::post('/products', [ProductController::class, 'store']);
 Route::post('/products', [ProductController::class, 'store']);
 Route::post('/message', [MessageController::class, 'store']);
-
+    Route::get('/data/{table}/{itemId}', [ActionController::class, 'show']);
+    Route::get('/deleteData/{table}/{itemId}', [ActionController::class, 'deleteItem']);
+    Route::get('/allData/{table}', [ActionController::class, 'table']);
+    Route::get('/tables', [ActionController::class, 'tableNames']);
 
 
 
