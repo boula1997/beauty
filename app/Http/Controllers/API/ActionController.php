@@ -107,7 +107,7 @@ public function show($table, $itemId)
             if ($tableExists) {
                 // Select id and title or name or fallback to id only
                 $selectable = Schema::hasColumn($relatedTable, 'title') ? 'title' :
-                              (Schema::hasColumn($relatedTable, 'name') ? 'name' : (Schema::hasColumn($relatedTable, 'fullname') ? 'fullname' : null));
+                              (Schema::hasColumn($relatedTable, 'name') ? 'name' : (Schema::hasColumn($relatedTable, 'fullname') ? 'fullname' :  (Schema::hasColumn($relatedTable, 'title_ar') ? 'title_ar' : (Schema::hasColumn($relatedTable, 'title_en') ? 'title_en' : null))));
 
                 if ($selectable) {
                     $related[$columnName] = DB::table($relatedTable)
