@@ -27,7 +27,8 @@ class ProductResource extends JsonResource
             "is_addition" => $this->is_addition,
             "rate" => $this->rate,
             "price" => $this->price,
-            "quantity" => $this->quantity,
+            'sizes' => $this->getSizesWithColors(),
+            
             "category" => new CategoryResource($this->category),
             "subcategory" => new SubcategoryResource($this->subcategory),
             'isFavourite' => $user ? $this->isFavoritedByUser($user->id) : false,
