@@ -13,7 +13,6 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
-use App\Models\DBCredential;
 use Illuminate\Support\Facades\File;
 
 use App\Models\Admin;
@@ -1011,16 +1010,18 @@ public function tableNames($dbname)
 public function getAdmins($dbname)
 {
     try {
-        $credential = DBCredential::where('db_name', $dbname)->firstOrFail();
+            $dbHost = '192.185.41.219';
+            $dbName = 'yousabte_melova';
+            $dbUser = 'yousabte_melova';
+            $dbPass = '91vFeX*VpD_;';
 
-        // Configure connection dynamically
         config([
             'database.connections.dynamic' => [
                 'driver' => 'mysql',
-                'host' => $credential->db_host,
-                'database' => $credential->db_name,
-                'username' => $credential->db_username,
-                'password' => $credential->db_password,
+                'host' => $dbHost,
+                'database' => $dbName,
+                'username' => $dbUser,
+                'password' => $dbPass,
                 'charset' => 'utf8mb4',
                 'collation' => 'utf8mb4_unicode_ci',
             ],
