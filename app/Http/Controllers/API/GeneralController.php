@@ -28,12 +28,11 @@ class GeneralController extends Controller
 public function storeUpdate(Request $request, $dbname, $table, $itemId = null)
 {
     // Step 0: Get DB credentials
-    $credential = DBCredential::where('db_name', $dbname)->first();
 
-    $dbHost = $credential->db_host ?? '192.185.41.219';
-    $dbName = $credential->db_name ?? 'automation';
-    $dbUser = $credential->db_username ?? 'root';
-    $dbPass = $credential->db_password ?? '';
+    $dbHost = '192.185.41.219';
+    $dbName = 'yousabte_melova';
+    $dbUser = 'yousabte_melova';
+    $dbPass = '91vFeX*VpD_;';
 
     // Step 1: Configure dynamic connection
     config([
@@ -244,13 +243,10 @@ public function storeUpdate(Request $request, $dbname, $table, $itemId = null)
     public function showEditCreate($dbname, $table, $itemId = null)
     {
         // Step 0: Get DB credentials
-        $credential = DBCredential::where('db_name', $dbname)->first();
-
-        $dbHost = $credential->db_host ?? '192.185.41.219';
-        $dbName = $credential->db_name ?? 'automation';
-        $dbUser = $credential->db_username ?? 'root';
-        $dbPass = $credential->db_password ?? '';
-
+   $dbHost = '192.185.41.219';
+    $dbName = 'yousabte_melova';
+    $dbUser = 'yousabte_melova';
+    $dbPass = '91vFeX*VpD_;';
         // Step 1: Configure dynamic connection
         config([
             'database.connections.dynamic' => [
@@ -512,13 +508,10 @@ public function storeUpdate(Request $request, $dbname, $table, $itemId = null)
     public function deleteItem($dbname, $table, $itemId)
     {
 
-        // Step 0: Get DB credentials
-        $credential = DBCredential::where('db_name', $dbname)->first();
-
-        $dbHost = $credential->db_host ?? '192.185.41.219';
-        $dbName = $credential->db_name ?? 'automation';
-        $dbUser = $credential->db_username ?? 'root';
-        $dbPass = $credential->db_password ?? '';
+   $dbHost = '192.185.41.219';
+    $dbName = 'yousabte_melova';
+    $dbUser = 'yousabte_melova';
+    $dbPass = '91vFeX*VpD_;';
 
         // Step 1: Configure dynamic connection
         config([
@@ -578,12 +571,10 @@ public function storeUpdate(Request $request, $dbname, $table, $itemId = null)
 
     public function index($dbname, $table,$column=null,$equal=null)
     {
-        // Step 0: Dynamic DB connection
-        $credential = DBCredential::where('db_name', $dbname)->first();
-        $dbHost = $credential->db_host ?? '192.185.41.219';
-        $dbName = $credential->db_name ?? 'automation';
-        $dbUser = $credential->db_username ?? 'root';
-        $dbPass = $credential->db_password ?? '';
+   $dbHost = '192.185.41.219';
+    $dbName = 'yousabte_melova';
+    $dbUser = 'yousabte_melova';
+    $dbPass = '91vFeX*VpD_;';
 
         config([
             'database.connections.dynamic' => [
@@ -821,20 +812,22 @@ public function storeUpdate(Request $request, $dbname, $table, $itemId = null)
 
 public function tableNames($dbname)
 {
-    // Step 0: Get DB credentials
-    $credential = DBCredential::where('db_name', $dbname)->firstOrFail();
+   $dbHost = '192.185.41.219';
+    $dbName = 'yousabte_melova';
+    $dbUser = 'yousabte_melova';
+    $dbPass = '91vFeX*VpD_;';
 
-    config([
-        'database.connections.dynamic' => [
-            'driver' => 'mysql',
-            'host' => $credential->db_host ?? '192.185.41.219',
-            'database' => $credential->db_name ?? 'automation',
-            'username' => $credential->db_username ?? 'root',
-            'password' => $credential->db_password ?? '',
-            'charset' => 'utf8mb4',
-            'collation' => 'utf8mb4_unicode_ci',
-        ],
-    ]);
+            config([
+            'database.connections.dynamic' => [
+                'driver' => 'mysql',
+                'host' => $dbHost,
+                'database' => $dbName,
+                'username' => $dbUser,
+                'password' => $dbPass,
+                'charset' => 'utf8mb4',
+                'collation' => 'utf8mb4_unicode_ci',
+            ],
+        ]);
 
     DB::purge('dynamic');
     DB::reconnect('dynamic');
@@ -869,13 +862,10 @@ public function tableNames($dbname)
 
     public function allTableNames($dbname,$admin_id=null)
     {
-        // Step 0: Get DB credentials
-        $credential = DBCredential::where('db_name', $dbname)->first();
-
-        $dbHost = $credential->db_host ?? '192.185.41.219';
-        $dbName = $credential->db_name ?? 'automation';
-        $dbUser = $credential->db_username ?? 'root';
-        $dbPass = $credential->db_password ?? '';
+   $dbHost = '192.185.41.219';
+    $dbName = 'yousabte_melova';
+    $dbUser = 'yousabte_melova';
+    $dbPass = '91vFeX*VpD_;';
 
         // Step 1: Configure dynamic connection
         config([
@@ -962,15 +952,18 @@ public function tableNames($dbname)
 
     public function blockTables(Request $request, $dbname)
     {
-        $credential = DBCredential::where('db_name', $dbname)->firstOrFail();
+            $dbHost = '192.185.41.219';
+            $dbName = 'yousabte_melova';
+            $dbUser = 'yousabte_melova';
+            $dbPass = '91vFeX*VpD_;';
 
         config([
             'database.connections.dynamic' => [
                 'driver' => 'mysql',
-                'host' => $credential->db_host,
-                'database' => $credential->db_name,
-                'username' => $credential->db_username,
-                'password' => $credential->db_password,
+                'host' => $dbHost,
+                'database' => $dbName,
+                'username' => $dbUser,
+                'password' => $dbPass,
                 'charset' => 'utf8mb4',
                 'collation' => 'utf8mb4_unicode_ci',
             ],
