@@ -835,8 +835,8 @@ public function tableNames($dbname)
 
     // Step 2: Get allowed tables directly from admin permissions
     $allowedTables = collect();
-    if (auth('admin-api')->check()) {
-        $admin = auth('admin-api')->user();
+    if (auth('admin_api')->check()) {
+        $admin = auth('admin_api')->user();
         if (!empty($admin->permissions)) {
             $decoded = json_decode($admin->permissions, true);
             if (is_array($decoded)) {
@@ -1046,18 +1046,5 @@ public function getAdmins($dbname)
         ], 500);
     }
 }
-
-
-
-
-    public function databases()
-    {
-        return response()->json([
-            'success' => trans('general.sent_successfully'),
-            'databases' => databases(),
-        ]);
-    }
-
-
 
 }
