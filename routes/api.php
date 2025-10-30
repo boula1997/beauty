@@ -33,7 +33,7 @@ use App\Http\Controllers\API\StoreController;
 use App\Http\Controllers\API\SubcategoryController;
 use App\Http\Controllers\API\SupportController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\Api\AdminAuthController;
+use App\Http\Controllers\API\AdminAuthController;
 
 /*
 |--------------------------------------------------------------------------
