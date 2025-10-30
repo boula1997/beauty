@@ -23,7 +23,7 @@ class AdminAuthController extends Controller
 
         return response()->json([
             'message' => 'Login successful',
-            'token' => $token,
+            'access_token' => $token,
             'admin' => $admin,
         ]);
     }
