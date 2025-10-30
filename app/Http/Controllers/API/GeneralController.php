@@ -894,7 +894,6 @@ public function tableNames($dbname)
             ->orderBy('TABLE_NAME')
             ->pluck('TABLE_NAME');
 
-   dd($allTables);
 
                   // Step 3: Get blocked tables filtered by dbname
         try {
