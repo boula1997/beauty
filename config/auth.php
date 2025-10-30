@@ -50,6 +50,12 @@ return [
             'provider' => 'users',
             'hash' => false,
         ],
+        'admin_api' => [
+            'driver' => 'passport', // or 'sanctum' if you use Sanctum instead
+            'provider' => 'admins',
+            'hash' => false,
+        ],
+
         'merchant' => [  
             'driver' => 'session',
             'provider' => 'merchants',

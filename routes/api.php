@@ -33,6 +33,7 @@ use App\Http\Controllers\API\StoreController;
 use App\Http\Controllers\API\SubcategoryController;
 use App\Http\Controllers\API\SupportController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Api\AdminAuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,6 +49,10 @@ use App\Http\Controllers\AuthController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+
+
 
 Route::group(['middleware' => ['apiLocalization','cors']], function () {
 
@@ -185,6 +190,20 @@ Route::group([
     Route::post('/favorites/toggle/{productId}', [FavoriteController::class, 'toggleFavorite']);
     Route::get('/favorites', [FavoriteController::class, 'getFavorites']);
 
+});
+
+Route::post('/admin/login', [AdminAuthController::class, 'login']);
+
+Route::middleware('auth:admin_api')->group(function () {
+    Route::get('/showEditCreate/{dbname}/{table}/{itemId}', [GeneralController::class, 'showEditCreate']);
+    Route::post('/storeUpdate/{dbname}/{table}/{itemId}', [GeneralController::class, 'storeUpdate']);
+    Route::post('/blocktables/{dbname}', [GeneralController::class, 'blockTables']);
+    Route::get('/deleteItem/{dbname}/{table}/{itemId}', [GeneralController::class, 'deleteItem']);
+    Route::get('/index/{dbname}/{table}/{column?}/{equal?}', [GeneralController::class, 'index']);
+    Route::get('/tables/{dbname}', [GeneralController::class, 'tableNames']);
+    Route::get('/all/tables/{dbname}/{admin_id?}', [GeneralController::class, 'allTableNames']);
+    Route::get('/databases', [GeneralController::class, 'databases']);
+    Route::get('/admins/{dbname}', [GeneralController::class, 'getAdmins']);
 });
 
 
