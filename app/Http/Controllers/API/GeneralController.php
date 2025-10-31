@@ -440,6 +440,14 @@ public function storeUpdate(Request $request, $dbname, $table, $itemId = null)
 
         $data = (array) $data;
 
+        $sensitive = ['password', 'remember_token', 'api_token', 'access_token'];
+
+        foreach ($sensitive as $field) {
+            if (array_key_exists($field, $data)) {
+                $data[$field] = '';
+            }
+        }
+
         $files = DB::connection('dynamic')->table('files')
             ->where('fileable_type', 'App\\Models\\' . Str::studly(Str::singular($table)))
             ->where('fileable_id', $itemId)
