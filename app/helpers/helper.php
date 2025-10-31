@@ -287,17 +287,19 @@ if (!function_exists('contacts')) {
 }
 
 if (!function_exists('bestSellingProducts')) {
-
     function bestSellingProducts()
     {
         return OrderProduct::select('product_id')
-            ->with('product') 
-            ->selectRaw('count(*) as total_sales') 
-            ->groupBy('product_id') 
+            ->with('product')
+            ->selectRaw('count(*) as total_sales')
+            ->groupBy('product_id')
             ->orderByDesc('total_sales')
-            ->take(10) 
-            ->get() 
-            ->pluck('product'); 
+            ->take(10)
+            ->get()
+            ->filter(function ($item) {
+                return $item->product !== null; // تجاهل اللي مفيهوش product
+            })
+            ->pluck('product'); // رجّع المنتجات بس
     }
 }
 
