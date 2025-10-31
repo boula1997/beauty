@@ -16,7 +16,7 @@ use Illuminate\Http\UploadedFile;
 class ProductVariation extends Model implements TranslatableContract
 {
     use HasFactory, Translatable, MorphFile;
-    protected $table = 'productVariations';
+    protected $table = 'productvariations';
     public $translatedAttributes = [];
     protected $guarded = [];
     public $timestamps = true;
