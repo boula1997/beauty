@@ -34,6 +34,7 @@ use App\Http\Controllers\API\SubcategoryController;
 use App\Http\Controllers\API\SupportController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\API\AdminAuthController;
+use App\Http\Controllers\API\TeamController;
 
 /*
 |--------------------------------------------------------------------------
@@ -90,6 +91,9 @@ Route::group(['middleware' => ['apiLocalization','cors']], function () {
 
     Route::get('/sizes', [SizeController::class, 'index']);
     Route::get('/size/{id}', [SizeController::class, 'show']);
+
+    Route::get('/teams', [TeamController::class, 'index']);
+    Route::get('/team/{id}', [TeamController::class, 'show']);
 
     Route::get('/colors', [ColorController::class, 'index']);
     Route::get('/color/{id}', [ColorController::class, 'show']);
