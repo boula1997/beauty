@@ -34,8 +34,8 @@ class SettingResource extends JsonResource
             "shipping"=>$this->shipping,
             "policy" => $this->policy,
             "breadcrumb" => asset($this->breadcrumb),
-            "adminName" => auth("admin-api")->user()->name,
-            "adminType" => auth("admin-api")->user()->type,
+            "adminName" => auth("admin_api")->user()->name,
+            "adminType" => auth("admin_api")->user()->type,
         ];
     }
 }
