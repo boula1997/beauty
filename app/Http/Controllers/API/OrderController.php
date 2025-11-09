@@ -71,8 +71,6 @@ class OrderController extends Controller
                 $product = Product::find($item->getId());
              
                 // Check if item is out of stock
-                dd($item->get('quantity'));                
-
                 if ($item->get('quantity') > $product->quantity) {
                     //  return failedResponse (__('general.out_of_stock_items'));
                 }

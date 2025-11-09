@@ -19,6 +19,7 @@ trait HandlesOrders
     {
         DB::beginTransaction();
         try {
+            dd($data);
             $order = $this->order->create($data);
 
             foreach (cart()->getItems() as $item) {
@@ -30,7 +31,7 @@ trait HandlesOrders
                 ->where('product_id', strtok($item->getId(), '-'))
                 ->first();
 
-dd($item->get('quantity'));                
+                
                 $orderproduct = $this->orderproduct->create([
                     'order_id' => $order->id,
                     'product_id' => $productId,
@@ -41,7 +42,7 @@ dd($item->get('quantity'));
 
 
                 $product = $orderproduct->product;
-                // $product->update(['stock'=> $product->stock - $item->get('quantity')]);
+                $product->update(['stock'=> $product->stock - $item->get('quantity')]);
             }
 
              // transactions
