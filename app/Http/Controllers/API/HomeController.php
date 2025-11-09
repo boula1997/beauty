@@ -47,7 +47,7 @@ class HomeController extends Controller
         try {
             $data['slider']= SliderResource ::collection($this->slider->latest()->paginate(10));
             $data['about_section']= new PageResource(page('about'));
-            $data['products'] = HomeProductResource::collection($this->product->where('is_addition',false)->latest()->paginate(10));
+            $data['products'] = HomeProductResource::collection($this->product->latest()->paginate(10));
             $data['categories'] = CategoryResource::collection($this->category->latest()->paginate(10));
              
             
