@@ -97,6 +97,7 @@ class OrderController extends Controller
                 $data['paid_at'] = Carbon::now();
                 $data['payment_status'] = 'paid';
                 // Create order
+                dd(50);
                 $order = $this->createOrderWithProducts($data);
 
                 
