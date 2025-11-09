@@ -75,7 +75,6 @@ class OrderController extends Controller
                 ->where('product_id', $product->id)
                 ->first();
 
-                dd($variation);
                 // Check if item is out of stock
                 if ($item->get('quantity') > $variation->quantity) {
                     //  return failedResponse (__('general.out_of_stock_items'));
