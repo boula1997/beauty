@@ -30,7 +30,7 @@ trait HandlesOrders
                 ->where('product_id', strtok($item->getId(), '-'))
                 ->first();
 
-                
+dd($item->get('quantity'));                
                 $orderproduct = $this->orderproduct->create([
                     'order_id' => $order->id,
                     'product_id' => $productId,
