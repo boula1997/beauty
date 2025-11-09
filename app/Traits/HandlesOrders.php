@@ -19,7 +19,6 @@ trait HandlesOrders
     {
         DB::beginTransaction();
         try {
-            dd($data);
             $order = $this->order->create($data);
 
             foreach (cart()->getItems() as $item) {
