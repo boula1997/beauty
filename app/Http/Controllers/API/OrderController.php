@@ -67,7 +67,6 @@ class OrderController extends Controller
             $user = auth('api')->user();
             $data['user_id'] = $user->id;
             // Validating finished offers and out-of-stock items
-            dd(cart()->getItems());
             foreach (cart()->getItems() as $item) {
                 $product = Product::find($item->getId());
 
