@@ -143,6 +143,8 @@ function loadUserCart($id)
                         'title'    => $attributes['title'],    // Required attribute
                         'quantity' => $attributes['quantity'], // Required attribute
                         'price'    => $attributes['price'],    // Required attribute
+                        'options'  => $attributes['options'] ?? [], // Optional attribute
+                        
                     ]);
                 } else {
                     // Handle cases where attributes are missing or malformed
