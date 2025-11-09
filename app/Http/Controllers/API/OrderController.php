@@ -70,8 +70,8 @@ class OrderController extends Controller
             foreach (cart()->getItems() as $item) {
                 $product = Product::find($item->getId());
 
-                $variation = ProductVariation::where('color_id', $item->get('options')["color"])
-                ->where('size_id', $item->get('options')["size"])
+                $variation = ProductVariation::where('color_id', $item->get('options')["color_id"])
+                ->where('size_id', $item->get('options')["size_id"])
                 ->where('product_id', $product->id)
                 ->first();
 
