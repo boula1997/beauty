@@ -96,6 +96,14 @@ class CartController extends Controller
             'inCart'=>isInCart($product->id),
             'total'=>cart()->getTotal(),
             'quantity'=>$item->get('quantity'),
+            'options' => [
+                'color' => $request->color_id,
+                'size' => $request->size_id,
+                'colorTitle' => Color::find($request->color_id)->title,
+                'sizeTitle' => Size::find($request->size_id)->title,
+                // 'offer_id' => $product->productOffer_id,
+                // 'validOffer' => validOffer($product->productOffer),
+            ],
             'cart'=>cart()->getItems(),
             ]);
             
