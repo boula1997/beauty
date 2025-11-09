@@ -81,11 +81,11 @@ class OrderController extends Controller
                 }
 
                 // Check if the offer has already ended
-                if (isset($product->productOffer)&&$product->productOffer->endDate < now()) {
+                // if (isset($product->productOffer)&&$product->productOffer->endDate < now()) {
 
                     // return failedResponse (__('general.finished_offer_items'));
 
-                }
+                // }
             }
 
             if($request->paymentMethod=="wallet")
