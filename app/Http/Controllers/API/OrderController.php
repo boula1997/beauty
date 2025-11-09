@@ -48,7 +48,7 @@ class OrderController extends Controller
             cart()->clearItems();
             loadUserCart(auth()->user()->id);
 
-            $data = $request->except('color', 'size','paymentMethod','flexRadioDefault');
+            $data = $request->except('color', 'size','paymentMethod','flexRadioDefault','address_id');
             $data['total'] = cart()->getTotal();
             $data['address'] = $request->address;
             if($request->paymentMethod=="wallet"){
