@@ -67,15 +67,15 @@ class OrderController extends Controller
             $user = auth('api')->user();
             $data['user_id'] = $user->id;
             // Validating finished offers and out-of-stock items
+            dd(cart()->getItems());
             foreach (cart()->getItems() as $item) {
                 $product = Product::find($item->getId());
 
-                $variation = ProductVariation::where('color_id', $item->get('options')["color_id"])
-                ->where('size_id', $item->get('options')["size_id"])
+                $variation = ProductVariation::where('color_id', $item->get('options')["color"])
+                ->where('size_id', $item->get('options')["size"])
                 ->where('product_id', $product->id)
                 ->first();
 
-                dd($variation);
              
                 // Check if item is out of stock
                 if ($item->get('quantity') > $variation->quantity) {
