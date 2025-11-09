@@ -41,7 +41,7 @@ trait HandlesOrders
 
 
                 $product = $orderproduct->product;
-                $product->update(['stock'=> $product->stock - $item->get('quantity')]);
+                $variation->update(['quantity'=> $variation->quantity - $item->get('quantity')]);
             }
 
              // transactions
