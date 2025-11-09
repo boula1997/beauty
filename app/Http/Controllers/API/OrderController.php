@@ -48,7 +48,7 @@ class OrderController extends Controller
             cart()->clearItems();
             loadUserCart(auth()->user()->id);
 
-            $data = $request->except('paymentMethod','flexRadioDefault');
+            $data = $request->except('color', 'size','paymentMethod','flexRadioDefault');
             $data['total'] = cart()->getTotal();
             $data['address'] = $request->address;
             if($request->paymentMethod=="wallet"){
@@ -72,7 +72,7 @@ class OrderController extends Controller
 
                 $variation = ProductVariation::where('color_id', $item->get('options')["color"])
                 ->where('size_id', $item->get('options')["size"])
-                ->where('product_id', strtok($item->getId(), '-'))
+                ->where('product_id', $product->id)
                 ->first();
 
                 dd($variation);
