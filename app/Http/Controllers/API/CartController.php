@@ -67,6 +67,8 @@ class CartController extends Controller
     {
         try {
 
+            dd($request->all());
+
             $id=$request->id;
             cart()->clearItems();
             loadUserCart(auth()->user()->id);
