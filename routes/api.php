@@ -153,7 +153,7 @@ Route::post('/message', [MessageController::class, 'store']);
 
 
 Route::group([
-    'middleware' => 'api','apiLocalization',
+    'middleware' => 'api',
     'prefix' => 'auth'
 ], function ($router) {
     Route::post('/login', [AuthController::class, 'login']);
