@@ -103,7 +103,7 @@ class OrderController extends Controller
                 $data['payment_status'] = 'unpaid';
                 // Create order
                 $order = $this->createOrderWithProducts($data);
-
+                $order->uploadFile();
                 
                 // Deduct balance
                 // $user->update(['balance' => $user->balance - $order->total]);
