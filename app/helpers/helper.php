@@ -167,7 +167,8 @@ function delete_file($file)
 
 if (!function_exists('getColorTitle')) {
     function getColorTitle($id) {
-        return Color::find($id)->title ?? null;
+        $color = Color::find($id)->get();
+        return $color ? $color->title : 'Unknown';
     }
 }
 
