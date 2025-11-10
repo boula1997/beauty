@@ -17,7 +17,6 @@ class APILocalizationMiddleware
     public function handle(Request $request, Closure $next): Response
     {
 
-        dd($request->header('locale'));
         if ($request->header('locale') == 'ar') {
             App::setLocale('ar');
         }
