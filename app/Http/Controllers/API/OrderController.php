@@ -205,7 +205,7 @@ class OrderController extends Controller
     {
         try {
 
-            $data = new OrderDetailsResource(Auth::user()->orders()->with(['orderproducts.variation'])->findOrfail($id));
+            $data = new OrderDetailsResource(Auth::user()->orders()->with(['orderproducts.variation','orderproducts.variation.color', 'orderproducts.variation.size'])->findOrfail($id));
 
             return successResponse($data);
 
