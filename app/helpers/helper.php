@@ -167,13 +167,13 @@ function delete_file($file)
 
 if (!function_exists('getColorTitle')) {
     function getColorTitle($id) {
-        return Color::find($id)->title ?? null;
+        return Color::find($id)->title ?? 1;
     }
 }
 
 if (!function_exists('getSizeTitle')) {
     function getSizeTitle($id) {
-        return Size::find($id)->title ?? null;
+        return Size::find($id)->title ?? 2;
     }
 }
 
