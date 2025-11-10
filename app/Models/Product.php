@@ -17,6 +17,21 @@ class Product extends Model implements TranslatableContract
     protected $guarded = [];
     public $timestamps = true;
 
+
+    public function getPriceAttribute($value)
+    {
+        $originalPrice = $value;
+
+        if ($this->discount && $this->discount > 0) {
+            $discountAmount = ($originalPrice * $this->discount) / 100;
+            return $originalPrice - $discountAmount;
+        }
+
+        
+        return $originalPrice;
+    }
+
+
     public function category()
     {
         return $this->belongsTo(Category::class, 'category_id');
