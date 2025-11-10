@@ -15,7 +15,7 @@ class ProductVariationResource extends JsonResource
      */
     public function toArray($request)
     {
-        $variations=ProductVariation::where('product_id',$this->product_id)->where('color_id',$this->color_id)->get();
+        // $variations=ProductVariation::where('product_id',$this->product_id)->where('color_id',$this->color_id)->get();
 
         return [
             // "image" => $this->image,
