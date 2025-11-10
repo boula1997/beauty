@@ -18,10 +18,13 @@ class ProductVariationResource extends JsonResource
         $variations=ProductVariation::where('product_id',$this->product_id)->where('color_id',$this->color_id)->get();
 
         return [
-            "image" => $this->image,
+            // "image" => $this->image,
             "color" => $this->color->title,
             "color_id" => $this->color_id,
-            'variations'=>ChildVariationResource::collection($variations),
+
+            "size" => $this->size->title,
+            "size_id" => $this->size_id,
+            // 'variations'=>ChildVariationResource::collection($variations),
         ];
     }
 }

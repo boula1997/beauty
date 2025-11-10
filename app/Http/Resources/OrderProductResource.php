@@ -20,6 +20,7 @@ class OrderProductResource extends JsonResource
             "title" => $this->product->title,
             "count" => $this->count,
             "total" => $this->total,
+            "variation" => new ProductVariationResource($this->variation),
         ];
     }
 }
