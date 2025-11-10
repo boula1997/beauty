@@ -21,6 +21,8 @@ use App\Models\Setting;
 use App\Models\User;
 use App\Models\ProductVariation;
 use App\Models\Store;
+use App\Models\Size;
+use App\Models\Color;
 use App\Models\Subcategory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -162,6 +164,19 @@ function delete_file($file)
     if (file_exists($file))
         File::delete($file);
 }
+
+if (!function_exists('getColorTitle')) {
+    function getColorTitle($id) {
+        return Color::find($id)->title ?? null;
+    }
+}
+
+if (!function_exists('getSizeTitle')) {
+    function getSizeTitle($id) {
+        return Size::find($id)->title ?? null;
+    }
+}
+
 
 function successResponse($data = [], $message = "success", $status = 200)
 {
