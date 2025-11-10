@@ -23,7 +23,7 @@ class APILocalizationMiddleware
             App::setLocale('en');
         }
         else  {
-            App::setLocale('fr');
+            App::setLocale('ar');
         }
         return $next($request);
     }
