@@ -14,7 +14,6 @@ class OrderProductResource extends JsonResource
      */
     public function toArray(Request $request): array
     {  
-        dd($request->all());
         return [
             "id" => $this->id,
             "image" => $this->product->image,
