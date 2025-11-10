@@ -88,7 +88,7 @@ class OrderController extends Controller
                 // }
             }
 
-            if($request->paymentMethod=="cash")
+            if($request->paymentMethod=="wallet")
             {
                 // Check if user has enough balance
                 if ($user->balance < cart()->getTotal()) {
