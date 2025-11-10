@@ -174,7 +174,8 @@ if (!function_exists('getColorTitle')) {
 
 if (!function_exists('getSizeTitle')) {
     function getSizeTitle($id) {
-        return Size::find($id)->title ?? null;
+        $size = Size::find($id)->get();
+        return $size ? $size->title : 'Unknown';
     }
 }
 
