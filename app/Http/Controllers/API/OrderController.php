@@ -88,7 +88,7 @@ class OrderController extends Controller
                 // }
             }
 
-            if($request->paymentMethod=="wallet")
+            if($request->paymentMethod=="cash")
             {
                 // Check if user has enough balance
                 if ($user->balance < cart()->getTotal()) {
@@ -99,14 +99,14 @@ class OrderController extends Controller
                 }
 
                 $data['pending_at'] = Carbon::now();
-                $data['paid_at'] = Carbon::now();
-                $data['payment_status'] = 'paid';
+                // $data['paid_at'] = Carbon::now();
+                $data['payment_status'] = 'unpaid';
                 // Create order
                 $order = $this->createOrderWithProducts($data);
 
                 
                 // Deduct balance
-                $user->update(['balance' => $user->balance - $order->total]);
+                // $user->update(['balance' => $user->balance - $order->total]);
                                 
                 cart()->clearItems();
                 updateUserCart();
