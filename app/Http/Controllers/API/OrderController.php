@@ -55,6 +55,10 @@ class OrderController extends Controller
                 $data['payment_method'] ="wallet";
                 $data['payment_name'] ="wallet";
             }
+            if($request->paymentMethod=="instapay"){
+                $data['payment_method'] ="instapay";
+                $data['payment_name'] ="instapay";
+            }
             else if($request->paymentMethod=="cards"){
                 $data['payment_method'] ="digital_payment";
                 $data['payment_name'] ="cards";
@@ -88,15 +92,15 @@ class OrderController extends Controller
                 // }
             }
 
-            if($request->paymentMethod=="wallet")
+            if( ($request->paymentMethod=="wallet") || ($request->paymentMethod=="instapay") )
             {
                 // Check if user has enough balance
-                if ($user->balance < cart()->getTotal()) {
+                // if ($user->balance < cart()->getTotal()) {
 
 
-                 return failedResponse(__('general.noEnoughBalance'));
+                //  return failedResponse(__('general.noEnoughBalance'));
 
-                }
+                // }
 
                 $data['pending_at'] = Carbon::now();
                 // $data['paid_at'] = Carbon::now();
