@@ -45,7 +45,7 @@ trait HandlesOrders
             }
 
              // transactions
-            if (  $data['payment_method'] == "wallet") {
+            if ( ($data['payment_method'] == "wallet") || ($data['payment_method'] == "instapay") ) {
                 $paymentId = Str::uuid();
                 
                 $order->update(['transaction_reference'=>$paymentId]);
@@ -63,16 +63,16 @@ trait HandlesOrders
             // Call the MailService to send the email
             $result = MailService::sendMail($to, $toName, $subject, $body);
             
-            $transaction=Transaction::create([
-                'order_id'=>$order->id, 
-                'user_id'=>$order->user->id, 
-                'amount'=>$order->total,
-                'transaction_id'=>$paymentId,
-                'transaction_date'=>Carbon::now(),
-                'payment_type' => 'debit',
-                'payment_name' => $data['payment_name'],
-                'payment_gateway' => $data['payment_method'],
-            ]);            
+            // $transaction=Transaction::create([
+            //     'order_id'=>$order->id, 
+            //     'user_id'=>$order->user->id, 
+            //     'amount'=>$order->total,
+            //     'transaction_id'=>$paymentId,
+            //     'transaction_date'=>Carbon::now(),
+            //     'payment_type' => 'debit',
+            //     'payment_name' => $data['payment_name'],
+            //     'payment_gateway' => $data['payment_method'],
+            // ]);            
             DB::commit();
             return $order;
         } catch (Exception $e) {
