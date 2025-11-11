@@ -25,6 +25,13 @@ class ProductResource extends JsonResource
             "description" => $this->description,
             "rate" => $this->rate,
             "price" => $this->price,
+            "byOneGetOne" => $this->byOneGetOne,
+            "discount" => $this->discount,
+            
+            "applyOffer" => $this->discount > 0 ? $this->discount .'Percentage of'
+                : ($this->byOneGetOne
+                ? 'byOneGetOne'
+                : null),
             // 'isFavourite' => $user ? $this->isFavoritedByUser($user->id) : false
 
         ];
