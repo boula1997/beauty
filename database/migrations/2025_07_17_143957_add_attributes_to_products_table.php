@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('products', function (Blueprint $table) {
             $table->boolean('byOneGetOne')->default(false);
-            $table->double('discount')->nullable();
+            $table->double('discount')->default(0);
         });
     }
 
