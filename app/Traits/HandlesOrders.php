@@ -31,6 +31,18 @@ trait HandlesOrders
                 ->first();
 
                 
+                if ($product->discount > 0) {
+                    // السعر بعد الخصم بيجيلك أوتوماتيك من accessor
+                    $total = $item->get('quantity') * $product->price;
+                } elseif ($product->byOneGetOne && $product->discount <= 0) {
+                    // apply buy one get one
+                    $paidItems = ceil($item->get('quantity') / 2);
+                    $total = $paidItems * $product->price;
+                    
+                } else {
+                    $total = $item->get('quantity') * $product->price;
+                }
+                
                 $orderproduct = $this->orderproduct->create([
                     'order_id' => $order->id,
                     'product_id' => $productId,
