@@ -27,6 +27,13 @@ class CategoryResource extends JsonResource
                     "title" => $product->title,
                     "description" => strip_tags($product->description),
                     "price" => $product->price,
+                    "byOneGetOne" => $product->byOneGetOne,
+                    "discount" => $product->discount,
+                    
+                    "applyOffer" => $product->discount > 0 ? $product->discount .' % off'
+                        : ($product->byOneGetOne
+                        ? 'byOneGetOne'
+                        : null),
                 ];
             }),
         ];
