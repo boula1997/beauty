@@ -30,16 +30,21 @@ trait HandlesOrders
                 ->where('product_id', strtok($item->getId(), '-'))
                 ->first();
 
+                $quantity = $item->get('quantity');
+                $total = 0;
                 
                 if ($product->discount > 0) {
                     // السعر بعد الخصم بيجيلك أوتوماتيك من accessor
                     $total = $item->get('quantity') * $product->price;
                 } elseif ($product->byOneGetOne && $product->discount <= 0) {
-                    // apply buy one get one
-                    $paidItems = ceil($item->get('quantity') / 2);
-                    $total = $paidItems * $product->price;
-                    
-                } else {
+                    // ✅ Buy One Get One Free
+                    $freeItems = $quantity;
+                    $totalQuantity = $quantity + $freeItems;
+
+                    $total = $quantity * $product->price;
+
+                    $quantity = $totalQuantity;
+                }else {
                     $total = $item->get('quantity') * $product->price;
                 }
                 
@@ -47,7 +52,7 @@ trait HandlesOrders
                     'order_id' => $order->id,
                     'product_id' => $productId,
                     'productvariation_id' => $variation->id,
-                    'count' => $item->get('quantity'),
+                    'count' => $quantity,
                     'total' => $item->get('quantity') * $product->price ,
                 ]);
 
