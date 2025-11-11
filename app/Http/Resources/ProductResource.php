@@ -26,6 +26,12 @@ class ProductResource extends JsonResource
             "SKU" => $this->SKU,
             "byOneGetOne" => $this->byOneGetOne,
             "discount" => $this->discount,
+            
+            "applyOffer" => $this->discount > 0 ? $this->discount .'Percentage of'
+                : ($this->byOneGetOne
+                ? 'byOneGetOne'
+                : null),
+        
             "rate" => $this->rate,
             "price" => $this->price,
             'sizes' => $this->getSizesWithColors(),
