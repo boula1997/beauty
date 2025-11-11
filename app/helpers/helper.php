@@ -400,21 +400,36 @@ if (!function_exists('orderCheckoutData()')) {
     function orderCheckoutData($order)
     {
         $discount = 0;
-        $total = $order->orderproducts->sum('total');
         $delivery = 8;
         $allTotal=0;
+        $subTotal = 0;
+
+        $total = $order->orderproducts->sum('total');
 
         // Calculate discount
+
         foreach ($order->orderproducts as $item) {
             $product = Product::find($item->product_id);
             if ($product) {
-                $allTotal += $product->price; 
-            }
+                $quantity = $item->count;
 
+                if ($product->discount > 0) {
+                    $lineTotal = $quantity * $product->price;
+                    $discount += ($product->price * $quantity) - $lineTotal;
+                } elseif ($product->byOneGetOne && $product->discount <= 0) {
+                    // Buy One Get One Free
+                    $paidItems = ceil($quantity / 2); 
+                    $lineTotal = $paidItems * $product->price;
+                } else {
+                    $lineTotal = $quantity * $product->price;
+                }
+
+                $subTotal += $lineTotal;
+            }
         }
 
-        $subTotal = $allTotal;
-
+        $total = $subTotal + $delivery;
+        
         // Return as formatted array
         return [
             'data' => [
@@ -432,7 +447,7 @@ if (!function_exists('orderCheckoutData()')) {
                 ],
                 [
                     'key' => __('general.Total'),
-                    'value' => $subTotal-$discount+$delivery,
+                    'value' => $total,
                 ],
             ]
         ];
