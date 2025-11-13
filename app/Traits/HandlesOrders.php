@@ -24,20 +24,45 @@ trait HandlesOrders
             foreach (cart()->getItems() as $item) {
                 $productId = strtok($item->getId(), '-'); 
                 $product = Product::find($productId);
+
+                $variation = ProductVariation::where('color_id', $item->get('options')["color"])
+                ->where('size_id', $item->get('options')["size"])
+                ->where('product_id', strtok($item->getId(), '-'))
+                ->first();
+
+                $quantity = $item->get('quantity');
+                $total = 0;
+                
+                if ($product->discount > 0) {
+                    // السعر بعد الخصم بيجيلك أوتوماتيك من accessor
+                    $total = $item->get('quantity') * $product->price;
+                } elseif ($product->byOneGetOne && $product->discount <= 0) {
+                    // ✅ Buy One Get One Free
+                    $freeItems = $quantity;
+                    $totalQuantity = $quantity + $freeItems;
+
+                    $total = $quantity * $product->price;
+
+                    $quantity = $totalQuantity;
+                }else {
+                    $total = $item->get('quantity') * $product->price;
+                }
+                
                 $orderproduct = $this->orderproduct->create([
                     'order_id' => $order->id,
                     'product_id' => $productId,
-                    'count' => $item->get('quantity'),
+                    'productvariation_id' => $variation->id,
+                    'count' => $quantity,
                     'total' => $item->get('quantity') * $product->price ,
                 ]);
 
 
                 $product = $orderproduct->product;
-                // $product->update(['stock'=> $product->stock - $item->get('quantity')]);
+                $variation->update(['quantity'=> $variation->quantity - $item->get('quantity')]);
             }
 
              // transactions
-            if (  $data['payment_method'] == "wallet") {
+            if ( ($data['payment_method'] == "wallet") || ($data['payment_method'] == "instapay") ) {
                 $paymentId = Str::uuid();
                 
                 $order->update(['transaction_reference'=>$paymentId]);
@@ -55,16 +80,16 @@ trait HandlesOrders
             // Call the MailService to send the email
             $result = MailService::sendMail($to, $toName, $subject, $body);
             
-            $transaction=Transaction::create([
-                'order_id'=>$order->id, 
-                'user_id'=>$order->user->id, 
-                'amount'=>$order->total,
-                'transaction_id'=>$paymentId,
-                'transaction_date'=>Carbon::now(),
-                'payment_type' => 'debit',
-                'payment_name' => $data['payment_name'],
-                'payment_gateway' => $data['payment_method'],
-            ]);            
+            // $transaction=Transaction::create([
+            //     'order_id'=>$order->id, 
+            //     'user_id'=>$order->user->id, 
+            //     'amount'=>$order->total,
+            //     'transaction_id'=>$paymentId,
+            //     'transaction_date'=>Carbon::now(),
+            //     'payment_type' => 'debit',
+            //     'payment_name' => $data['payment_name'],
+            //     'payment_gateway' => $data['payment_method'],
+            // ]);            
             DB::commit();
             return $order;
         } catch (Exception $e) {

@@ -48,12 +48,16 @@ class OrderController extends Controller
             cart()->clearItems();
             loadUserCart(auth()->user()->id);
 
-            $data = $request->except('paymentMethod','flexRadioDefault');
+            $data = $request->except('color', 'size','paymentMethod','flexRadioDefault','address_id','image');
             $data['total'] = cart()->getTotal();
             $data['address'] = $request->address;
             if($request->paymentMethod=="wallet"){
                 $data['payment_method'] ="wallet";
                 $data['payment_name'] ="wallet";
+            }
+            if($request->paymentMethod=="instapay"){
+                $data['payment_method'] ="instapay";
+                $data['payment_name'] ="instapay";
             }
             else if($request->paymentMethod=="cards"){
                 $data['payment_method'] ="digital_payment";
@@ -69,39 +73,44 @@ class OrderController extends Controller
             // Validating finished offers and out-of-stock items
             foreach (cart()->getItems() as $item) {
                 $product = Product::find($item->getId());
-             
+
+                $variation = ProductVariation::where('color_id', $item->get('options')["color"])
+                ->where('size_id', $item->get('options')["size"])
+                ->where('product_id', $product->id)
+                ->first();
+
                 // Check if item is out of stock
-                if ($item->get('quantity') > $product->quantity) {
+                if ($item->get('quantity') > $variation->quantity) {
                     //  return failedResponse (__('general.out_of_stock_items'));
                 }
 
                 // Check if the offer has already ended
-                if (isset($product->productOffer)&&$product->productOffer->endDate < now()) {
+                // if (isset($product->productOffer)&&$product->productOffer->endDate < now()) {
 
                     // return failedResponse (__('general.finished_offer_items'));
 
-                }
+                // }
             }
 
-            if($request->paymentMethod=="wallet")
+            if( ($request->paymentMethod=="wallet") || ($request->paymentMethod=="instapay") )
             {
                 // Check if user has enough balance
-                if ($user->balance < cart()->getTotal()) {
+                // if ($user->balance < cart()->getTotal()) {
 
 
-                 return failedResponse(__('general.noEnoughBalance'));
+                //  return failedResponse(__('general.noEnoughBalance'));
 
-                }
+                // }
 
                 $data['pending_at'] = Carbon::now();
-                $data['paid_at'] = Carbon::now();
-                $data['payment_status'] = 'paid';
+                // $data['paid_at'] = Carbon::now();
+                $data['payment_status'] = 'unpaid';
                 // Create order
                 $order = $this->createOrderWithProducts($data);
-
+                $order->uploadFile();
                 
                 // Deduct balance
-                $user->update(['balance' => $user->balance - $order->total]);
+                // $user->update(['balance' => $user->balance - $order->total]);
                                 
                 cart()->clearItems();
                 updateUserCart();
@@ -200,7 +209,7 @@ class OrderController extends Controller
     {
         try {
 
-            $data = new OrderDetailsResource(Auth::user()->orders()->findOrfail($id));
+            $data = new OrderDetailsResource(Auth::user()->orders()->with(['orderproducts.variation','orderproducts.variation.color', 'orderproducts.variation.size'])->findOrfail($id));
 
             return successResponse($data);
 

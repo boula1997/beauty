@@ -21,6 +21,8 @@ use App\Models\Setting;
 use App\Models\User;
 use App\Models\ProductVariation;
 use App\Models\Store;
+use App\Models\Size;
+use App\Models\Color;
 use App\Models\Subcategory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -143,6 +145,8 @@ function loadUserCart($id)
                         'title'    => $attributes['title'],    // Required attribute
                         'quantity' => $attributes['quantity'], // Required attribute
                         'price'    => $attributes['price'],    // Required attribute
+                        'options'  => $attributes['options'] ?? [], // Optional attribute
+                        
                     ]);
                 } else {
                     // Handle cases where attributes are missing or malformed
@@ -160,6 +164,21 @@ function delete_file($file)
     if (file_exists($file))
         File::delete($file);
 }
+
+if (!function_exists('getColorTitle')) {
+    function getColorTitle($id) {
+        $color = Color::find($id)->get();
+        return $color ? $color->title : 'Unknown';
+    }
+}
+
+if (!function_exists('getSizeTitle')) {
+    function getSizeTitle($id) {
+        $size = Size::find($id)->get();
+        return $size ? $size->title : 'Unknown';
+    }
+}
+
 
 function successResponse($data = [], $message = "success", $status = 200)
 {
@@ -381,21 +400,36 @@ if (!function_exists('orderCheckoutData()')) {
     function orderCheckoutData($order)
     {
         $discount = 0;
-        $total = $order->orderproducts->sum('total');
         $delivery = 8;
         $allTotal=0;
+        $subTotal = 0;
+
+        $total = $order->orderproducts->sum('total');
 
         // Calculate discount
+
         foreach ($order->orderproducts as $item) {
             $product = Product::find($item->product_id);
             if ($product) {
-                $allTotal += $product->price; 
-            }
+                $quantity = $item->count;
 
+                if ($product->discount > 0) {
+                    $lineTotal = $quantity * $product->price;
+                    $discount += ($product->price * $quantity) - $lineTotal;
+                } elseif ($product->byOneGetOne && $product->discount <= 0) {
+                    // Buy One Get One Free
+                    $paidItems = ceil($quantity / 2); 
+                    $lineTotal = $paidItems * $product->price;
+                } else {
+                    $lineTotal = $quantity * $product->price;
+                }
+
+                $subTotal += $lineTotal;
+            }
         }
 
-        $subTotal = $allTotal;
-
+        $total = $subTotal + $delivery;
+        
         // Return as formatted array
         return [
             'data' => [
@@ -413,7 +447,7 @@ if (!function_exists('orderCheckoutData()')) {
                 ],
                 [
                     'key' => __('general.Total'),
-                    'value' => $subTotal-$discount+$delivery,
+                    'value' => $total,
                 ],
             ]
         ];

@@ -85,6 +85,14 @@ class CartController extends Controller
                 'title' => $product->title,
                 'price' => $product->price,
                 'quantity' => 1,
+                'options' => [
+                    'color' => $request->color_id,
+                    'size' => $request->size_id,
+                    'colorTitle' => Color::find($request->color_id)->title,
+                    'sizeTitle' => Size::find($request->size_id)->title,
+                    // 'offer_id' => $product->productOffer_id,
+                    // 'validOffer' => validOffer($product->productOffer),
+                ],
               
             ]);
 

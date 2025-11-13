@@ -24,7 +24,14 @@ class ProductResource extends JsonResource
             "title" => $this->title,
             "description" => strip_tags($this->description),
             "SKU" => $this->SKU,
-            "is_addition" => $this->is_addition,
+            "byOneGetOne" => $this->byOneGetOne,
+            "discount" => $this->discount,
+            
+            "applyOffer" => $this->discount > 0 ? $this->discount .'% off'
+                : ($this->byOneGetOne
+                ? 'Buy 1 Get 1'
+                : null),
+        
             "rate" => $this->rate,
             "price" => $this->price,
             'sizes' => $this->getSizesWithColors(),
@@ -47,7 +54,7 @@ class ProductResource extends JsonResource
                         "title" => $related->title,
                         "description" => strip_tags($related->description),
                         "SKU" => $related->SKU,
-                        "is_addition" => $related->is_addition,
+                        // "is_addition" => $related->is_addition,
                         "rate" => $related->rate,
                         "price" => $related->price,
                         "quantity" => $related->quantity,
