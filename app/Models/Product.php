@@ -92,11 +92,11 @@ class Product extends Model implements TranslatableContract
 
             return [
                 'id'     => $size->id,
-                // 'title'  => $size->title,
+                'title'  => $size->title,
                 'colors' => $variations->map(function ($variation) {
                     return [
                         'id'       => $variation->color->id,
-                        // 'title'    => $variation->color->title,
+                        'hexCode'    => $variation->color->hexCode,
                         'quantity' => $variation->quantity,
                     ];
                 })->values(),
