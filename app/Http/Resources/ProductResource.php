@@ -23,7 +23,6 @@ class ProductResource extends JsonResource
             "images" => $this->images,
             "title" => $this->title,
             "description" => strip_tags($this->description),
-            "SKU" => $this->SKU,
             "byOneGetOne" => $this->byOneGetOne,
             "discount" => $this->discount,
             
@@ -32,12 +31,11 @@ class ProductResource extends JsonResource
                 ? 'Buy 1 Get 1'
                 : null),
         
-            "rate" => $this->rate,
             "price" => $this->price,
             'sizes' => $this->getSizesWithColors(),
             
             "category" => new CategoryResource($this->category),
-            "subcategory" => new SubcategoryResource($this->subcategory),
+            // "subcategory" => new SubcategoryResource($this->subcategory),
             'isFavourite' => $user ? $this->isFavoritedByUser($user->id) : false,
             
             "relatedProducts" => $this->category

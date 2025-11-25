@@ -23,13 +23,13 @@ class ProductRequest extends FormRequest
 
     $rules = [
         'image'        => $image,
-        'SKU'          => ['sometimes','required','string',Rule::unique('products', 'SKU')->ignore($this->product)], // ✅ لازم يكون موجود
-        'rate'         => 'required|numeric|min:0|max:5', // ✅ لازم يكون موجود
+        // 'SKU'          => ['sometimes','required','string',Rule::unique('products', 'SKU')->ignore($this->product)], // ✅ لازم يكون موجود
+        // 'rate'         => 'required|numeric|min:0|max:5', // ✅ لازم يكون موجود
         'price'        => 'required|numeric|min:0',
         'quantity'     => 'required|numeric|min:0',
 
         'category_id'    => 'required|exists:categories,id',
-        'subcategory_id' => 'required|exists:subcategories,id',
+        // 'subcategory_id' => 'required|exists:subcategories,id',
     ];
 
     foreach (config('translatable.locales') as $locale) {
