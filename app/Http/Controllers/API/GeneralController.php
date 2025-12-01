@@ -13,7 +13,6 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
-use App\Models\DBCredential;
 use Illuminate\Support\Facades\File;
 
 use App\Models\Admin;
@@ -28,12 +27,11 @@ class GeneralController extends Controller
 public function storeUpdate(Request $request, $dbname, $table, $itemId = null)
 {
     // Step 0: Get DB credentials
-    $credential = DBCredential::where('db_name', $dbname)->first();
 
-    $dbHost = $credential->db_host ?? '192.185.41.219';
-    $dbName = $credential->db_name ?? 'automation';
-    $dbUser = $credential->db_username ?? 'root';
-    $dbPass = $credential->db_password ?? '';
+    $dbHost = '192.185.41.219';
+    $dbName = 'yousabte_melova';
+    $dbUser = 'yousabte_melova';
+    $dbPass = '91vFeX*VpD_;';
 
     // Step 1: Configure dynamic connection
     config([
@@ -80,31 +78,28 @@ public function storeUpdate(Request $request, $dbname, $table, $itemId = null)
         }
     }
 
-    $data["id"]=$itemId;
-
     // 🕒 Step 3.1: Add timestamps manually
     $now = now(); // Carbon instance
 
-if ($itemId && $itemId !== "undefined") {
+    if ($itemId && $itemId !== "undefined") {
 
-    // Always update id
-    $data['id'] = $itemId;
-
-    // Always update updated_at
-    if (in_array('updated_at', $columnNames)) {
-        $data['updated_at'] = $now;
-    }
-
-    // Prevent empty updates by ensuring at least one field changes
-    if (count($data) === 0) {
-        $data = ['updated_at' => $now, 'id' => $itemId];
-    }
-
-    DB::connection('dynamic')->table($table)
-        ->where('id', $itemId)
-        ->update($data);
-}
-else {
+        // Always update id
+        $data['id'] = $itemId;
+    
+        // Always update updated_at
+        if (in_array('updated_at', $columnNames)) {
+            $data['updated_at'] = $now;
+        }
+    
+        // Prevent empty updates by ensuring at least one field changes
+        if (count($data) === 0) {
+            $data = ['updated_at' => $now, 'id' => $itemId];
+        }
+    
+        DB::connection('dynamic')->table($table)
+            ->where('id', $itemId)
+            ->update($data);
+    } else {
         // 🟡 CREATE — set both created_at and updated_at
         if (in_array('created_at', $columnNames)) {
             $data['created_at'] = $now;
@@ -195,35 +190,28 @@ else {
             }
         }
 
-foreach ($translationData as $locale => $fields) {
-    $fields[$foreignKey] = $itemId;
-    $fields['locale'] = $locale;
-    $fields['updated_at'] = $now;
+        foreach ($translationData as $locale => $fields) {
+            $fields[$foreignKey] = $itemId;
+            $fields['locale'] = $locale;
+            $fields['updated_at'] = $now; // 🕒 timestamp for translations
+            if (in_array('created_at', Schema::connection('dynamic')->getColumnListing($translationTable))) {
+                $fields['created_at'] = $now;
+            }
 
-    // ✅ Ensure isActive is not null
-    if (!isset($fields['isActive'])) {
-        $fields['isActive'] = 1; // default active
-    }
+            $existing = DB::connection('dynamic')->table($translationTable)
+                ->where($foreignKey, $itemId)
+                ->where('locale', $locale)
+                ->first();
 
-    if (in_array('created_at', Schema::connection('dynamic')->getColumnListing($translationTable))) {
-        $fields['created_at'] = $now;
-    }
-
-    $existing = DB::connection('dynamic')->table($translationTable)
-        ->where($foreignKey, $itemId)
-        ->where('locale', $locale)
-        ->first();
-
-    if ($existing) {
-        DB::connection('dynamic')->table($translationTable)
-            ->where($foreignKey, $itemId)
-            ->where('locale', $locale)
-            ->update($fields);
-    } else {
-        DB::connection('dynamic')->table($translationTable)->insert($fields);
-    }
-}
-
+            if ($existing) {
+                DB::connection('dynamic')->table($translationTable)
+                    ->where($foreignKey, $itemId)
+                    ->where('locale', $locale)
+                    ->update($fields);
+            } else {
+                DB::connection('dynamic')->table($translationTable)->insert($fields);
+            }
+        }
     }
 
     // Step 6: Return response
@@ -260,16 +248,13 @@ foreach ($translationData as $locale => $fields) {
 
 
 
-   public function showEditCreate($dbname, $table, $itemId = null)
+    public function showEditCreate($dbname, $table, $itemId = null)
     {
         // Step 0: Get DB credentials
-        $credential = DBCredential::where('db_name', $dbname)->first();
-
-        $dbHost = $credential->db_host ?? '192.185.41.219';
-        $dbName = $credential->db_name ?? 'automation';
-        $dbUser = $credential->db_username ?? 'root';
-        $dbPass = $credential->db_password ?? '';
-
+   $dbHost = '192.185.41.219';
+    $dbName = 'yousabte_melova';
+    $dbUser = 'yousabte_melova';
+    $dbPass = '91vFeX*VpD_;';
         // Step 1: Configure dynamic connection
         config([
             'database.connections.dynamic' => [
@@ -349,7 +334,7 @@ foreach ($translationData as $locale => $fields) {
 
                     // Get the related dropdown data
                     $relatedData = DB::connection('dynamic')->table($mappedTable)
-                        ->select('id', DB::raw("$labelField as label"))
+                        ->select('id', DB::raw("`$labelField` as label"))
                         ->get();
 
                     // Use the original column name as the key
@@ -373,7 +358,7 @@ foreach ($translationData as $locale => $fields) {
 
                 if ($labelColumn) {
                     $relatedData = DB::connection('dynamic')->table($baseTable)
-                        ->select('id', DB::raw("$labelColumn as label"))
+                        ->select('id', DB::raw("`$labelColumn` as label"))
                         ->get();
                 } elseif (Schema::connection('dynamic')->hasTable($translationTable)) {
                     $translationColumns = Schema::connection('dynamic')->getColumnListing($translationTable);
@@ -539,13 +524,10 @@ foreach ($translationData as $locale => $fields) {
     public function deleteItem($dbname, $table, $itemId)
     {
 
-        // Step 0: Get DB credentials
-        $credential = DBCredential::where('db_name', $dbname)->first();
-
-        $dbHost = $credential->db_host ?? '192.185.41.219';
-        $dbName = $credential->db_name ?? 'automation';
-        $dbUser = $credential->db_username ?? 'root';
-        $dbPass = $credential->db_password ?? '';
+   $dbHost = '192.185.41.219';
+    $dbName = 'yousabte_melova';
+    $dbUser = 'yousabte_melova';
+    $dbPass = '91vFeX*VpD_;';
 
         // Step 1: Configure dynamic connection
         config([
@@ -605,12 +587,10 @@ foreach ($translationData as $locale => $fields) {
 
     public function index($dbname, $table,$column=null,$equal=null)
     {
-        // Step 0: Dynamic DB connection
-        $credential = DBCredential::where('db_name', $dbname)->first();
-        $dbHost = $credential->db_host ?? '192.185.41.219';
-        $dbName = $credential->db_name ?? 'automation';
-        $dbUser = $credential->db_username ?? 'root';
-        $dbPass = $credential->db_password ?? '';
+   $dbHost = '192.185.41.219';
+    $dbName = 'yousabte_melova';
+    $dbUser = 'yousabte_melova';
+    $dbPass = '91vFeX*VpD_;';
 
         config([
             'database.connections.dynamic' => [
@@ -846,18 +826,14 @@ foreach ($translationData as $locale => $fields) {
 
 
 
-    public function tableNames($dbname)
-    {
-        // Step 0: Get DB credentials
-        $credential = DBCredential::where('db_name', $dbname)->first();
+public function tableNames($dbname)
+{
+   $dbHost = '192.185.41.219';
+    $dbName = 'yousabte_melova';
+    $dbUser = 'yousabte_melova';
+    $dbPass = '91vFeX*VpD_;';
 
-        $dbHost = $credential->db_host ?? '192.185.41.219';
-        $dbName = $credential->db_name ?? 'automation';
-        $dbUser = $credential->db_username ?? 'root';
-        $dbPass = $credential->db_password ?? '';
-
-        // Step 1: Configure dynamic connection
-        config([
+            config([
             'database.connections.dynamic' => [
                 'driver' => 'mysql',
                 'host' => $dbHost,
@@ -869,57 +845,43 @@ foreach ($translationData as $locale => $fields) {
             ],
         ]);
 
-        DB::purge('dynamic');
-        DB::reconnect('dynamic');
-        DB::connection('dynamic')->statement('USE ' . $dbName);
+    DB::purge('dynamic');
+    DB::reconnect('dynamic');
+    DB::connection('dynamic')->statement('USE ' . $dbname);
 
-        // Step 2: Get all table names
-        $allTables = DB::connection('dynamic')->table('INFORMATION_SCHEMA.COLUMNS')
-            ->select('TABLE_NAME')
-            ->where('TABLE_SCHEMA', $dbname)
-            ->distinct()
-            ->orderBy('TABLE_NAME')
-            ->pluck('TABLE_NAME');
-
-        // Step 3: Get blocked tables filtered by dbname
-        try {
-            $blockedTables = DB::connection('dynamic')->table('blocked_modules')
-                ->pluck('table_name');
-        } catch (\Exception $e) {
-            $blockedTables = collect();
+    // Step 2: Get allowed tables directly from admin permissions
+    $allowedTables = collect();
+    if (auth('admin_api')->check()) {
+        $admin = auth('admin_api')->user();
+        if (!empty($admin->permissions)) {
+            $decoded = json_decode($admin->permissions, true);
+            if (is_array($decoded)) {
+                $allowedTables = collect($decoded);
+            }
         }
-
-        // Step 4: Filter tables
-        $filteredTables = $allTables
-            ->diff($blockedTables)
-            ->reject(function ($table) {
-                return str_ends_with($table, '_translations') && $table !== 'mapping_translations';
-            })
-            ->values();
-
-        // Step 5: Return as array of objects
-        $structuredTables = $filteredTables->map(function ($table) {
-            return ['TABLE_NAME' => $table];
-        });
-
-        return response()->json([
-            'success' => trans('general.sent_successfully'),
-            'tables' => $structuredTables,
-        ]);
     }
+
+    // Step 3: Format as array of objects with "TABLE_NAME" key
+    $formattedTables = $allowedTables->map(function ($table) {
+        return ['TABLE_NAME' => $table];
+    })->values();
+
+    return response()->json([
+        'success' => trans('general.sent_successfully'),
+        'tables' => $formattedTables,
+    ]);
+}
+
 
 
 
 
     public function allTableNames($dbname,$admin_id=null)
     {
-        // Step 0: Get DB credentials
-        $credential = DBCredential::where('db_name', $dbname)->first();
-
-        $dbHost = $credential->db_host ?? '192.185.41.219';
-        $dbName = $credential->db_name ?? 'automation';
-        $dbUser = $credential->db_username ?? 'root';
-        $dbPass = $credential->db_password ?? '';
+   $dbHost = '192.185.41.219';
+    $dbName = 'yousabte_melova';
+    $dbUser = 'yousabte_melova';
+    $dbPass = '91vFeX*VpD_;';
 
         // Step 1: Configure dynamic connection
         config([
@@ -950,7 +912,6 @@ foreach ($translationData as $locale => $fields) {
             ->pluck('TABLE_NAME');
 
 
-
                   // Step 3: Get blocked tables filtered by dbname
         try {
             if (isset($admin_id)) {
@@ -958,7 +919,7 @@ foreach ($translationData as $locale => $fields) {
                 $permissions = DB::connection('dynamic')
                     ->table('admins')
                     ->where('id', $admin_id)
-                    ->value('reactPermissions');
+                    ->value('permissions');
 
                 // Decode JSON safely
                 $blockedTables = collect(json_decode($permissions, true) ?? []);
@@ -1006,15 +967,18 @@ foreach ($translationData as $locale => $fields) {
 
     public function blockTables(Request $request, $dbname)
     {
-        $credential = DBCredential::where('db_name', $dbname)->firstOrFail();
+            $dbHost = '192.185.41.219';
+            $dbName = 'yousabte_melova';
+            $dbUser = 'yousabte_melova';
+            $dbPass = '91vFeX*VpD_;';
 
         config([
             'database.connections.dynamic' => [
                 'driver' => 'mysql',
-                'host' => $credential->db_host,
-                'database' => $credential->db_name,
-                'username' => $credential->db_username,
-                'password' => $credential->db_password,
+                'host' => $dbHost,
+                'database' => $dbName,
+                'username' => $dbUser,
+                'password' => $dbPass,
                 'charset' => 'utf8mb4',
                 'collation' => 'utf8mb4_unicode_ci',
             ],
@@ -1031,7 +995,7 @@ foreach ($translationData as $locale => $fields) {
             DB::connection('dynamic')->table('admins')
                 ->where('id', $request->admin_id)
                 ->update([
-                    'reactPermissions' => $permissions,
+                    'permissions' => $permissions,
                     'updated_at' => now(),
                 ]);
 
@@ -1062,16 +1026,18 @@ foreach ($translationData as $locale => $fields) {
 public function getAdmins($dbname)
 {
     try {
-        $credential = DBCredential::where('db_name', $dbname)->firstOrFail();
+            $dbHost = '192.185.41.219';
+            $dbName = 'yousabte_melova';
+            $dbUser = 'yousabte_melova';
+            $dbPass = '91vFeX*VpD_;';
 
-        // Configure connection dynamically
         config([
             'database.connections.dynamic' => [
                 'driver' => 'mysql',
-                'host' => $credential->db_host,
-                'database' => $credential->db_name,
-                'username' => $credential->db_username,
-                'password' => $credential->db_password,
+                'host' => $dbHost,
+                'database' => $dbName,
+                'username' => $dbUser,
+                'password' => $dbPass,
                 'charset' => 'utf8mb4',
                 'collation' => 'utf8mb4_unicode_ci',
             ],
@@ -1097,18 +1063,5 @@ public function getAdmins($dbname)
         ], 500);
     }
 }
-
-
-
-
-    public function databases()
-    {
-        return response()->json([
-            'success' => trans('general.sent_successfully'),
-            'databases' => databases(),
-        ]);
-    }
-
-
 
 }
