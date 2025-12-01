@@ -26,7 +26,7 @@ class ProductResource extends JsonResource
             "byOneGetOne" => $this->byOneGetOne,
             "discount" => $this->discount,
             
-            "applyOffer" => $this->discount > 0 ? $this->discount .'% off'
+            "applyOffer" => $this->discount > 0 ? $this->discount .' off'
                 : ($this->byOneGetOne
                 ? 'Buy 1 Get 1'
                 : null),
