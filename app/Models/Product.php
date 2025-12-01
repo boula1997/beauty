@@ -23,8 +23,7 @@ class Product extends Model implements TranslatableContract
         $originalPrice = $value;
 
         if ($this->discount && $this->discount > 0) {
-            $discountAmount = ($originalPrice * $this->discount) / 100;
-            return $originalPrice - $discountAmount;
+            return $originalPrice - $this->discount;
         }
 
         
