@@ -30,7 +30,7 @@ class CategoryResource extends JsonResource
                     "byOneGetOne" => $product->byOneGetOne,
                     "discount" => $product->discount,
                     
-                    "applyOffer" => $product->discount > 0 ? $product->discount .'off'
+                    "applyOffer" => $product->discount > 0 ? $product->discount .' off'
                         : ($product->byOneGetOne
                         ? 'Buy 1 Get 1'
                         : null),
