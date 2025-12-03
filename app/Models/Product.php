@@ -95,6 +95,7 @@ class Product extends Model implements TranslatableContract
                 'colors' => $variations->map(function ($variation) {
                     return [
                         'id'       => $variation->color->id,
+                        'title'       => $variation->color->title,
                         'hexCode'    => $variation->color->hexCode,
                         'quantity' => $variation->quantity,
                     ];

@@ -6,13 +6,16 @@ use App\Traits\MorphFile;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
+use Astrotomic\Translatable\Translatable;
 
 
-
-class Color extends Model 
+class Color extends Model implements TranslatableContract
 {
-    use HasFactory, MorphFile;
+    use HasFactory, MorphFile,Translatable;
     protected $table = 'colors';
+    public $translatedAttributes = ['title',];
+
     protected $guarded = [];
     public $timestamps = true;
 
