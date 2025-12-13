@@ -99,6 +99,11 @@ class OrderController extends Controller
                 // }
             }
 
+                dd([
+                    '40',
+                    $request->paymentMethod
+                ]);
+                
             if( ($request->paymentMethod=="wallet") || ($request->paymentMethod=="instapay" || ($request->paymentMethod=="cash_on_delivery" )) )
             {
                 // Check if user has enough balance
