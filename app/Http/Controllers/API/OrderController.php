@@ -70,6 +70,11 @@ class OrderController extends Controller
                 $data['payment_name'] ="stc_pay";
             }
 
+            else if($request->paymentMethod=="cash_on_delivery"){
+                $data['payment_method'] ="cash_on_delivery";
+                $data['payment_name'] ="cash_on_delivery";
+            }
+
             $user = auth('api')->user();
             $data['user_id'] = $user->id;
             // Validating finished offers and out-of-stock items
@@ -94,7 +99,7 @@ class OrderController extends Controller
                 // }
             }
 
-            if( ($request->paymentMethod=="wallet") || ($request->paymentMethod=="instapay") )
+            if( ($request->paymentMethod=="wallet") || ($request->paymentMethod=="instapay" || ($request->paymentMethod=="cash_on_delivery" )) )
             {
                 // Check if user has enough balance
                 // if ($user->balance < cart()->getTotal()) {
