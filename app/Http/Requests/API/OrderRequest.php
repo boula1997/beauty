@@ -31,6 +31,8 @@ class OrderRequest extends FormRequest
             'name' => 'string|required',
             'phone' => 'required',
             'email' => 'email|required',
+            'shipping_id' => 'required|exists:shippings,id',
+
         ];
     }
 

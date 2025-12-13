@@ -357,7 +357,7 @@ if (!function_exists('checkoutData()')) {
     {
         $discount = 0;
         $total = cart()->getTotal();
-        $delivery = 8;
+        $delivery = 0;
         $allTotal=0;
         // Calculate discount
         foreach (cart()->getItems() as $item) {
@@ -387,7 +387,7 @@ if (!function_exists('checkoutData()')) {
                 ],
                 [
                     'key' => __('general.Total'),
-                    'value' => $total+8,
+                    'value' => $total+$delivery,
                 ],
             ]
         ];
@@ -395,12 +395,13 @@ if (!function_exists('checkoutData()')) {
 
 
 }
+
 if (!function_exists('orderCheckoutData()')) {
 
     function orderCheckoutData($order)
     {
         $discount = 0;
-        $delivery = 8;
+        $delivery = $order->shipping->fee;
         $allTotal=0;
         $subTotal = 0;
 

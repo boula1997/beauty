@@ -11,6 +11,7 @@ use App\Models\Order;
 use App\Models\Orderproduct;
 use App\Models\ProductVariation;
 use App\Models\Product;
+use App\Models\Shipping;
 use App\Models\Transaction;
 use Carbon\Carbon;
 use Exception;
@@ -49,7 +50,8 @@ class OrderController extends Controller
             loadUserCart(auth()->user()->id);
 
             $data = $request->except('color', 'size','paymentMethod','flexRadioDefault','address_id','image');
-            $data['total'] = cart()->getTotal();
+            $shipping=Shipping::find($request->shipping_id);
+            $data['total'] = cart()->getTotal() + $shipping->fee;
             $data['address'] = $request->address;
             if($request->paymentMethod=="wallet"){
                 $data['payment_method'] ="wallet";
