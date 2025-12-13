@@ -104,7 +104,6 @@ class OrderController extends Controller
                 // Check if user has enough balance
                 // if ($user->balance < cart()->getTotal()) {
 
-                dd($request->paymentMethod);
                 //  return failedResponse(__('general.noEnoughBalance'));
 
                 // }
@@ -126,12 +125,6 @@ class OrderController extends Controller
                 return response()->json(['success' => __('general.sent_successfully'), 'order'=>new OrderResource($order)]);
             }
             else{
-
-                dd([
-                    '50',
-                    $request->paymentMethod
-                ]);
-                
 
                 return successResponse();
             }
