@@ -62,7 +62,7 @@ trait HandlesOrders
             }
 
              // transactions
-            if ( ($data['payment_method'] == "wallet") || ($data['payment_method'] == "instapay") ) {
+            if ( ($data['payment_method'] == "wallet") || ($data['payment_method'] == "instapay") || ($data['payment_method'] == "cash_on_delivery")) {
                 $paymentId = Str::uuid();
                 
                 $order->update(['transaction_reference'=>$paymentId]);
