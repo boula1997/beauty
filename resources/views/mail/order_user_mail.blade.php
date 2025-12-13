@@ -257,7 +257,7 @@
                                                     {{ __('general.subtotal') }}</td>
                                                 <td
                                                     style="text-align: right;font-size: 15px;font-weight: 400;padding: 15px 0;border-bottom: 1px solid rgba(217, 217, 217, 0.5);">
-                                                    {{ $order->total - settings()->shipping }} ج.م</td>
+                                                    {{ $order->total -  $order->shipping->fee }} ج.م</td>
                                             </tr>
                                             <tr>
                                                 <td
