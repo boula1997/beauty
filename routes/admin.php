@@ -23,6 +23,7 @@ use App\Http\Controllers\Admin\MerchantRequestController;
 use App\Http\Controllers\API\ProjectController;
 use App\Http\Controllers\Admin\ProductSizeController;
 use App\Http\Controllers\Admin\ServiceController;
+use App\Http\Controllers\Admin\ShippingController;
 use App\Http\Controllers\Admin\SizeController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\StoreController;
@@ -100,6 +101,7 @@ Route::group(
                 Route::resource('productRequests', ProductController::class);
                 Route::resource('orders', OrderController::class);
                 Route::resource('messages', MessageController::class);
+                Route::resource('shippings', ShippingController::class);
                 Route::resource('merchantRequests', MerchantRequestController::class);
                 
                 Route::get('/merchantRequest/reject/{id}', [MerchantRequestController::class, 'reject'])->name('merchantRequests.reject');

@@ -34,6 +34,7 @@ use App\Http\Controllers\API\SubcategoryController;
 use App\Http\Controllers\API\SupportController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\API\AdminAuthController;
+use App\Http\Controllers\API\ShippingController;
 use App\Http\Controllers\API\SliderController;
 use App\Http\Controllers\API\TeamController;
 
@@ -98,6 +99,9 @@ Route::group(['middleware' => ['apiLocalization','cors']], function () {
 
     Route::get('/colors', [ColorController::class, 'index']);
     Route::get('/color/{id}', [ColorController::class, 'show']);
+
+    Route::get('/shippings', [ShippingController::class, 'index']);
+    Route::get('/shipping/{id}', [ShippingController::class, 'show']);
 
     Route::get('/sliders', [SliderController::class, 'index']);
     Route::get('/slider/{id}', [SliderController::class, 'show']);
