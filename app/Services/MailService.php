@@ -25,7 +25,7 @@ class MailService
             $mail->CharSet = 'UTF-8'; // Ensure UTF-8 encoding for subject and body
 
             // Email settings
-            $mail->setFrom('info@fioriflower.site', 'Fiori Flower'); // From email and name
+            $mail->setFrom('info@melovaeg.com', 'Melova'); // From email and name
             $mail->addAddress($to, $toName); // Recipient's email and name
 
             $mail->isHTML(true); // Email format to HTML
