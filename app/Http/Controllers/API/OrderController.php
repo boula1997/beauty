@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\HyperpayController;
 use App\Http\Requests\API\OrderRequest;
 use App\Http\Resources\OrderDetailsResource;
+use App\Http\Resources\OrderProductResource;
 use App\Http\Resources\OrderResource;
 use App\Models\Order;
 use App\Models\Orderproduct;
@@ -36,7 +37,7 @@ class OrderController extends Controller
 
     public function __construct(Order $order, Orderproduct $orderproduct)
     {
-        $this->middleware('auth:api', ['except' => ['index','reasons','orderStatus']]);
+        $this->middleware('auth:api', ['except' => ['index','reasons','orderStatus','allIndex','allShow','updateOrder']]);
         $this->order = $order;
         $this->orderproduct = $orderproduct;
     }
@@ -350,4 +351,167 @@ class OrderController extends Controller
             return failedResponse($e->getMessage());
         }
     }
+
+
+
+    public function allIndex(Request $request)
+    {
+        try {
+            $validator = Validator::make($request->all(), [
+                'per_page' => 'integer|min:1|max:100',
+            ]);
+    
+            if ($validator->fails()) {
+                $errors = $validator->errors()->toArray();
+                $errors['message'] = 'Validation Error';
+                return response()->json(['errors' => $errors], 420);
+            }
+            
+            $perPage = $request->input('per_page', 10);
+            
+           
+            $orders =  $this->order->latest()->paginate($perPage);
+
+            $data = $orders->map(function($order) {
+                return [
+                    'id' => $order->id,
+                    'name' => $order->name,
+                    'email' => $order->email,
+                    'phone' => $order->phone,
+                    'user_name' => $order->user->fullname ?? null, 
+                    'total' => $order->total,
+                    'status' => $order->status,
+                    // 'cancelReason' => $order->cancelReason,
+                    'payment_method' => $order->payment_method,
+                    'payment_status' => $order->payment_status,
+                    // 'payment_name' => $order->payment_name,
+                    // 'paid_at' => $order->paid_at,
+                    // 'cancelled_by' => $order->cancelled_by,
+                    // 'pending_at' => $order->pending_at,
+                    // 'in_processing_at' => $order->in_processing_at,
+                    // 'cancelled_at' => $order->cancelled_at,
+                    // 'shipped_at' => $order->shipped_at,
+                    // 'out_for_delivery_at' => $order->out_for_delivery_at,
+                    // 'delivered_at' => $order->delivered_at,
+                    // 'returned_at' => $order->returned_at,
+                    // 'address' => $order->address,
+                    // 'shipping_id' => $order->shipping_id,
+                    // 'notice' => $order->notice,
+                ];
+            });
+                        
+            $pagination = [
+                'current_page' => $orders->currentPage(),
+                'per_page' => $orders->perPage(),
+                'last_page' => $orders->lastPage(),
+                'total_items' => $orders->total(),
+            ];
+            
+            return response()->json(['pagination' => $pagination, 'data' => $data], 200);
+            
+        } catch (Exception $e) {
+            dd($e->getMessage());
+            return redirect()->back()->with(['error' => __('general.something_wrong')]);
+        }
+    }
+
+
+    public function allShow($id)
+    {
+        try {         
+           
+            $order =  $this->order->find($id);
+
+            if (!$order) {
+                return response()->json(['error' => 'Order not found'], 404);
+            }
+
+            $orderData = [
+                'id' => $order->id,
+                'name' => $order->name,
+                'email' => $order->email,
+                'phone' => $order->phone,
+                'user_name' => $order->user->fullname ?? null, 
+                'total' => $order->total,
+                'status' => $order->status,
+                'cancelReason' => $order->cancelReason,
+                'payment_method' => $order->payment_method,
+                'payment_status' => $order->payment_status,
+                'payment_name' => $order->payment_name,
+                'paid_at' => $order->paid_at,
+                'cancelled_by' => $order->cancelled_by,
+                'pending_at' => $order->pending_at,
+                'in_processing_at' => $order->in_processing_at,
+                'cancelled_at' => $order->cancelled_at,
+                'shipped_at' => $order->shipped_at,
+                'out_for_delivery_at' => $order->out_for_delivery_at,
+                'delivered_at' => $order->delivered_at,
+                'returned_at' => $order->returned_at,
+                'address' => $order->address,
+                'shipping_id' => $order->shipping_id,
+                'notice' => $order->notice,
+                "orderproducts" => OrderProductResource::collection($order->orderproducts),
+            ];
+    
+            return response()->json(['order' => $orderData], 200);
+                                    
+        } catch (Exception $e) {
+            dd($e->getMessage());
+            return redirect()->back()->with(['error' => __('general.something_wrong')]);
+        }
+    }
+
+    public function updateOrder(Request $request, $id)
+    {
+        try {
+            // 1. Validate input
+            $validator = Validator::make($request->all(), [
+                'name'    => 'nullable|string|max:191',
+                'phone'   => 'nullable|string|max:50',
+                'email'   => 'nullable|email|max:191',
+                'address' => 'nullable|string|max:500',
+                'status'  => 'nullable|in:pending,in_processing,cancelled,shipped,out_for_delivery,delivered,refunded,returned',
+            ]);
+            
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'errors'  => $validator->errors(),
+                    'message' => 'Validation Error'
+                ], 420);
+            }
+    
+            // ✅ هنا الداتا الصح
+            $validated = $validator->validated();
+            // 2. Find the order
+            $order = Order::find($id);
+            if (!$order) {
+                return response()->json(['error' => 'Order not found'], 404);
+            }
+
+            // 3. Update status timestamp if status is provided
+            if (isset($validated['status'])) {
+                $statusField = $validated['status'] . '_at';
+                $order->$statusField = now();
+            }
+
+            // 4. Update other fields
+            $order->update([
+                'name'    => $validated['name']?? null,
+                'phone'   => $validated['phone']?? null,
+                'email'   => $validated['email']?? null,
+                'address' => $validated['address'] ?? $order->address,
+                'status'  => $validated['status'] ?? $order->status,
+            ]);
+
+            // 5. Return success response
+            return response()->json(['success' => true, 'order' => $order], 200);
+
+        }  catch (Exception $e) {
+            dd($e->getMessage());
+            return redirect()->back()->with(['error' => __('general.something_wrong')]);
+        }
+    }
+
+
 }

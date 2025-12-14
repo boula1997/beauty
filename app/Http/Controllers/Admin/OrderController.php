@@ -7,6 +7,7 @@ use App\Http\Controllers\HyperpayController;
 use App\Http\Requests\API\OrderRequest as APIOrderRequest;
 use App\Http\Requests\OrderRequest;
 use App\Http\Requests\OrderRequest as RequestsOrderRequest;
+use App\Http\Resources\OrderResource;
 use App\Mail\OrderAdminMail;
 use App\Mail\OrderMail;
 use App\Models\Order;
@@ -50,7 +51,6 @@ class OrderController extends Controller
             return redirect()->back()->with(['error' => __('general.something_wrong')]);
         }
     }
-
 
     /**
      * Display the specified resource.

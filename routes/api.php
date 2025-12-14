@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AboutController as ControllersAboutController;
+use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 use App\Http\Controllers\API\ChooseUsController;
 use App\Http\Controllers\API\AboutController;
 use App\Http\Controllers\API\AddressController;
@@ -135,6 +136,10 @@ Route::group(['middleware' => ['apiLocalization','cors']], function () {
 
     Route::get('/services', [ServiceController::class, 'index']);
     Route::get('/service/{id}', [ServiceController::class, 'show']);
+
+    Route::get('/all/orders', [OrderController::class, 'allIndex']);
+    Route::get('/all/order/{id}', [OrderController::class, 'allShow']);
+    Route::post('/update/order/{id}', [OrderController::class, 'updateOrder']);
 });
 
     // Config
