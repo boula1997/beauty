@@ -37,7 +37,7 @@ class OrderController extends Controller
 
     public function __construct(Order $order, Orderproduct $orderproduct)
     {
-        $this->middleware('auth:api', ['except' => ['index','reasons','orderStatus','allIndex','allShow','updateOrder']]);
+        $this->middleware('auth:api', ['except' => ['index','reasons','orderStatus','allIndex','allShow','updateOrder','deleteOrder']]);
         $this->order = $order;
         $this->orderproduct = $orderproduct;
     }
@@ -508,6 +508,30 @@ class OrderController extends Controller
             return response()->json(['success' => true, 'order' => $order], 200);
 
         }  catch (Exception $e) {
+            dd($e->getMessage());
+            return redirect()->back()->with(['error' => __('general.something_wrong')]);
+        }
+    }
+
+
+    public function deleteOrder($id)
+    {
+        try {         
+           
+            $order =  $this->order->find($id);
+
+            if (!$order) {
+                return response()->json(['error' => 'Order not found'], 404);
+            }
+    
+            $order->delete();
+
+            return response()->json([
+                'status' => true,
+                'message' => __('general.order_deleted_successfully'),
+            ], 200);
+
+        } catch (Exception $e) {
             dd($e->getMessage());
             return redirect()->back()->with(['error' => __('general.something_wrong')]);
         }

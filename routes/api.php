@@ -140,6 +140,9 @@ Route::group(['middleware' => ['apiLocalization','cors']], function () {
     Route::get('/all/orders', [OrderController::class, 'allIndex']);
     Route::get('/all/order/{id}', [OrderController::class, 'allShow']);
     Route::post('/update/order/{id}', [OrderController::class, 'updateOrder']);
+
+    Route::delete('orders/{id}', [OrderController::class, 'deleteOrder']);
+
 });
 
     // Config
