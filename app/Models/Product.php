@@ -82,28 +82,23 @@ class Product extends Model implements TranslatableContract
        return $variation;
    }
 
-   public function getSizesWithColors()
+public function getColors()
 {
     return $this->productVariations
-        ->groupBy('size_id')
-        ->map(function ($variations, $sizeId) {
-            $size = $variations->first()->size;
+        ->groupBy('color_id')
+        ->map(function ($variations) {
+            $color = $variations->first()->color;
 
             return [
-                'id'     => $size->id,
-                'title'  => $size->title,
-                'colors' => $variations->map(function ($variation) {
-                    return [
-                        'id'       => $variation->color->id,
-                        'title'       => $variation->color->title,
-                        'hexCode'    => $variation->color->hexCode,
-                        'quantity' => $variation->quantity,
-                    ];
-                })->values(),
+                'id'       => $color->id,
+                'title'    => $color->title,
+                'hexCode'  => $color->hexCode,
+                'quantity' => $variations->sum('quantity'),
             ];
         })
         ->values();
 }
+
 
 
 

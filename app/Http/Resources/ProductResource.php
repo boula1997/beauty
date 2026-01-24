@@ -32,7 +32,7 @@ class ProductResource extends JsonResource
                 : null),
         
             "price" => $this->price,
-            'sizes' => $this->getSizesWithColors(),
+            'sizes' => $this->getColors(),
             
             "category" => new CategoryResource($this->category),
             // "subcategory" => new SubcategoryResource($this->subcategory),
