@@ -76,8 +76,10 @@ class CartController extends Controller
             // $variation=ProductVariation::where('product_id',$product->id)->where('color_id',$request->color_id)->where('size_id',$request->size_id)->first();
             // $uniqueId = $id . '-' . $request->color_id.'c'.$request->size_id.'s';
 
-
-            
+        $color = $request->filled('color_id')
+            ? Color::find($request->color_id)
+            : null;
+                    
              
             $item = $this->cart->addItem([
                 'model' => $product,
@@ -88,8 +90,7 @@ class CartController extends Controller
                 'options' => [
                     'color' => $request->color_id,
                     'size' => $request->size_id,
-                    'colorTitle' => Color::find($request->color_id)->title,
-                    'sizeTitle' => Size::find($request->size_id)->title,
+                    'colorTitle' => $color ? $color->title : null,
                     // 'offer_id' => $product->productOffer_id,
                     // 'validOffer' => validOffer($product->productOffer),
                 ],
