@@ -190,7 +190,7 @@ Route::group([
     Route::get('/checkout', [CartController::class, 'checkout']);
     Route::post('/add/cart', [CartController::class,'addToCart']);
     Route::post('/remove/cart', [CartController::class,'removeItemCart']);
-    Route::post('/update/item/count', [CartController::class,'updateItemCount']);
+    Route::post('/cart/update', [CartController::class,'updateItemCount']);
     Route::post('/order/store', [OrderController::class,'store']);
     Route::get('/orders', [OrderController::class,'getOrders']);
     Route::get('/order/{id}', [OrderController::class,'show']);
