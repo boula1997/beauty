@@ -85,7 +85,7 @@ class CartController extends Controller
                 'quantity' => 1,
                 'options' => [
                     'color' => $request->color_id,
-                    'colorTitle' => Color::find($request->color_id)->title,
+
                 ],
               
             ]);
