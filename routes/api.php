@@ -166,7 +166,8 @@ Route::post('/message', [MessageController::class, 'store']);
     Route::get('/tables', [GeneralController::class, 'tableNames']);
 
 
-
+// routes/api.php
+Route::post('auth/guest-login', [AuthController::class, 'guestLogin']);
 
 Route::group([
     'middleware' => 'api',

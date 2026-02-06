@@ -10,6 +10,9 @@ use Illuminate\Validation\ValidationException;
 use Illuminate\Http\JsonResponse;
 use Validator;
 use App\Notifications\OtpNotification;
+use Illuminate\Support\Str;
+
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -19,7 +22,7 @@ class AuthController extends Controller
      * @return void
      */
     public function __construct() {
-        $this->middleware('auth:api', ['except' => ['login', 'register','socialLogin','verifyOtp']]);
+        $this->middleware('auth:api', ['except' => ['login', 'register','socialLogin','verifyOtp','guestLogin']]);
     }
     /**
      * Get a Passport via given credentials.
@@ -63,6 +66,34 @@ class AuthController extends Controller
         return failedResponse(__('general.invalid_credentials'));
 
     }
+
+
+    public function guestLogin(Request $request)
+{
+    // Create guest user
+    $user = User::create([
+        'fullname' => 'Guest User',
+        'email' => 'guest_' . Str::uuid() . '@melova.local',
+        'password' => Hash::make(Str::random(40)),
+        'status' => 1,
+        'is_verified' => 0,
+        'balance' => 0,
+        'cart' => json_encode([]),
+    ]);
+
+    // Generate Passport token (CORRECT)
+    $token = $user->createToken('Guest Token')->accessToken;
+
+    return response()->json([
+        'success' => true,
+        'token' => $token,
+        'user' => [
+            'id' => $user->id,
+            'fullname' => $user->fullname,
+            'is_guest' => true,
+        ],
+    ]);
+}
 
 
     public function socialLogin(Request $request)
