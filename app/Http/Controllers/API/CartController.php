@@ -73,26 +73,19 @@ class CartController extends Controller
             updateUserCart();
             
             $product = $this->product->findorfail($id);
-            // $variation=ProductVariation::where('product_id',$product->id)->where('color_id',$request->color_id)->where('size_id',$request->size_id)->first();
-            // $uniqueId = $id . '-' . $request->color_id.'c'.$request->size_id.'s';
 
-        $color = $request->filled('color_id')
-            ? Color::find($request->color_id)
-            : null;
-                    
+
+            
              
             $item = $this->cart->addItem([
                 'model' => $product,
                 'id' => $product->id, 
                 'title' => $product->title,
                 'price' => $product->price,
-                'quantity' => $request->quantity??1,
+                'quantity' => 1,
                 'options' => [
                     'color' => $request->color_id,
-                    'size' => $request->size_id,
-                    'colorTitle' => $color ? $color->title : null,
-                    // 'offer_id' => $product->productOffer_id,
-                    // 'validOffer' => validOffer($product->productOffer),
+                    'colorTitle' => Color::find($request->color_id)->title,
                 ],
               
             ]);
