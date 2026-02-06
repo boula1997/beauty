@@ -82,7 +82,7 @@ class CartController extends Controller
                 'id' => $product->id, 
                 'title' => isset($product)?$product->title:'',
                 'price' => $product->price,
-                'quantity' => 1,
+                'quantity' => $request->quantity ?? 1,
                 'options' => [
                     'color' => $request->color_id,
                 ],
