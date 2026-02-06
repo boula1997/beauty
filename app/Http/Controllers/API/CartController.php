@@ -80,12 +80,11 @@ class CartController extends Controller
             $item = $this->cart->addItem([
                 'model' => $product,
                 'id' => $product->id, 
-                'title' => $product->title,
+                'title' => isset($product)?$product->title:'',
                 'price' => $product->price,
                 'quantity' => 1,
                 'options' => [
                     'color' => $request->color_id,
-
                 ],
               
             ]);
