@@ -49,7 +49,6 @@ class OrderController extends Controller
         try {
             cart()->clearItems();
             loadUserCart(auth()->user()->id);
-
             $data = $request->except('color', 'size','paymentMethod','flexRadioDefault','address_id','image');
             $shipping=Shipping::find($request->shipping_id);
             $data['total'] = cart()->getTotal() + $shipping->fee;
