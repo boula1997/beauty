@@ -26,7 +26,6 @@ trait HandlesOrders
                 $product = Product::find($productId);
 
                 $variation = ProductVariation::where('color_id', $item->get('options')["color"])
-                ->where('size_id', $item->get('options')["size"])
                 ->where('product_id', strtok($item->getId(), '-'))
                 ->first();
 
