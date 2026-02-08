@@ -33,18 +33,33 @@ class CategoryController extends Controller
         }
     }
 
-    public function show($id)
-    {
-        try {
-            $category=$this->category->findorfail($id);
-            $data['category'] = new CategoryResource($category);
-            $data['products'] = ProductResource::collection($category->products);
-            return successResponse($data);
-        } catch (Exception $e) {
+public function show($id)
+{
+    try {
+        $category = $this->category->findOrFail($id);
 
-            return failedResponse($e->getMessage());
-        }
+        // paginate category products
+        $products = $category->products()->latest()->paginate(12);
+
+        $data['category'] = new CategoryResource($category);
+        $data['products'] = ProductResource::collection($products);
+
+        // pagination meta
+        $data['pagination'] = [
+            'total' => $products->total(),
+            'per_page' => $products->perPage(),
+            'current_page' => $products->currentPage(),
+            'last_page' => $products->lastPage(),
+            'from' => $products->firstItem(),
+            'to' => $products->lastItem(),
+        ];
+
+        return successResponse($data);
+    } catch (Exception $e) {
+        return failedResponse($e->getMessage());
     }
+}
+
 
     public function categoryProducts(Request $request)
     {
