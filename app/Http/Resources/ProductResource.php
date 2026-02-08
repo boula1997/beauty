@@ -38,34 +38,27 @@ class ProductResource extends JsonResource
             // "subcategory" => new SubcategoryResource($this->subcategory),
             'isFavourite' => $user ? $this->isFavoritedByUser($user->id) : false,
             
-            "relatedProducts" => $this->category
-            ? $this->category->products()
-                ->where('id', '!=', $this->id)
-                ->latest()
-                ->take(4)
-                ->get()
-                ->map(function ($related) {
-                    return [
-                        "id" => $related->id,
-                        "image" => $related->image,
-                        "images" => $related->images,
-                        "title" => $related->title,
-                        "description" => strip_tags($related->description),
-                        "SKU" => $related->SKU,
-                        // "is_addition" => $related->is_addition,
-                        "rate" => $related->rate,
-                        "price" => $related->price,
-                        "quantity" => $related->quantity,
-                        "category" => $related->category
-                            ? new CategoryResource($related->category)
-                            : null,
-                        "subcategory" => $related->subcategory
-                            ? new SubcategoryResource($related->subcategory)
-                            : null,
-                    ];
-                })
-                
-            : [],
+"relatedProducts" => $this->category
+    ? $this->category->products
+        ->where('id', '!=', $this->id) // use collection filter, no extra query
+        ->take(4)
+        ->map(function ($related) {
+            return [
+                "id" => $related->id,
+                "image" => $related->image,
+                "images" => $related->images,
+                "title" => $related->title,
+                "description" => strip_tags($related->description),
+                "SKU" => $related->SKU,
+                "rate" => $related->rate,
+                "price" => $related->price,
+                "quantity" => $related->quantity,
+                "category" => $related->category ? new CategoryResource($related->category) : null,
+                "subcategory" => $related->subcategory ? new SubcategoryResource($related->subcategory) : null,
+            ];
+        })
+    : [],
+
         ];
     }
 }
