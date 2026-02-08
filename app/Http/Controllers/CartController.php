@@ -68,7 +68,6 @@ class CartController extends Controller
                     'size' => $size,
                     'variation_id' => $variation->id,
                     'colorTitle' => Color::find($color)->title,
-                    'sizeTitle' => Size::find($size)->title,
                     'offer_id' => $product->productOffer_id,
                     'validOffer' => validOffer($product->productOffer),
                 ],
