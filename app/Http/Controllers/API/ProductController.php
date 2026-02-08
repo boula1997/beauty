@@ -26,17 +26,31 @@ class ProductController extends Controller
         $this->product = $product;
     }
 
-    public function index()
-    {
-        try {
-            $query=$this->product;
-            $data['products'] = ProductResource::collection($this->product->latest()->get());
-            return successResponse($data);
-        } catch (Exception $e) {
+public function index()
+{
+    try {
+        // Paginate products, 12 per page (adjust as needed)
+        $products = $this->product->latest()->paginate(12);
 
-            return failedResponse($e->getMessage());
-        }
+        // Wrap paginated results in resource
+        $data['products'] = ProductResource::collection($products);
+
+        // Include pagination meta automatically
+        $data['pagination'] = [
+            'total' => $products->total(),
+            'per_page' => $products->perPage(),
+            'current_page' => $products->currentPage(),
+            'last_page' => $products->lastPage(),
+            'from' => $products->firstItem(),
+            'to' => $products->lastItem(),
+        ];
+
+        return successResponse($data);
+    } catch (Exception $e) {
+        return failedResponse($e->getMessage());
     }
+}
+
 
     public function isAdditionndex()
     {
