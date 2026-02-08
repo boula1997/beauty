@@ -40,7 +40,8 @@ class ProductResource extends JsonResource
             
 "relatedProducts" => $this->category
     ? $this->category->products
-        ->where('id', '!=', $this->id) // use collection filter, no extra query
+        ->where('id', '!=', $this->id) // collection filter, no query
+        ->sortByDesc('id')             // equivalent to latest()
         ->take(4)
         ->map(function ($related) {
             return [
@@ -57,7 +58,9 @@ class ProductResource extends JsonResource
                 "subcategory" => $related->subcategory ? new SubcategoryResource($related->subcategory) : null,
             ];
         })
+        ->values() // optional, reindex
     : [],
+
 
         ];
     }

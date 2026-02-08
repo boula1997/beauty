@@ -49,28 +49,23 @@ class ProductController extends Controller
         }
     }
 
-public function show($id)
-{
-    try {
-        // Eager load category + related products + colors + any other relations
-        $product = $this->product->with([
-            'category.products',  // for relatedProducts
-            'subcategory',
-            'colors'              // if getColors() uses relation
-        ])->findOrFail($id);
+        public function show($id)
+        {
+            try {
+                // Eager load only what is a real relation
+                $product = $this->product->with([
+                    'category.products', // for relatedProducts
+                    'subcategory',
+                ])->findOrFail($id);
 
-        $data['product'] = new ProductResource($product);
+                $data['product'] = new ProductResource($product);
 
-        // Optional: remove similarProducts query if you use relatedProducts in the resource
-        // $data["similarProducts"] = ProductResource::collection(
-        //     $this->product->where("category_id", $product->category_id)->get()
-        // );
+                return successResponse($data);
+            } catch (Exception $e) {
+                return failedResponse($e->getMessage());
+            }
+        }
 
-        return successResponse($data);
-    } catch (Exception $e) {
-        return failedResponse($e->getMessage());
-    }
-}
 
 
     public function flashSale(Request $request)
