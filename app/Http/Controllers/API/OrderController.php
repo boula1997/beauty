@@ -83,7 +83,7 @@ class OrderController extends Controller
                 $product = Product::find($item->getId());
 
                 $variation = ProductVariation::where('color_id', $item->get('options')["color"])
-                ->where('size_id', $item->get('options')["size"])
+              
                 ->where('product_id', $product->id)
                 ->first();
 
