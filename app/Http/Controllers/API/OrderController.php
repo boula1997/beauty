@@ -111,6 +111,8 @@ class OrderController extends Controller
                 $data['pending_at'] = Carbon::now();
                 // $data['paid_at'] = Carbon::now();
                 $data['payment_status'] = 'unpaid';
+                $data["name"]=$request->name;
+                $data["whatsapp"]=$request->whatsapp;
                 // Create order
                 $order = $this->createOrderWithProducts($data);
                 $order->uploadFile();
