@@ -29,13 +29,16 @@ class ProductController extends Controller
 public function index()
 {
     try {
-        // Paginate products, 12 per page (adjust as needed)
-        $products = $this->product->latest()->paginate(12);
 
-        // Wrap paginated results in resource
+        $products = $this->product
+            ->whereHas('productVariations', function ($q) {
+                $q->where('count', '>', 0);
+            })
+            ->latest()
+            ->paginate(12);
+
         $data['products'] = ProductResource::collection($products);
 
-        // Include pagination meta automatically
         $data['pagination'] = [
             'total' => $products->total(),
             'per_page' => $products->perPage(),
@@ -46,11 +49,11 @@ public function index()
         ];
 
         return successResponse($data);
+
     } catch (Exception $e) {
         return failedResponse($e->getMessage());
     }
 }
-
 
     public function isAdditionndex()
     {
