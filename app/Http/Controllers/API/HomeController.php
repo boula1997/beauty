@@ -45,9 +45,18 @@ class HomeController extends Controller
     public function index()
     {
         try {
+
+        $products = $this->product
+            ->whereHas('productVariations', function ($q) {
+                $q->where('count', '>', 0);
+            })
+            ->latest()
+            ->paginate(12);
+
+
             $data['slider']= SliderResource ::collection($this->slider->latest()->paginate(10));
             $data['about_section']= new PageResource(page('about'));
-            $data['products'] = HomeProductResource::collection($this->product->latest()->paginate(10));
+            $data['products'] = HomeProductResource::collection($products);
             $data['categories'] = CategoryResource::collection($this->category->latest()->paginate(10));
              
             

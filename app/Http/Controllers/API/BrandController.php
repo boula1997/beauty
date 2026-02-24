@@ -58,7 +58,13 @@ class BrandController extends Controller
             $perPage = $request->input('per_page', 10);
             
             $brand=$this->brand->findorfail($request->brand_id);
-            $products = $brand->products()->paginate($perPage);
+
+            $products = $this->product->where('brand_id', $id)
+            ->whereHas('productVariations', function ($q) {
+                $q->where('count', '>', 0);
+            })
+            ->latest()
+            ->paginate(12); 
             
             $data = HomeProductResource::collection($products);
             

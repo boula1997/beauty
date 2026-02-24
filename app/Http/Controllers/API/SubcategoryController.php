@@ -57,7 +57,13 @@ class SubcategoryController extends Controller
             $perPage = $request->input('per_page', 10);
             
             $subcategory=$this->subcategory->findorfail($request->subcategory_id);
-            $products = $subcategory->products()->paginate($perPage);
+
+            $products = $this->product->where('subcategory_id', $request->subcategory_id)
+            ->whereHas('productVariations', function ($q) {
+                $q->where('count', '>', 0);
+            })
+            ->latest()
+            ->paginate(12); 
             
             $data = ProductResource::collection($products);
             

@@ -39,7 +39,13 @@ public function show($id)
         $category = $this->category->findOrFail($id);
 
         // paginate category products
-        $products = $category->products()->latest()->paginate(12);
+
+        $products = $this->product->where('category_id', $id)
+            ->whereHas('productVariations', function ($q) {
+                $q->where('count', '>', 0);
+            })
+            ->latest()
+            ->paginate(12);
 
         $data['category'] = new CategoryResource($category);
         $data['products'] = ProductResource::collection($products);
@@ -78,7 +84,13 @@ public function show($id)
             $perPage = $request->input('per_page', 10);
             
             $category=$this->category->findorfail($request->category_id);
-            $products = $category->products()->paginate($perPage);
+
+            $products = $this->product->where('category_id', $id)
+            ->whereHas('productVariations', function ($q) {
+                $q->where('count', '>', 0);
+            })
+            ->latest()
+            ->paginate(12);
             
             $data = HomeProductResource::collection($products);
             

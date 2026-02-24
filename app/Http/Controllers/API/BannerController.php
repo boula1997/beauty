@@ -56,7 +56,13 @@ class BannerController extends Controller
             $perPage = $request->input('per_page', 10);
             
             $banner=$this->banner->findorfail($request->banner_id);
-            $products = $banner->products()->paginate($perPage);
+
+            $products = $this->product->where('banner_id', $id)
+            ->whereHas('productVariations', function ($q) {
+                $q->where('count', '>', 0);
+            })
+            ->latest()
+            ->paginate(12);
             
             $data = ProductResource::collection($products);
             
