@@ -59,7 +59,7 @@ class BannerController extends Controller
 
             $products = $this->product->where('banner_id', $id)
             ->whereHas('productVariations', function ($q) {
-                $q->where('count', '>', 0);
+                $q->where('quantity', '>', 0);
             })
             ->latest()
             ->paginate(12);

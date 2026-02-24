@@ -60,7 +60,7 @@ class SubcategoryController extends Controller
 
             $products = $this->product->where('subcategory_id', $request->subcategory_id)
             ->whereHas('productVariations', function ($q) {
-                $q->where('count', '>', 0);
+                $q->where('quantity', '>', 0);
             })
             ->latest()
             ->paginate(12); 

@@ -48,7 +48,7 @@ class HomeController extends Controller
 
         $products = $this->product
             ->whereHas('productVariations', function ($q) {
-                $q->where('count', '>', 0);
+                $q->where('quantity', '>', 0);
             })
             ->latest()
             ->paginate(12);
