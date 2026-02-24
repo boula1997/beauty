@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ProductResource;
 use App\Http\Resources\SubcategoryResource;
+use App\Models\Product;
 use App\Models\Subcategory;
 use Exception;
 use Illuminate\Http\Request;
@@ -14,9 +15,10 @@ use Illuminate\Support\Facades\Validator;
 class SubcategoryController extends Controller
 {
     private $subcategory;
-    public function __construct(Subcategory $subcategory)
+    public function __construct(Subcategory $subcategory, Product $product)
     {
         $this->subcategory = $subcategory;
+        $this->product = $product;
     }
 
     public function index()

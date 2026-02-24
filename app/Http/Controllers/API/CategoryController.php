@@ -8,6 +8,7 @@ use App\Http\Resources\home\ProductResource as HomeProductResource;
 use App\Http\Resources\ProductResource;
 use App\Http\Resources\SubcategoryResource;
 use App\Models\Category;
+use App\Models\Product;
 use App\Models\Subcategory;
 use Exception;
 use Illuminate\Http\Request;
@@ -17,9 +18,10 @@ use Illuminate\Support\Facades\Validator;
 class CategoryController extends Controller
 {
     private $category;
-    public function __construct(Category $category)
+    public function __construct(Category $category , Product $product)
     {
         $this->category = $category;
+        $this->product = $product;
     }
 
     public function index()
