@@ -22,7 +22,7 @@ class CategoryResource extends JsonResource
             "products" => $this->products
                 ->filter(function ($product) {
                     // Include only products that have variations
-                    return $product->variations()->count() > 0;
+                    return $product->productVariations()->count() > 0;
                 })
                 ->map(function ($product) {
                     return [
