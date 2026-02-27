@@ -19,23 +19,28 @@ class CategoryResource extends JsonResource
             "title" => $this->title,
             "type" => $this->type,
             "image" => $this->image,
-            "products" =>  $this->products->map(function ($product) {
-                return [
-                    'id'    => $product->id,
-                    "image" => $product->image,
-                    "images" => $product->images,
-                    "title" => $product->title,
-                    "description" => strip_tags($product->description),
-                    "price" => $product->price,
-                    "byOneGetOne" => $product->byOneGetOne,
-                    "discount" => $product->discount,
-                    
-                    "applyOffer" => $product->discount > 0 ? $product->discount .' LE off'
-                        : ($product->byOneGetOne
-                        ? 'Buy 1 Get 1'
-                        : null),
-                ];
-            }),
+            "products" => $this->products
+                ->filter(function ($product) {
+                    // Include only products that have variations
+                    return $product->variations()->count() > 0;
+                })
+                ->map(function ($product) {
+                    return [
+                        'id'    => $product->id,
+                        "image" => $product->image,
+                        "images" => $product->images,
+                        "title" => $product->title,
+                        "description" => strip_tags($product->description),
+                        "price" => $product->price,
+                        "byOneGetOne" => $product->byOneGetOne,
+                        "discount" => $product->discount,
+                        "applyOffer" => $product->discount > 0 ? $product->discount .' LE off'
+                            : ($product->byOneGetOne
+                            ? 'Buy 1 Get 1'
+                            : null),
+                    ];
+                })
+                ->values(), // Reset array keys after filtering
         ];
     }
 }
