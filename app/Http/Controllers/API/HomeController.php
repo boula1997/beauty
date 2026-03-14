@@ -46,12 +46,13 @@ class HomeController extends Controller
     {
         try {
 
-        $products = $this->product
-            ->whereHas('productVariations', function ($q) {
-                $q->where('quantity', '>', 0);
-            })
-            ->latest()
-            ->paginate(12);
+            $products = $this->product
+                ->whereHas('productVariations')  // must have at least one variation
+                ->whereDoesntHave('productVariations', function ($q) {
+                    $q->where('quantity', '<=', 0);  // none of them can be 0 or less
+                })
+                ->latest()
+                ->paginate(12);
 
 
             $data['slider']= SliderResource ::collection($this->slider->latest()->paginate(10));
