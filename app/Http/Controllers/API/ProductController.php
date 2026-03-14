@@ -70,10 +70,7 @@ public function index()
         {
             try {
                 // Eager load only what is a real relation
-                $product = $this->product->with([
-                    'category.products', // for relatedProducts
-                    'subcategory',
-                ])->findOrFail($id);
+                $product = $this->product->findOrFail($id);
 
                 $data['product'] = new ProductResource($product);
 
