@@ -34,32 +34,11 @@ class ProductResource extends JsonResource
             "price" => $this->price,
             'colors' => $this->getColors(),
             
-            "category" => new CategoryResource($this->category),
+            "category" => $this->category,
             // "subcategory" => new SubcategoryResource($this->subcategory),
             'isFavourite' => $user ? $this->isFavoritedByUser($user->id) : false,
             
-"relatedProducts" => $this->category
-    ? $this->category->products
-        ->where('id', '!=', $this->id) // collection filter, no query
-        ->sortByDesc('id')             // equivalent to latest()
-        ->take(4)
-        ->map(function ($related) {
-            return [
-                "id" => $related->id,
-                "image" => $related->image,
-                "images" => $related->images,
-                "title" => $related->title,
-                "description" => strip_tags($related->description),
-                "SKU" => $related->SKU,
-                "rate" => $related->rate,
-                "price" => $related->price,
-                "quantity" => $related->quantity,
-                "category" => $related->category ? new CategoryResource($related->category) : null,
-                "subcategory" => $related->subcategory ? new SubcategoryResource($related->subcategory) : null,
-            ];
-        })
-        ->values() // optional, reindex
-    : [],
+
 
 
         ];
