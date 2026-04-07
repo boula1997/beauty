@@ -2,10 +2,10 @@
 
 namespace App\Http\Resources;
 
-use App\Models\ProductSize;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Product;
 
 class ProductResource extends JsonResource
 {
@@ -17,6 +17,10 @@ class ProductResource extends JsonResource
     public function toArray($request)
     {
         $user = $request->bearerToken() ? Auth::guard('api')->user() : null;
+
+        // Check if current route is product.show
+        $isSingleProductRoute = $request->routeIs('product.show');
+
         return [
             "id" => $this->id,
             "image" => $this->image,
@@ -25,22 +29,31 @@ class ProductResource extends JsonResource
             "description" => strip_tags($this->description),
             "byOneGetOne" => $this->byOneGetOne,
             "discount" => $this->discount,
-            
-            "applyOffer" => $this->discount > 0 ? $this->discount .' LE off'
-                : ($this->byOneGetOne
-                ? 'Buy 1 Get 1'
-                : null),
-        
+
+            "applyOffer" => $this->discount > 0
+                ? $this->discount . ' LE off'
+                : ($this->byOneGetOne ? 'Buy 1 Get 1' : null),
+
             "price" => $this->price,
-            'colors' => $this->getColors(),
-            
+
+            "colors" => $this->getColors(),
+
             "category" => $this->category,
-            // "subcategory" => new SubcategoryResource($this->subcategory),
-            'isFavourite' => $user ? $this->isFavoritedByUser($user->id) : false,
-            
 
+            "isFavourite" => $user
+                ? $this->isFavoritedByUser($user->id)
+                : false,
 
-
+            // ✅ Related products (only for single product route)
+            "related_products" => $isSingleProductRoute
+                ? ProductResource::collection(
+                    Product::where('category_id', $this->category_id)
+                        ->where('id', '!=', $this->id)
+                        ->latest()
+                        ->take(10)
+                        ->get()
+                )
+                : null,
         ];
     }
 }
