@@ -9,17 +9,17 @@ use App\Models\Product;
 
 class ProductResource extends JsonResource
 {
-    /**
-     * Transform the resource into an array.
-     *
-     * @return array<string, mixed>
-     */
+    protected $includeRelated;
+
+    public function __construct($resource, $includeRelated = true)
+    {
+        parent::__construct($resource);
+        $this->includeRelated = $includeRelated;
+    }
+
     public function toArray($request)
     {
         $user = $request->bearerToken() ? Auth::guard('api')->user() : null;
-
-        // Check if current route is product.show
-       $isSingleProductRoute = $request->route('id') !== null;
 
         return [
             "id" => $this->id,
@@ -29,29 +29,22 @@ class ProductResource extends JsonResource
             "description" => strip_tags($this->description),
             "byOneGetOne" => $this->byOneGetOne,
             "discount" => $this->discount,
-
             "applyOffer" => $this->discount > 0
                 ? $this->discount . ' LE off'
                 : ($this->byOneGetOne ? 'Buy 1 Get 1' : null),
-
             "price" => $this->price,
-
             "colors" => $this->getColors(),
-
             "category" => $this->category,
+            "isFavourite" => $user ? $this->isFavoritedByUser($user->id) : false,
 
-            "isFavourite" => $user
-                ? $this->isFavoritedByUser($user->id)
-                : false,
-
-            // ✅ Related products (only for single product route)
-            "related_products" => $isSingleProductRoute
+            "related_products" => $this->includeRelated
                 ? ProductResource::collection(
                     Product::where('category_id', $this->category_id)
                         ->where('id', '!=', $this->id)
                         ->latest()
                         ->take(10)
                         ->get()
+                        ->map(fn($p) => new ProductResource($p, false)) // ⚡ prevent recursion
                 )
                 : null,
         ];
