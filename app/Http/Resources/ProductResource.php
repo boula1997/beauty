@@ -18,8 +18,8 @@ class ProductResource extends JsonResource
     {
         $user = $request->bearerToken() ? Auth::guard('api')->user() : null;
 
-        // Check if current route is product.show
-        $isSingleProductRoute = $request->routeIs('product.show');
+        // Check if current route is product.display
+        $isSingleProductRoute = $request->routeIs('product.display');
 
         return [
             "id" => $this->id,
