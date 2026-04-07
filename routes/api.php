@@ -84,7 +84,7 @@ Route::group(['middleware' => ['apiLocalization','cors']], function () {
 
     Route::get('/products', [ProductController::class, 'index']);
     Route::get('/isAddition', [ProductController::class, 'isAdditionndex']);
-    Route::get('/product/{id}', [ProductController::class, 'show']);
+    Route::get('/product/{id}', [ProductController::class, 'show'])->name('product.show');
     Route::get('/flash/sales', [ProductController::class, 'flashSale']);
 
     Route::get('/categories', [CategoryController::class, 'index']);
