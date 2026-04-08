@@ -26,34 +26,60 @@ class ProductController extends Controller
         $this->product = $product;
     }
 
-public function index()
-{
-    try {
-
-        $products = $this->product
-            ->whereHas('productVariations', function ($q) {
-                $q->where('quantity', '>', 0);
-            })
-            ->latest()
-            ->paginate(6);
-
-        $data['products'] = ProductResource::collection($products);
-
-        $data['pagination'] = [
-            'total' => $products->total(),
-            'per_page' => $products->perPage(),
-            'current_page' => $products->currentPage(),
-            'last_page' => $products->lastPage(),
-            'from' => $products->firstItem(),
-            'to' => $products->lastItem(),
-        ];
-
-        return successResponse($data);
-
-    } catch (Exception $e) {
-        return failedResponse($e->getMessage());
+    public function index()
+    {
+        try {
+            $query = $this->product
+                ->whereHas('productVariations', function ($q) {
+                    $q->where('quantity', '>', 0);
+                });
+ 
+            // Search filters
+            $query->search();
+ 
+            // Additional filters
+            if (request()->has('min_price') && request()->min_price) {
+                $query->where('price', '>=', request()->min_price);
+            }
+ 
+            if (request()->has('max_price') && request()->max_price) {
+                $query->where('price', '<=', request()->max_price);
+            }
+ 
+            if (request()->has('brand_id') && request()->brand_id) {
+                $query->where('brand_id', request()->brand_id);
+            }
+ 
+            if (request()->has('subcategory_id') && request()->subcategory_id) {
+                $query->where('subcategory_id', request()->subcategory_id);
+            }
+ 
+            if (request()->has('store_id') && request()->store_id) {
+                $query->where('store_id', request()->store_id);
+            }
+ 
+            // Sorting
+            $sortBy = request()->get('sort_by', 'latest');
+            $query = $this->applySorting($query, $sortBy);
+ 
+            $products = $query->paginate(request()->get('per_page', 6));
+ 
+            $data['products'] = ProductResource::collection($products);
+            $data['pagination'] = [
+                'total' => $products->total(),
+                'per_page' => $products->perPage(),
+                'current_page' => $products->currentPage(),
+                'last_page' => $products->lastPage(),
+                'from' => $products->firstItem(),
+                'to' => $products->lastItem(),
+            ];
+ 
+            return successResponse($data);
+ 
+        } catch (Exception $e) {
+            return failedResponse($e->getMessage());
+        }
     }
-}
 
     public function isAdditionndex()
     {
