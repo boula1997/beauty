@@ -81,6 +81,26 @@ class ProductController extends Controller
         }
     }
 
+
+        private function applySorting($query, $sortBy = 'latest')
+    {
+        switch ($sortBy) {
+            case 'oldest':
+                return $query->oldest();
+            case 'price_low':
+                return $query->orderBy('price', 'asc');
+            case 'price_high':
+                return $query->orderBy('price', 'desc');
+            case 'rating':
+                return $query->orderBy('rating', 'desc');
+            case 'popular':
+                return $query->withCount('favoritedBy')
+                    ->orderBy('favorited_by_count', 'desc');
+            default:
+                return $query->latest();
+        }
+    }
+
     public function isAdditionndex()
     {
         try {
