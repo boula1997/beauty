@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Exception;
 use App\Services\MailService;
+use App\Models\Coupon;
 
 
 trait HandlesOrders

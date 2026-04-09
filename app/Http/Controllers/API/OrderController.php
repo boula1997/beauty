@@ -24,7 +24,6 @@ use App\Traits\HandlesOrders;
 use App\Traits\FCMNotification;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
-use App\Models\Coupon;
 
 
 
