@@ -21,6 +21,34 @@ trait HandlesOrders
         try {
             $order = $this->order->create($data);
 
+            if (!empty($data['coupon_id'])) {
+                DB::table('order_coupons')->insert([
+                    'order_id' => $order->id,
+                    'coupon_id' => $data['coupon_id'],
+                    'discount_amount' => $data['discount'],
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+
+                // increment usage
+                DB::table('coupons')
+                    ->where('id', $data['coupon_id'])
+                    ->increment('used_count');
+
+                // track per user (optional)
+                DB::table('coupon_user')->updateOrInsert(
+                    [
+                        'coupon_id' => $data['coupon_id'],
+                        'user_id' => $order->user_id
+                    ],
+                    [
+                        'usage_count' => DB::raw('usage_count + 1'),
+                        'updated_at' => now(),
+                        'created_at' => now()
+                    ]
+                );
+            }
+
             foreach (cart()->getItems() as $item) {
                 $productId = strtok($item->getId(), '-'); 
                 $product = Product::find($productId);

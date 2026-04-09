@@ -23,6 +23,7 @@ use App\Traits\HandlesOrders;
 use App\Traits\FCMNotification;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use App\Models\Coupon;
 
 
 
@@ -51,7 +52,42 @@ class OrderController extends Controller
             loadUserCart(auth()->user()->id);
             $data = $request->except('color', 'size','paymentMethod','flexRadioDefault','address_id','image');
             $shipping=Shipping::find($request->shipping_id);
-            $data['total'] = cart()->getTotal() + $shipping->fee;
+            $coupon = null;
+            $discount = 0;
+
+            if ($request->coupon_code) {
+                $coupon = Coupon::where('code', $request->coupon_code)
+                    ->where('is_active', 1)
+                    ->first();
+
+                if (!$coupon) {
+                    return failedResponse('Invalid coupon');
+                }
+
+                // check expiry
+                if ($coupon->expires_at && now()->gt($coupon->expires_at)) {
+                    return failedResponse('Coupon expired');
+                }
+
+                // check usage limit
+                if ($coupon->usage_limit && $coupon->used_count >= $coupon->usage_limit) {
+                    return failedResponse('Coupon usage limit reached');
+                }
+
+                // check min order
+                if ($coupon->min_order_amount && cart()->getTotal() < $coupon->min_order_amount) {
+                    return failedResponse('Minimum order not reached');
+                }
+
+                // calculate discount
+                $discount = (cart()->getTotal() * $coupon->percentage) / 100;
+
+                if ($coupon->max_discount && $discount > $coupon->max_discount) {
+                    $discount = $coupon->max_discount;
+                }
+            }
+            $data['total'] = cart()->getTotal() + $shipping->fee - $discount;
+            
             $data['address'] = $request->address;
             if($request->paymentMethod=="wallet"){
                 $data['payment_method'] ="wallet";
@@ -536,6 +572,87 @@ class OrderController extends Controller
             dd($e->getMessage());
             return redirect()->back()->with(['error' => __('general.something_wrong')]);
         }
+    }
+
+
+
+    public function apply(Request $request)
+    {
+        $request->validate([
+            'coupon_code' => 'required|string',
+            'total' => 'required|numeric|min:0'
+        ]);
+
+        $coupon = Coupon::where('code', $request->coupon_code)
+            ->where('is_active', 1)
+            ->first();
+
+        if (!$coupon) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Invalid coupon code'
+            ], 400);
+        }
+
+        // Expiry check
+        if ($coupon->expires_at && now()->gt($coupon->expires_at)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Coupon expired'
+            ], 400);
+        }
+
+        // Usage limit
+        if ($coupon->usage_limit && $coupon->used_count >= $coupon->usage_limit) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Coupon usage limit reached'
+            ], 400);
+        }
+
+        // Min order check
+        if ($coupon->min_order_amount && $request->total < $coupon->min_order_amount) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Minimum order amount not reached'
+            ], 400);
+        }
+
+        // Per-user limit (if logged in)
+        if (auth()->check() && $coupon->per_user_limit) {
+            $usage = DB::table('coupon_user')
+                ->where('coupon_id', $coupon->id)
+                ->where('user_id', auth()->id())
+                ->value('usage_count');
+
+            if ($usage && $usage >= $coupon->per_user_limit) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'You already used this coupon maximum times'
+                ], 400);
+            }
+        }
+
+        // Calculate discount
+        $discount = ($request->total * $coupon->percentage) / 100;
+
+        if ($coupon->max_discount && $discount > $coupon->max_discount) {
+            $discount = $coupon->max_discount;
+        }
+
+        $finalTotal = max(0, $request->total - $discount);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Coupon applied successfully',
+            'data' => [
+                'coupon_id' => $coupon->id,
+                'coupon_code' => $coupon->code,
+                'percentage' => $coupon->percentage,
+                'discount' => round($discount, 2),
+                'final_total' => round($finalTotal, 2),
+            ]
+        ]);
     }
 
 
