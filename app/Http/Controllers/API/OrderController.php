@@ -9,6 +9,7 @@ use App\Http\Resources\OrderDetailsResource;
 use App\Http\Resources\OrderProductResource;
 use App\Http\Resources\OrderResource;
 use App\Models\Order;
+use App\Models\Coupon;
 use App\Models\Orderproduct;
 use App\Models\ProductVariation;
 use App\Models\Product;
