@@ -656,4 +656,27 @@ class OrderController extends Controller
     }
 
 
+    public function coupons()
+    {
+        try {
+            $coupons = Coupon::where('is_active', 1)
+                ->where('expires_at', '>=', now())
+                ->where('starts_at', '<=', now())
+                ->get();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Coupons fetched successfully',
+                'data' => $coupons
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to fetch coupons',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+
 }

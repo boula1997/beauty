@@ -235,3 +235,5 @@ Route::group(['prefix' => 'hyperpay'], function () {
     Route::post('make-order', [HyperpayController::class, 'order']);
     Route::post('charge-wallet', [HyperpayController::class, 'wallet']);
 });
+
+Route::get('/coupons', [OrderController::class, 'coupons']);
