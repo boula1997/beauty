@@ -26,7 +26,7 @@ trait HandlesOrders
                 DB::table('order_coupons')->insert([
                     'order_id' => $order->id,
                     'coupon_id' => $order->coupon_id,
-                    'discount_amount' => $order->coupon->discount,
+                    'discount_amount' => $order->discount??0,
                     'created_at' => now(),
                     'updated_at' => now(),
                 ]);
