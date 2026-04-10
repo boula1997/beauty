@@ -404,6 +404,7 @@ if (!function_exists('orderCheckoutData()')) {
         $delivery = $order->shipping->fee;
         $allTotal=0;
         $subTotal = 0;
+        $orderDiscount = $order->discount;
 
         $total = $order->orderproducts->sum('total');
 
@@ -440,7 +441,7 @@ if (!function_exists('orderCheckoutData()')) {
                 ],
                 [
                     'key' => __('general.Discount'),
-                    'value' => $discount,
+                    'value' => $discount+$orderDiscount,
                 ],
                 [
                     'key' => __('general.Delivery'),
@@ -448,7 +449,7 @@ if (!function_exists('orderCheckoutData()')) {
                 ],
                 [
                     'key' => __('general.Total'),
-                    'value' => $total,
+                    'value' => $total-$orderDiscount,
                 ],
             ]
         ];
