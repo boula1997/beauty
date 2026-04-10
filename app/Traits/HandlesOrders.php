@@ -16,7 +16,7 @@ use App\Models\Coupon;
 
 trait HandlesOrders
 {
-    public function createOrderWithProducts($data)
+    public function createOrderWithProducts($data,$discount)
     {
         DB::beginTransaction();
         try {
@@ -26,7 +26,7 @@ trait HandlesOrders
                 DB::table('order_coupons')->insert([
                     'order_id' => $order->id,
                     'coupon_id' => $order->coupon_id,
-                    'discount_amount' => $order->discount??0,
+                    'discount_amount' => $discount,
                     'created_at' => now(),
                     'updated_at' => now(),
                 ]);

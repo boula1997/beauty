@@ -150,7 +150,7 @@ class OrderController extends Controller
                 $data["name"]=$request->name;
                 $data["whatsapp"]=$request->whatsapp;
                 // Create order
-                $order = $this->createOrderWithProducts($data);
+                $order = $this->createOrderWithProducts($data,$discount);
                 $order->uploadFile();
                 
                 // Deduct balance
