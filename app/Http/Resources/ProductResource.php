@@ -39,12 +39,10 @@ class ProductResource extends JsonResource
 
             "related_products" => $this->includeRelated
                 ? ProductResource::collection(
-                    Product::where('category_id', $this->category_id)
-                        ->where('id', '!=', $this->id)
-                        ->latest()
+                    Product::where('id', '!=', $this->id)
+                        ->inRandomOrder()
                         ->take(10)
                         ->get()
-                        ->map(fn($p) => new ProductResource($p, false)) // ⚡ prevent recursion
                 )
                 : null,
         ];
