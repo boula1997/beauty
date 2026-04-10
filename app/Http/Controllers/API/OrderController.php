@@ -50,7 +50,7 @@ class OrderController extends Controller
         try {
             cart()->clearItems();
             loadUserCart(auth()->user()->id);
-            $data = $request->except('color', 'size','paymentMethod','flexRadioDefault','address_id','image','code');
+            $data = $request->except('color', 'size','paymentMethod','flexRadioDefault','address_id','image','coupon_code');
             $shipping=Shipping::find($request->shipping_id);
             $coupon = null;
             $discount = 0;
