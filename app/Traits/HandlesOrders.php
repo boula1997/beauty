@@ -22,24 +22,24 @@ trait HandlesOrders
         try {
             $order = $this->order->create($data);
 
-            if (!empty($data['coupon_id'])) {
+            if (!empty($order->coupon_id)) {
                 DB::table('order_coupons')->insert([
                     'order_id' => $order->id,
-                    'coupon_id' => $data['coupon_id'],
-                    'discount_amount' => $data['discount'],
+                    'coupon_id' => $order->coupon_id,
+                    'discount_amount' => $order->discount,
                     'created_at' => now(),
                     'updated_at' => now(),
                 ]);
 
                 // increment usage
                 DB::table('coupons')
-                    ->where('id', $data['coupon_id'])
+                    ->where('id', $order->coupon_id)
                     ->increment('used_count');
 
                 // track per user (optional)
                 DB::table('coupon_user')->updateOrInsert(
                     [
-                        'coupon_id' => $data['coupon_id'],
+                        'coupon_id' => $order->coupon_id,
                         'user_id' => $order->user_id
                     ],
                     [
