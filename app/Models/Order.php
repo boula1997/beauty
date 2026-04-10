@@ -29,5 +29,9 @@ class Order extends Model
         return $this->belongsTo(Shipping::class,'shipping_id');
     }
 
+    public function coupon(){
+        return $this->belongsTo(Coupon::class,'coupon_id');
+    }
+
     
 }
