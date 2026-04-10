@@ -43,6 +43,7 @@ class ProductResource extends JsonResource
                         ->inRandomOrder()
                         ->take(10)
                         ->get()
+                        ->map(fn($p) => new ProductResource($p, false)) // ⚡ prevent recursion
                 )
                 : null,
         ];
