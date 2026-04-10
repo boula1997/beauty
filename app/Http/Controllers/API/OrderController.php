@@ -149,8 +149,10 @@ class OrderController extends Controller
                 $data['payment_status'] = 'unpaid';
                 $data["name"]=$request->name;
                 $data["whatsapp"]=$request->whatsapp;
+                $data['coupon_id'] = $coupon->id ?? null;
+                $data['discount'] = $discount;
                 // Create order
-                $order = $this->createOrderWithProducts($data,$discount);
+                $order = $this->createOrderWithProducts($data);
                 $order->uploadFile();
                 
                 // Deduct balance

@@ -16,31 +16,31 @@ use App\Models\Coupon;
 
 trait HandlesOrders
 {
-    public function createOrderWithProducts($data,$discount)
+    public function createOrderWithProducts($data)
     {
         DB::beginTransaction();
         try {
             $order = $this->order->create($data);
 
-            if (!empty($order->coupon_id)) {
+            if (!empty($data['coupon_id'])) {
                 DB::table('order_coupons')->insert([
                     'order_id' => $order->id,
-                    'coupon_id' => $order->coupon_id,
-                    'discount_amount' => $discount,
+                    'coupon_id' => $data['coupon_id'],
+                    'discount_amount' => $data['discount'],
                     'created_at' => now(),
                     'updated_at' => now(),
                 ]);
 
                 // increment usage
                 DB::table('coupons')
-                    ->where('id', $order->coupon_id)
+                    ->where('id', $data['coupon_id'])
                     ->increment('used_count');
 
                 // track per user (optional)
                 DB::table('coupon_user')->updateOrInsert(
                     [
-                        'coupon_id' => $order->coupon_id,
-                        'user_id' => $order->user_id
+                        'coupon_id' => $data['coupon_id'],
+                        'user_id' => $data['user_id']
                     ],
                     [
                         'usage_count' => DB::raw('usage_count + 1'),
