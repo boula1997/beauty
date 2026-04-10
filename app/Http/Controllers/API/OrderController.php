@@ -50,7 +50,7 @@ class OrderController extends Controller
         try {
             cart()->clearItems();
             loadUserCart(auth()->user()->id);
-            $data = $request->except('color', 'size','paymentMethod','flexRadioDefault','address_id','image');
+            $data = $request->except('color', 'size','paymentMethod','flexRadioDefault','address_id','image','code');
             $shipping=Shipping::find($request->shipping_id);
             $coupon = null;
             $discount = 0;
@@ -573,110 +573,5 @@ class OrderController extends Controller
             return redirect()->back()->with(['error' => __('general.something_wrong')]);
         }
     }
-
-
-
-    public function apply(Request $request)
-    {
-        $request->validate([
-            'coupon_code' => 'required|string',
-            'total' => 'required|numeric|min:0'
-        ]);
-
-        $coupon = Coupon::where('code', $request->coupon_code)
-            ->where('is_active', 1)
-            ->first();
-
-        if (!$coupon) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Invalid coupon code'
-            ], 400);
-        }
-
-        // Expiry check
-        if ($coupon->expires_at && now()->gt($coupon->expires_at)) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Coupon expired'
-            ], 400);
-        }
-
-        // Usage limit
-        if ($coupon->usage_limit && $coupon->used_count >= $coupon->usage_limit) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Coupon usage limit reached'
-            ], 400);
-        }
-
-        // Min order check
-        if ($coupon->min_order_amount && $request->total < $coupon->min_order_amount) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Minimum order amount not reached'
-            ], 400);
-        }
-
-        // Per-user limit (if logged in)
-        if (auth()->check() && $coupon->per_user_limit) {
-            $usage = DB::table('coupon_user')
-                ->where('coupon_id', $coupon->id)
-                ->where('user_id', auth()->id())
-                ->value('usage_count');
-
-            if ($usage && $usage >= $coupon->per_user_limit) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'You already used this coupon maximum times'
-                ], 400);
-            }
-        }
-
-        // Calculate discount
-        $discount = ($request->total * $coupon->percentage) / 100;
-
-        if ($coupon->max_discount && $discount > $coupon->max_discount) {
-            $discount = $coupon->max_discount;
-        }
-
-        $finalTotal = max(0, $request->total - $discount);
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Coupon applied successfully',
-            'data' => [
-                'coupon_id' => $coupon->id,
-                'coupon_code' => $coupon->code,
-                'percentage' => $coupon->percentage,
-                'discount' => round($discount, 2),
-                'final_total' => round($finalTotal, 2),
-            ]
-        ]);
-    }
-
-
-    public function coupons()
-    {
-        try {
-            $coupons = Coupon::where('is_active', 1)
-                ->where('expires_at', '>=', now())
-                ->where('starts_at', '<=', now())
-                ->get();
-
-            return response()->json([
-                'success' => true,
-                'message' => 'Coupons fetched successfully',
-                'data' => $coupons
-            ]);
-        } catch (Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Failed to fetch coupons',
-                'error' => $e->getMessage()
-            ], 500);
-        }
-    }
-
 
 }
