@@ -21,7 +21,6 @@ trait HandlesOrders
         DB::beginTransaction();
         try {
             $order = $this->order->create($data);
-            dd($data['discount']);
             if (!empty($data['coupon_id'])) {
                 DB::table('order_coupons')->insert([
                     'order_id' => $order->id,
