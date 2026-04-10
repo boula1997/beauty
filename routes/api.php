@@ -9,6 +9,7 @@ use App\Http\Controllers\API\BannerController;
 use App\Http\Controllers\API\BrandController;
 use App\Http\Controllers\API\CategoryController;
 use App\Http\Controllers\API\ColorController;
+use App\Http\Controllers\API\CouponController;
 use App\Http\Controllers\API\FaqController;
 use App\Http\Controllers\API\FavoriteController;
 use App\Http\Controllers\API\HyperpayController;
@@ -86,7 +87,6 @@ Route::group(['middleware' => ['apiLocalization','cors']], function () {
     Route::get('/isAddition', [ProductController::class, 'isAdditionndex']);
     Route::get('/product/{id}', [ProductController::class, 'show']);
     Route::get('/flash/sales', [ProductController::class, 'flashSale']);
-    Route::post('/apply-coupon', [OrderController::class, 'apply']);
     Route::get('/categories', [CategoryController::class, 'index']);
     Route::get('/category/{id}', [CategoryController::class, 'show']);
     Route::get('/categoryProducts', [CategoryController::class, 'categoryProducts']);
@@ -236,4 +236,5 @@ Route::group(['prefix' => 'hyperpay'], function () {
     Route::post('charge-wallet', [HyperpayController::class, 'wallet']);
 });
 
-Route::get('/coupons', [OrderController::class, 'coupons']);
+Route::post('/apply-coupon', [CouponController::class, 'apply']);
+Route::get('/coupons', [CouponController::class, 'coupons']);
