@@ -967,7 +967,7 @@ public function tableNames($dbname)
 
         // Step 3: Get blocked tables filtered by dbname
         try {
-            if (isset($admin_id)) {
+            if (false) {
                 // Fetch the permissions JSON from the admin
                 $permissions = DB::connection('dynamic')
                     ->table('admins')
