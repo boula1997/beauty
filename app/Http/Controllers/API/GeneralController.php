@@ -23,6 +23,14 @@ use Illuminate\Support\Str;
 class GeneralController extends Controller
 {
 
+    public function databases()
+    {
+        return response()->json([
+            'success' => trans('general.sent_successfully'),
+            'databases' => databases(),
+        ]);
+    }
+
 
 public function storeUpdate(Request $request, $dbname, $table, $itemId = null)
 {

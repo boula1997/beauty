@@ -645,3 +645,44 @@ if (!function_exists('generateMerchantUsername')) {
         return $username;
     }
 }
+
+
+function databases()
+{
+    if (App::environment('local')) {
+        $databases = DB::select("SELECT schema_name FROM information_schema.schemata");
+    } else {
+        $dbHost = 'localhost';
+        $dbName = isset($credential->db_name) ? $credential->db_name : 'u112116784_workspace';
+        $dbUser = isset($credential->db_username) ? $credential->db_username : 'u112116784_workspace';
+        $dbPass = isset($credential->db_password) ? $credential->db_password : 'AM*Wo8owc^7';
+
+        // Configure dynamic connection
+        config([
+            'database.connections.dynamic' => [
+                'driver' => 'mysql',
+                'host' => $dbHost,
+                'database' => $dbName,
+                'username' => $dbUser,
+                'password' => $dbPass,
+                'charset' => 'utf8mb4',
+                'collation' => 'utf8mb4_unicode_ci',
+            ],
+        ]);
+
+        DB::purge('dynamic');
+        DB::reconnect('dynamic');
+
+        // Get all databases
+        $databases = DB::connection('dynamic')->select("SELECT db_name as schema_name FROM d_b_credentials");
+
+        // Exclude 'u112116784_workspace' only if boula() returns true
+        if (!boula()) {
+            $databases = array_filter($databases, function ($db) {
+                return $db->schema_name !== 'u112116784_workspace';
+            });
+        }
+    }
+
+    return array_values($databases); // reindex array
+}
