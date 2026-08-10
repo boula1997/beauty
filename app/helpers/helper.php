@@ -31,6 +31,7 @@ use Jackiedo\Cart\Facades\Cart;
 use Spatie\Permission\Models\Role;
 use Illuminate\Http\JsonResponse;
 
+use Illuminate\Support\Facades\App;
 
 const Message_Mail = "app@gmail.com";
 
@@ -644,6 +645,13 @@ if (!function_exists('generateMerchantUsername')) {
 
         return $username;
     }
+}
+
+function boula()
+{
+    if ((auth("api")->user() && (auth("api")->user()->email == "nessimboula@gmail.com")|| App::environment('local')))
+        return true;
+    return false;
 }
 
 
