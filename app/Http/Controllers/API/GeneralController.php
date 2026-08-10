@@ -14,7 +14,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\File;
-use App\Models\DBCredential;
 
 use App\Models\Admin;
 
@@ -24,63 +23,15 @@ use Illuminate\Support\Str;
 class GeneralController extends Controller
 {
 
-    public function databases()
-    {
-        return response()->json([
-            'success' => trans('general.sent_successfully'),
-            'databases' => databases(),
-        ]);
-    }
-
-
-            public function menuTables($dbname)
-    {
-        try {
-            $credential = DBCredential::where('db_name', $dbname)->firstOrFail();
-
-            // Configure connection dynamically
-            config([
-                'database.connections.dynamic' => [
-                    'driver' => 'mysql',
-                    'host' => $credential->db_host,
-                    'database' => $credential->db_name,
-                    'username' => $credential->db_username,
-                    'password' => $credential->db_password,
-                    'charset' => 'utf8mb4',
-                    'collation' => 'utf8mb4_unicode_ci',
-                ],
-            ]);
-
-            DB::purge('dynamic');
-            DB::reconnect('dynamic');
-
-            // Fetch all input appearances
-            $menu_tables = DB::connection('dynamic')->table('menu_tables')
-                ->select('*')
-                ->orderBy('id')
-                ->get();
-
-            return response()->json([
-                'success' => true,
-                'menu_tables' => $menu_tables,
-            ]);
-        } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Failed to load input appearances: ' . $e->getMessage(),
-            ], 500);
-        }
-    }
-
 
 public function storeUpdate(Request $request, $dbname, $table, $itemId = null)
 {
     // Step 0: Get DB credentials
 
-    $dbHost = 'localhost';
-    $dbName = 'u112116784_issstore';
-    $dbUser = 'u112116784_issstore';
-    $dbPass = 'Q8ml16P~u|=l';
+    $dbHost = '192.185.41.219';
+    $dbName = 'yousabte_beauty';
+    $dbUser = 'yousabte_beauty';
+    $dbPass = 'Sy+soRi!k$_K';
 
     // Step 1: Configure dynamic connection
     config([
@@ -300,10 +251,10 @@ public function storeUpdate(Request $request, $dbname, $table, $itemId = null)
     public function showEditCreate($dbname, $table, $itemId = null)
     {
         // Step 0: Get DB credentials
-   $dbHost = 'localhost';
-    $dbName = 'u112116784_issstore';
-    $dbUser = 'u112116784_issstore';
-    $dbPass = 'Q8ml16P~u|=l';
+   $dbHost = '192.185.41.219';
+    $dbName = 'yousabte_beauty';
+    $dbUser = 'yousabte_beauty';
+    $dbPass = 'Sy+soRi!k$_K';
         // Step 1: Configure dynamic connection
         config([
             'database.connections.dynamic' => [
@@ -573,10 +524,10 @@ public function storeUpdate(Request $request, $dbname, $table, $itemId = null)
     public function deleteItem($dbname, $table, $itemId)
     {
 
-   $dbHost = 'localhost';
-    $dbName = 'u112116784_issstore';
-    $dbUser = 'u112116784_issstore';
-    $dbPass = 'Q8ml16P~u|=l';
+   $dbHost = '192.185.41.219';
+    $dbName = 'yousabte_beauty';
+    $dbUser = 'yousabte_beauty';
+    $dbPass = 'Sy+soRi!k$_K';
 
         // Step 1: Configure dynamic connection
         config([
@@ -636,10 +587,10 @@ public function storeUpdate(Request $request, $dbname, $table, $itemId = null)
 
     public function index($dbname, $table,$column=null,$equal=null)
     {
-   $dbHost = 'localhost';
-    $dbName = 'u112116784_issstore';
-    $dbUser = 'u112116784_issstore';
-    $dbPass = 'Q8ml16P~u|=l';
+   $dbHost = '192.185.41.219';
+    $dbName = 'yousabte_beauty';
+    $dbUser = 'yousabte_beauty';
+    $dbPass = 'Sy+soRi!k$_K';
 
         config([
             'database.connections.dynamic' => [
@@ -877,10 +828,10 @@ public function storeUpdate(Request $request, $dbname, $table, $itemId = null)
 
 public function tableNames($dbname)
 {
-   $dbHost = 'localhost';
-    $dbName = 'u112116784_issstore';
-    $dbUser = 'u112116784_issstore';
-    $dbPass = 'Q8ml16P~u|=l';
+   $dbHost = '192.185.41.219';
+    $dbName = 'yousabte_beauty';
+    $dbUser = 'yousabte_beauty';
+    $dbPass = 'Sy+soRi!k$_K';
 
             config([
             'database.connections.dynamic' => [
@@ -925,15 +876,12 @@ public function tableNames($dbname)
 
 
 
-    public function allTableNames($dbname, $admin_id = null)
+    public function allTableNames($dbname,$admin_id=null)
     {
-        // Step 0: Get DB credentials
-        $credential = DBCredential::where('db_name', $dbname)->first();
-
-            $dbHost = 'localhost';
-            $dbName = 'u112116784_issstore';
-            $dbUser = 'u112116784_issstore';
-            $dbPass = 'Q8ml16P~u|=l';
+   $dbHost = '192.185.41.219';
+    $dbName = 'yousabte_beauty';
+    $dbUser = 'yousabte_beauty';
+    $dbPass = 'Sy+soRi!k$_K';
 
         // Step 1: Configure dynamic connection
         config([
@@ -952,7 +900,7 @@ public function tableNames($dbname)
         DB::reconnect('dynamic');
         DB::connection('dynamic')->statement('USE ' . $dbName);
 
-        $blockedModules = [];
+                    $blockedModules = [];
 
 
         // Step 2: Get all table names
@@ -964,15 +912,14 @@ public function tableNames($dbname)
             ->pluck('TABLE_NAME');
 
 
-
-        // Step 3: Get blocked tables filtered by dbname
+                  // Step 3: Get blocked tables filtered by dbname
         try {
-            if (!isset($admin_id)) {
+            if (isset($admin_id)) {
                 // Fetch the permissions JSON from the admin
                 $permissions = DB::connection('dynamic')
                     ->table('admins')
                     ->where('id', $admin_id)
-                    ->value('reactPermissions');
+                    ->value('permissions');
 
                 // Decode JSON safely
                 $blockedTables = collect(json_decode($permissions, true) ?? []);
@@ -986,7 +933,7 @@ public function tableNames($dbname)
                     ->table('blocked_modules')
                     ->pluck('table_name');
 
-                $blockedModules = [];
+                    $blockedModules = [];
             }
         } catch (\Exception $e) {
             $blockedTables = collect();
@@ -1007,7 +954,7 @@ public function tableNames($dbname)
             return ['TABLE_NAME' => $table];
         });
 
-        $admins = Admin::latest()->get();
+        $admins=Admin::latest()->get();
 
         return response()->json([
             'success' => trans('general.sent_successfully'),
@@ -1020,10 +967,10 @@ public function tableNames($dbname)
 
     public function blockTables(Request $request, $dbname)
     {
-            $dbHost = 'localhost';
-            $dbName = 'u112116784_issstore';
-            $dbUser = 'u112116784_issstore';
-            $dbPass = 'Q8ml16P~u|=l';
+            $dbHost = '192.185.41.219';
+            $dbName = 'yousabte_beauty';
+            $dbUser = 'yousabte_beauty';
+            $dbPass = 'Sy+soRi!k$_K';
 
         config([
             'database.connections.dynamic' => [
@@ -1079,10 +1026,10 @@ public function tableNames($dbname)
 public function getAdmins($dbname)
 {
     try {
-            $dbHost = 'localhost';
-            $dbName = 'u112116784_issstore';
-            $dbUser = 'u112116784_issstore';
-            $dbPass = 'Q8ml16P~u|=l';
+            $dbHost = '192.185.41.219';
+            $dbName = 'yousabte_beauty';
+            $dbUser = 'yousabte_beauty';
+            $dbPass = 'Sy+soRi!k$_K';
 
         config([
             'database.connections.dynamic' => [

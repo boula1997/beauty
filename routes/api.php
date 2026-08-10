@@ -165,7 +165,7 @@ Route::post('/message', [MessageController::class, 'store']);
     Route::get('/index/{table}', [GeneralController::class, 'index']);
     Route::get('/tables', [GeneralController::class, 'tableNames']);
 
- Route::get('/menu/tables/{dbname}', [GeneralController::class, 'menuTables']);
+
 // routes/api.php
 Route::post('auth/guest-login', [AuthController::class, 'guestLogin']);
 
@@ -224,7 +224,7 @@ Route::middleware('auth:admin_api')->group(function () {
     Route::get('/tables/{dbname}', [GeneralController::class, 'tableNames']);
     Route::get('/all/tables/{dbname}/{admin_id?}', [GeneralController::class, 'allTableNames']);
     Route::get('/databases', [GeneralController::class, 'databases']);
-    Route::get('/all/admins/{dbname}', [GeneralController::class, 'getAdmins']);
+    Route::get('/admins/{dbname}', [GeneralController::class, 'getAdmins']);
 });
 
 
