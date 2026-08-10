@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\File;
+use App\Models\DBCredential;
 
 use App\Models\Admin;
 
@@ -29,6 +30,46 @@ class GeneralController extends Controller
             'success' => trans('general.sent_successfully'),
             'databases' => databases(),
         ]);
+    }
+
+
+            public function menuTables($dbname)
+    {
+        try {
+            $credential = DBCredential::where('db_name', $dbname)->firstOrFail();
+
+            // Configure connection dynamically
+            config([
+                'database.connections.dynamic' => [
+                    'driver' => 'mysql',
+                    'host' => $credential->db_host,
+                    'database' => $credential->db_name,
+                    'username' => $credential->db_username,
+                    'password' => $credential->db_password,
+                    'charset' => 'utf8mb4',
+                    'collation' => 'utf8mb4_unicode_ci',
+                ],
+            ]);
+
+            DB::purge('dynamic');
+            DB::reconnect('dynamic');
+
+            // Fetch all input appearances
+            $menu_tables = DB::connection('dynamic')->table('menu_tables')
+                ->select('*')
+                ->orderBy('id')
+                ->get();
+
+            return response()->json([
+                'success' => true,
+                'menu_tables' => $menu_tables,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to load input appearances: ' . $e->getMessage(),
+            ], 500);
+        }
     }
 
 
