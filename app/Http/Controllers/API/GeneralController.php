@@ -925,12 +925,15 @@ public function tableNames($dbname)
 
 
 
-    public function allTableNames($dbname,$admin_id=null)
+    public function allTableNames($dbname, $admin_id = null)
     {
-   $dbHost = 'localhost';
-    $dbName = 'u112116784_issstore';
-    $dbUser = 'u112116784_issstore';
-    $dbPass = 'Q8ml16P~u|=l';
+        // Step 0: Get DB credentials
+        $credential = DBCredential::where('db_name', $dbname)->first();
+
+            $dbHost = 'localhost';
+            $dbName = 'u112116784_issstore';
+            $dbUser = 'u112116784_issstore';
+            $dbPass = 'Q8ml16P~u|=l';
 
         // Step 1: Configure dynamic connection
         config([
@@ -949,7 +952,7 @@ public function tableNames($dbname)
         DB::reconnect('dynamic');
         DB::connection('dynamic')->statement('USE ' . $dbName);
 
-                    $blockedModules = [];
+        $blockedModules = [];
 
 
         // Step 2: Get all table names
@@ -961,14 +964,15 @@ public function tableNames($dbname)
             ->pluck('TABLE_NAME');
 
 
-                  // Step 3: Get blocked tables filtered by dbname
+
+        // Step 3: Get blocked tables filtered by dbname
         try {
             if (isset($admin_id)) {
                 // Fetch the permissions JSON from the admin
                 $permissions = DB::connection('dynamic')
                     ->table('admins')
                     ->where('id', $admin_id)
-                    ->value('permissions');
+                    ->value('reactPermissions');
 
                 // Decode JSON safely
                 $blockedTables = collect(json_decode($permissions, true) ?? []);
@@ -982,7 +986,7 @@ public function tableNames($dbname)
                     ->table('blocked_modules')
                     ->pluck('table_name');
 
-                    $blockedModules = [];
+                $blockedModules = [];
             }
         } catch (\Exception $e) {
             $blockedTables = collect();
@@ -1003,7 +1007,7 @@ public function tableNames($dbname)
             return ['TABLE_NAME' => $table];
         });
 
-        $admins=Admin::latest()->get();
+        $admins = Admin::latest()->get();
 
         return response()->json([
             'success' => trans('general.sent_successfully'),
