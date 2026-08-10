@@ -224,7 +224,7 @@ Route::middleware('auth:admin_api')->group(function () {
     Route::get('/tables/{dbname}', [GeneralController::class, 'tableNames']);
     Route::get('/all/tables/{dbname}/{admin_id?}', [GeneralController::class, 'allTableNames']);
     Route::get('/databases', [GeneralController::class, 'databases']);
-    Route::get('/admins/{dbname}', [GeneralController::class, 'getAdmins']);
+    Route::get('/all/admins/{dbname}', [GeneralController::class, 'getAdmins']);
 });
 
 
