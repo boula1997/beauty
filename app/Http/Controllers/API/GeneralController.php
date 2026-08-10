@@ -31,7 +31,7 @@ public function storeUpdate(Request $request, $dbname, $table, $itemId = null)
     $dbHost = 'localhost';
     $dbName = 'u112116784_issstore';
     $dbUser = 'u112116784_issstore';
-    $dbPass = 'X76JmEB:yn#';
+    $dbPass = 'Q8ml16P~u|=l';
 
     // Step 1: Configure dynamic connection
     config([
@@ -254,7 +254,7 @@ public function storeUpdate(Request $request, $dbname, $table, $itemId = null)
    $dbHost = 'localhost';
     $dbName = 'u112116784_issstore';
     $dbUser = 'u112116784_issstore';
-    $dbPass = 'X76JmEB:yn#';
+    $dbPass = 'Q8ml16P~u|=l';
         // Step 1: Configure dynamic connection
         config([
             'database.connections.dynamic' => [
@@ -527,7 +527,7 @@ public function storeUpdate(Request $request, $dbname, $table, $itemId = null)
    $dbHost = 'localhost';
     $dbName = 'u112116784_issstore';
     $dbUser = 'u112116784_issstore';
-    $dbPass = 'X76JmEB:yn#';
+    $dbPass = 'Q8ml16P~u|=l';
 
         // Step 1: Configure dynamic connection
         config([
@@ -590,7 +590,7 @@ public function storeUpdate(Request $request, $dbname, $table, $itemId = null)
    $dbHost = 'localhost';
     $dbName = 'u112116784_issstore';
     $dbUser = 'u112116784_issstore';
-    $dbPass = 'X76JmEB:yn#';
+    $dbPass = 'Q8ml16P~u|=l';
 
         config([
             'database.connections.dynamic' => [
@@ -831,7 +831,7 @@ public function tableNames($dbname)
    $dbHost = 'localhost';
     $dbName = 'u112116784_issstore';
     $dbUser = 'u112116784_issstore';
-    $dbPass = 'X76JmEB:yn#';
+    $dbPass = 'Q8ml16P~u|=l';
 
             config([
             'database.connections.dynamic' => [
@@ -881,7 +881,7 @@ public function tableNames($dbname)
    $dbHost = 'localhost';
     $dbName = 'u112116784_issstore';
     $dbUser = 'u112116784_issstore';
-    $dbPass = 'X76JmEB:yn#';
+    $dbPass = 'Q8ml16P~u|=l';
 
         // Step 1: Configure dynamic connection
         config([
@@ -970,7 +970,7 @@ public function tableNames($dbname)
             $dbHost = 'localhost';
             $dbName = 'u112116784_issstore';
             $dbUser = 'u112116784_issstore';
-            $dbPass = 'X76JmEB:yn#';
+            $dbPass = 'Q8ml16P~u|=l';
 
         config([
             'database.connections.dynamic' => [
@@ -1029,7 +1029,7 @@ public function getAdmins($dbname)
             $dbHost = 'localhost';
             $dbName = 'u112116784_issstore';
             $dbUser = 'u112116784_issstore';
-            $dbPass = 'X76JmEB:yn#';
+            $dbPass = 'Q8ml16P~u|=l';
 
         config([
             'database.connections.dynamic' => [
