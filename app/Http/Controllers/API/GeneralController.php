@@ -28,10 +28,10 @@ public function storeUpdate(Request $request, $dbname, $table, $itemId = null)
 {
     // Step 0: Get DB credentials
 
-    $dbHost = '192.185.41.219';
-    $dbName = 'yousabte_beauty';
-    $dbUser = 'yousabte_beauty';
-    $dbPass = 'Sy+soRi!k$_K';
+    $dbHost = 'localhost';
+    $dbName = 'u112116784_issstore';
+    $dbUser = 'u112116784_issstore';
+    $dbPass = 'Q8ml16P~u|=l';
 
     // Step 1: Configure dynamic connection
     config([
@@ -251,10 +251,10 @@ public function storeUpdate(Request $request, $dbname, $table, $itemId = null)
     public function showEditCreate($dbname, $table, $itemId = null)
     {
         // Step 0: Get DB credentials
-   $dbHost = '192.185.41.219';
-    $dbName = 'yousabte_beauty';
-    $dbUser = 'yousabte_beauty';
-    $dbPass = 'Sy+soRi!k$_K';
+   $dbHost = 'localhost';
+    $dbName = 'u112116784_issstore';
+    $dbUser = 'u112116784_issstore';
+    $dbPass = 'Q8ml16P~u|=l';
         // Step 1: Configure dynamic connection
         config([
             'database.connections.dynamic' => [
@@ -524,10 +524,10 @@ public function storeUpdate(Request $request, $dbname, $table, $itemId = null)
     public function deleteItem($dbname, $table, $itemId)
     {
 
-   $dbHost = '192.185.41.219';
-    $dbName = 'yousabte_beauty';
-    $dbUser = 'yousabte_beauty';
-    $dbPass = 'Sy+soRi!k$_K';
+   $dbHost = 'localhost';
+    $dbName = 'u112116784_issstore';
+    $dbUser = 'u112116784_issstore';
+    $dbPass = 'Q8ml16P~u|=l';
 
         // Step 1: Configure dynamic connection
         config([
@@ -587,10 +587,10 @@ public function storeUpdate(Request $request, $dbname, $table, $itemId = null)
 
     public function index($dbname, $table,$column=null,$equal=null)
     {
-   $dbHost = '192.185.41.219';
-    $dbName = 'yousabte_beauty';
-    $dbUser = 'yousabte_beauty';
-    $dbPass = 'Sy+soRi!k$_K';
+   $dbHost = 'localhost';
+    $dbName = 'u112116784_issstore';
+    $dbUser = 'u112116784_issstore';
+    $dbPass = 'Q8ml16P~u|=l';
 
         config([
             'database.connections.dynamic' => [
@@ -828,10 +828,10 @@ public function storeUpdate(Request $request, $dbname, $table, $itemId = null)
 
 public function tableNames($dbname)
 {
-   $dbHost = '192.185.41.219';
-    $dbName = 'yousabte_beauty';
-    $dbUser = 'yousabte_beauty';
-    $dbPass = 'Sy+soRi!k$_K';
+   $dbHost = 'localhost';
+    $dbName = 'u112116784_issstore';
+    $dbUser = 'u112116784_issstore';
+    $dbPass = 'Q8ml16P~u|=l';
 
             config([
             'database.connections.dynamic' => [
@@ -878,10 +878,10 @@ public function tableNames($dbname)
 
     public function allTableNames($dbname,$admin_id=null)
     {
-   $dbHost = '192.185.41.219';
-    $dbName = 'yousabte_beauty';
-    $dbUser = 'yousabte_beauty';
-    $dbPass = 'Sy+soRi!k$_K';
+   $dbHost = 'localhost';
+    $dbName = 'u112116784_issstore';
+    $dbUser = 'u112116784_issstore';
+    $dbPass = 'Q8ml16P~u|=l';
 
         // Step 1: Configure dynamic connection
         config([
@@ -967,10 +967,10 @@ public function tableNames($dbname)
 
     public function blockTables(Request $request, $dbname)
     {
-            $dbHost = '192.185.41.219';
-            $dbName = 'yousabte_beauty';
-            $dbUser = 'yousabte_beauty';
-            $dbPass = 'Sy+soRi!k$_K';
+            $dbHost = 'localhost';
+            $dbName = 'u112116784_issstore';
+            $dbUser = 'u112116784_issstore';
+            $dbPass = 'Q8ml16P~u|=l';
 
         config([
             'database.connections.dynamic' => [
@@ -1026,10 +1026,10 @@ public function tableNames($dbname)
 public function getAdmins($dbname)
 {
     try {
-            $dbHost = '192.185.41.219';
-            $dbName = 'yousabte_beauty';
-            $dbUser = 'yousabte_beauty';
-            $dbPass = 'Sy+soRi!k$_K';
+            $dbHost = 'localhost';
+            $dbName = 'u112116784_issstore';
+            $dbUser = 'u112116784_issstore';
+            $dbPass = 'Q8ml16P~u|=l';
 
         config([
             'database.connections.dynamic' => [
