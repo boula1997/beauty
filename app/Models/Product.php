@@ -99,6 +99,46 @@ class Product extends Model implements TranslatableContract
             ->values();
     }
 
+    /**
+     * Sizes available for this product, built from its variations.
+     * Each size lists the colors it exists in so the client can match color + size.
+     */
+    public function getSizes()
+    {
+        return $this->productVariations
+            ->whereNotNull('size_id')
+            ->groupBy('size_id')
+            ->map(function ($variations) {
+                $size = $variations->first()->size;
+
+                if (!$size) {
+                    return null;
+                }
+
+                return [
+                    'id'       => $size->id,
+                    'title'    => $size->title,
+                    'quantity' => $variations->sum('quantity'),
+                    'colors'   => $variations->whereNotNull('color_id')
+                        ->map(fn ($variation) => [
+                            'id'       => $variation->color_id,
+                            'quantity' => $variation->quantity,
+                        ])
+                        ->values(),
+                ];
+            })
+            ->filter()
+            ->values();
+    }
+
+    /**
+     * Whether this product is sold in sizes (has at least one variation with a size).
+     */
+    public function hasSizes(): bool
+    {
+        return $this->productVariations->whereNotNull('size_id')->isNotEmpty();
+    }
+
 
 
 

@@ -13,10 +13,10 @@ return [
     |
     */
 
-    'welcometolabmob' => 'Welcome to LabMob',
-    '1st_describtion' => 'Discover the latest laptops and smartphones at the best prices and exclusive offers.',
-    '2nd_describtion' => '100% original products with quality guarantee and 24/7 customer support.',
-    '3rd_describtion' => 'Enjoy easy shopping with secure payment options and fast nationwide delivery.',
+    'welcometolabmob' => 'Welcome to Iss Women\'s Wear',
+    '1st_describtion' => 'Discover the latest women\'s fashion: dresses, tops and abayas at the best prices.',
+    '2nd_describtion' => 'Pick your perfect size and color, with quality you can feel in every piece.',
+    '3rd_describtion' => 'Enjoy easy shopping with secure payment options and fast delivery.',
     "saved_success" => "Saved successfully",
 
 "general_setting" => "General settings",
@@ -40,6 +40,7 @@ return [
 "discount%" => "Discount %",
 
 "select_size" => "Select size",
+"size_not_available" => "The selected size is not available for this product",
 
 "select_color" => "Select color",
 
@@ -1670,5 +1671,25 @@ Looking for the latest trends in clothing, shoes and accessories? Welcome to our
     'email' => 'Email',
     'order_confirmation_subject' => 'Order Confirmation - Order #:id',
     'is_addition' => 'Is this product an addition?',
+
+    // Dashboard modules (task #3545) and sizes (task #3544)
+    'size' => 'Size',
+    'customers' => 'Customers',
+    'marketing' => 'Marketing',
+    'no_variations' => 'No variations yet. Add one for each color and size you sell.',
+    'variation_exists' => 'A variation with this color and size already exists for this product.',
+    'none' => 'None',
+    'fee' => 'Fee',
+    'shippings' => 'Shipping',
+    'max_discount' => 'Max discount',
+    'min_order_amount' => 'Minimum order amount',
+    'usage_limit' => 'Usage limit',
+    'used_count' => 'Used',
+    'per_user_limit' => 'Per-user limit',
+    'starts_at' => 'Starts at',
+    'expires_at' => 'Expires at',
+    'is_active' => 'Active',
+    'active' => 'Active',
+    'inactive' => 'Inactive',
 
 ];

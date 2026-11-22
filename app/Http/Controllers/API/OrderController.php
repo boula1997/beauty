@@ -117,9 +117,12 @@ class OrderController extends Controller
             foreach (cart()->getItems() as $item) {
                 $product = Product::find($item->getId());
 
+                $sizeId = $item->get('options')['size'] ?? null;
+
                 $variation = ProductVariation::where('color_id', $item->get('options')["color"])
-              
+
                 ->where('product_id', $product->id)
+                ->when($sizeId, fn ($q) => $q->where('size_id', $sizeId))
                 ->first();
 
                 // Check if item is out of stock

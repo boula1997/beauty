@@ -92,7 +92,68 @@ class PermissionTableSeeder extends Seeder
            'contact-create',
            'contact-edit',
            'contact-delete',
-           
+
+           // Modules whose controllers already require these permissions
+           'setting-list',
+
+           'size-list',
+           'size-create',
+           'size-edit',
+           'size-delete',
+
+           'color-list',
+           'color-create',
+           'color-edit',
+           'color-delete',
+
+           'brand-list',
+           'brand-create',
+           'brand-edit',
+           'brand-delete',
+
+           'banner-list',
+           'banner-create',
+           'banner-edit',
+           'banner-delete',
+
+           'offer-list',
+           'offer-create',
+           'offer-edit',
+           'offer-delete',
+
+           'faq-list',
+           'faq-create',
+           'faq-edit',
+           'faq-delete',
+
+           'shipping-list',
+           'shipping-create',
+           'shipping-edit',
+           'shipping-delete',
+
+           'review-list',
+           'review-delete',
+
+           'user-list',
+           'user-create',
+           'user-edit',
+           'user-delete',
+
+           'store-list',
+           'store-create',
+           'store-edit',
+           'store-delete',
+
+           'itemRequest-list',
+           'itemRequest-create',
+           'itemRequest-edit',
+           'itemRequest-delete',
+
+           'coupon-list',
+           'coupon-create',
+           'coupon-edit',
+           'coupon-delete',
+
         ];
         
      

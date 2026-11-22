@@ -77,6 +77,20 @@ class Admin extends Authenticatable
         return  $this->file?asset($this->file->url): asset('default.jpg');
     }
 
+    /**
+     * Some databases still have a legacy `admins.permissions` JSON column (module list used by the
+     * removed dynamic dashboard). An attribute wins over a relation in Eloquent, so it shadowed
+     * Spatie's permissions() relation and broke every can()/permission check. Always use the relation.
+     */
+    public function getAttribute($key)
+    {
+        if ($key === 'permissions') {
+            return $this->getRelationValue('permissions');
+        }
+
+        return parent::getAttribute($key);
+    }
+
 
 
         /**

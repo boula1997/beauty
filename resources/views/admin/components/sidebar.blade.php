@@ -3,8 +3,8 @@
         <div class="main-header-left d-none d-lg-block">
             <div class="logo-wrapper">
                 <a href="{{ route('dashboard') }}">
-                    <img class="d-none d-lg-block blur-up lazyloaded" src="{{asset("assets/images/dashboard/multikart-logo.png")}}"
-                        alt="">
+                    <img class="d-none d-lg-block blur-up lazyloaded" src="{{ settings()->logo }}"
+                        alt="{{ settings()->title }}" style="max-height: 60px;">
                 </a>
             </div>
         </div>
@@ -134,7 +134,7 @@
                                 </a>
                             </li>
                         
-                            @can('product-create')   
+                            @can('product-create')
                                 <li>
                                     <a href="{{ route('products.create') }}">
                                         <i class="fa fa-circle"></i>{{ __('general.create_product') }}
@@ -142,6 +142,89 @@
                                 </li>
                             @endcan
                         </ul>
+                    </li>
+                @endcan
+
+                {{-- product attributes: sizes, colors, brands --}}
+                @canany(['size-list','color-list','brand-list'])
+                    <li>
+                        <a class="sidebar-header" href="javascript:void(0)">
+                            <i data-feather="tag"></i>
+                            <span>{{ __('general.product_attributes') }}</span>
+                            <i class="fa fa-angle-right pull-right {{ app()->getLocale()=="ar"?"rotate":"" }}"></i>
+                        </a>
+                        <ul class="sidebar-submenu">
+                            @can('size-list')
+                                <li><a href="{{ route('sizes.index') }}"><i class="fa fa-circle"></i>{{ __('general.sizes') }}</a></li>
+                            @endcan
+                            @can('color-list')
+                                <li><a href="{{ route('colors.index') }}"><i class="fa fa-circle"></i>{{ __('general.colors') }}</a></li>
+                            @endcan
+                            @can('brand-list')
+                                <li><a href="{{ route('brands.index') }}"><i class="fa fa-circle"></i>{{ __('general.brands') }}</a></li>
+                            @endcan
+                        </ul>
+                    </li>
+                @endcanany
+
+                {{-- marketing: coupons, offers, banners --}}
+                @canany(['coupon-list','offer-list','banner-list'])
+                    <li>
+                        <a class="sidebar-header" href="javascript:void(0)">
+                            <i data-feather="percent"></i>
+                            <span>{{ __('general.marketing') }}</span>
+                            <i class="fa fa-angle-right pull-right {{ app()->getLocale()=="ar"?"rotate":"" }}"></i>
+                        </a>
+                        <ul class="sidebar-submenu">
+                            @can('coupon-list')
+                                <li><a href="{{ route('coupons.index') }}"><i class="fa fa-circle"></i>{{ __('general.coupons') }}</a></li>
+                            @endcan
+                            @can('offer-list')
+                                <li><a href="{{ route('offers.index') }}"><i class="fa fa-circle"></i>{{ __('general.offers') }}</a></li>
+                            @endcan
+                            @can('banner-list')
+                                <li><a href="{{ route('banners.index') }}"><i class="fa fa-circle"></i>{{ __('general.banners') }}</a></li>
+                            @endcan
+                        </ul>
+                    </li>
+                @endcanany
+
+                {{-- shippings --}}
+                @can('shipping-list')
+                    <li>
+                        <a class="sidebar-header" href="{{ route('shippings.index') }}">
+                            <i data-feather="truck"></i>
+                            <span>{{ __('general.shippings') }}</span>
+                        </a>
+                    </li>
+                @endcan
+
+                {{-- customers & reviews --}}
+                @canany(['user-list','review-list'])
+                    <li>
+                        <a class="sidebar-header" href="javascript:void(0)">
+                            <i data-feather="users"></i>
+                            <span>{{ __('general.customers') }}</span>
+                            <i class="fa fa-angle-right pull-right {{ app()->getLocale()=="ar"?"rotate":"" }}"></i>
+                        </a>
+                        <ul class="sidebar-submenu">
+                            @can('user-list')
+                                <li><a href="{{ route('users.index') }}"><i class="fa fa-circle"></i>{{ __('general.users') }}</a></li>
+                            @endcan
+                            @can('review-list')
+                                <li><a href="{{ route('reviews.index') }}"><i class="fa fa-circle"></i>{{ __('general.reviews') }}</a></li>
+                            @endcan
+                        </ul>
+                    </li>
+                @endcanany
+
+                {{-- faqs --}}
+                @can('faq-list')
+                    <li>
+                        <a class="sidebar-header" href="{{ route('faqs.index') }}">
+                            <i data-feather="help-circle"></i>
+                            <span>{{ __('general.faqs') }}</span>
+                        </a>
                     </li>
                 @endcan
 

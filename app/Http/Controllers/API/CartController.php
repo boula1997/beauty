@@ -43,8 +43,10 @@ class CartController extends Controller
             $cartItems = [];
             foreach ($cartData as $hash => $item) {
                 $product = Product::find($item['id']);
+                $sizeId = $item['options']['size'] ?? null;
                 $cartItems[] = array_merge(['hash' => $hash,
                 'image' => $product ? $product->image : null,
+                'size' => $sizeId ? Size::find($sizeId)?->title : null,
                 ], $item);
             }
     
@@ -74,19 +76,35 @@ class CartController extends Controller
             
             $product = $this->product->findorfail($id);
 
+            $options = [
+                'color' => $request->color_id,
+            ];
 
-            
-             
+            // Products sold in sizes require the customer to pick an available size.
+            if ($product->hasSizes()) {
+                if (!$request->filled('size_id')) {
+                    return response()->json(['error' => __('general.select_size')]);
+                }
+
+                $sizeAvailable = $product->productVariations()
+                    ->where('size_id', $request->size_id)
+                    ->when($request->filled('color_id'), fn ($q) => $q->where('color_id', $request->color_id))
+                    ->exists();
+
+                if (!$sizeAvailable) {
+                    return response()->json(['error' => __('general.size_not_available')]);
+                }
+
+                $options['size'] = (int) $request->size_id;
+            }
+
             $item = $this->cart->addItem([
                 'model' => $product,
-                'id' => $product->id, 
+                'id' => $product->id,
                 'title' => isset($product)?$product->title:'',
                 'price' => $product->price,
                 'quantity' => $request->quantity ?? 1,
-                'options' => [
-                    'color' => $request->color_id,
-                ],
-              
+                'options' => $options,
             ]);
 
             updateUserCart();

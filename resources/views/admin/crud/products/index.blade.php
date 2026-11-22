@@ -46,7 +46,7 @@
                                                     <span class="badge bg-secondary">✖ {{ __('general.no') }}</span>
                                                 @endif
                                             </td>            
-                                            <td>{{ $product->category->title }}</td>
+                                            <td>{{ $product->category?->title ?? '-' }}</td>
                                             <td>{{ optional($product->subcategory)->title }}</td>
                                             <td>
                                                 @include('admin.components.controls', [
@@ -54,6 +54,9 @@
                                                     'role' => 'product',
                                                     'module' => $product,
                                                 ])
+                                                <a class="mx-2" href="{{ route('products.variations.index', $product) }}" title="{{ __('general.variations') }}">
+                                                    <i class="fas fa-layer-group text-secondary fa-lg"></i>
+                                                </a>
                                             </td>
                                         </tr>
                                     @endforeach

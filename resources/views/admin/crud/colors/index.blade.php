@@ -34,7 +34,7 @@
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $color->title }}</td>              
-                                            <td>{{ $color->store->title }}</td>
+                                            <td>{{ $color->store?->title ?? '-' }}</td>
                                             <td>
                                                 @include('admin.components.controls', [
                                                     'route' => 'colors',

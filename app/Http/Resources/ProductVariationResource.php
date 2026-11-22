@@ -21,6 +21,8 @@ class ProductVariationResource extends JsonResource
             // "image" => $this->image,
             "color" => $this->color->title,
             "color_id" => $this->color_id,
+            "size" => $this->size?->title,
+            "size_id" => $this->size_id,
 
             // 'variations'=>ChildVariationResource::collection($variations),
         ];

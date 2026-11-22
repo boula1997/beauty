@@ -34,7 +34,7 @@
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $size->title }}</td>              
-                                            <td>{{ $size->store->title }}</td>
+                                            <td>{{ $size->store?->title ?? '-' }}</td>
                                    
                                             <td>
                                                 @include('admin.components.controls', [

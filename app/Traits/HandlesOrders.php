@@ -53,8 +53,11 @@ trait HandlesOrders
                 $productId = strtok($item->getId(), '-'); 
                 $product = Product::find($productId);
 
+                $sizeId = $item->get('options')['size'] ?? null;
+
                 $variation = ProductVariation::where('color_id', $item->get('options')["color"])
                 ->where('product_id', strtok($item->getId(), '-'))
+                ->when($sizeId, fn ($q) => $q->where('size_id', $sizeId))
                 ->first();
 
                 $quantity = $item->get('quantity');

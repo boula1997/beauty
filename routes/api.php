@@ -17,7 +17,6 @@ use App\Http\Controllers\API\MessageController;
 use App\Http\Controllers\API\CartController;
 use App\Http\Controllers\API\ConfigController;
 use App\Http\Controllers\API\OfferController;
-use App\Http\Controllers\API\GeneralController;
 use App\Http\Controllers\API\NewsletterController;
 use App\Http\Controllers\API\ContactController;
 use App\Http\Controllers\API\PageController;
@@ -159,11 +158,6 @@ Route::post('/newsletter', [NewsletterController::class, 'store']);
 Route::post('/products', [ProductController::class, 'store']);
 Route::post('/products', [ProductController::class, 'store']);
 Route::post('/message', [MessageController::class, 'store']);
-    Route::get('/showEditCreate/{table}/{itemId}', [GeneralController::class, 'showEditCreate']);
-    Route::post('/storeUpdate/{table}/{itemId}', [GeneralController::class, 'storeUpdate']);
-    Route::get('/deleteItem/{table}/{itemId}', [GeneralController::class, 'deleteItem']);
-    Route::get('/index/{table}', [GeneralController::class, 'index']);
-    Route::get('/tables', [GeneralController::class, 'tableNames']);
 
 
 // routes/api.php
@@ -215,17 +209,8 @@ Route::group([
 
 Route::post('/admin/login', [AdminAuthController::class, 'login']);
 
-Route::middleware('auth:admin_api')->group(function () {
-    Route::get('/showEditCreate/{dbname}/{table}/{itemId}', [GeneralController::class, 'showEditCreate']);
-    Route::post('/storeUpdate/{dbname}/{table}/{itemId}', [GeneralController::class, 'storeUpdate']);
-    Route::post('/blocktables/{dbname}', [GeneralController::class, 'blockTables']);
-    Route::get('/deleteItem/{dbname}/{table}/{itemId}', [GeneralController::class, 'deleteItem']);
-    Route::get('/index/{dbname}/{table}/{column?}/{equal?}', [GeneralController::class, 'index']);
-    Route::get('/tables/{dbname}', [GeneralController::class, 'tableNames']);
-    Route::get('/all/tables/{dbname}/{admin_id?}', [GeneralController::class, 'allTableNames']);
-    Route::get('/databases', [GeneralController::class, 'databases']);
-    Route::get('/admins/{dbname}', [GeneralController::class, 'getAdmins']);
-});
+// The generic "dynamic" table CRUD (GeneralController) was removed in task #3545.
+// Every module is now managed by its own controller in the Blade dashboard (routes/admin.php, /dashboard/...).
 
 
 // Hyperpay

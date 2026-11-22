@@ -30,7 +30,7 @@ class ShippingController extends Controller
     public function index()
     {
         try {
-            $shippings = $this->shipping->orderBy('sort')->paginate(10);
+            $shippings = $this->shipping->latest()->paginate(10);
             return view('admin.crud.shippings.index', compact('shippings'))
                 ->with('i', (request()->input('shipping', 1) - 1) * 5);
         } catch (Exception $e) {
@@ -58,8 +58,7 @@ class ShippingController extends Controller
     public function store(ShippingRequest $request)
     {
         try {
-            $data = $request->except('image','profile_avatar_remove');
-            $data['isTop'] = $request->has('isTop') ? 1 : 0;
+            $data = $request->only(array_merge(['fee'], config('translatable.locales')));
             $shipping = $this->shipping->create($data);
             $shipping->uploadFile();
             return redirect()->route('shippings.index')
@@ -102,8 +101,7 @@ class ShippingController extends Controller
     public function update(ShippingRequest $request, Shipping $shipping)
     {
         try {
-            $data = $request->except('image','profile_avatar_remove');
-            $data['isTop'] = $request->has('isTop') ? 1 : 0;
+            $data = $request->only(array_merge(['fee'], config('translatable.locales')));
             $shipping->update($data);
             $shipping->updateFile();
 
