@@ -24,8 +24,7 @@ class ShippingRequest extends FormRequest
         $image = request()->isMethod('put') ? 'nullable' : 'required';
 
         $rules = [
-
-
+            'fee' => 'required|numeric|min:0',
         ];
         foreach (config('translatable.locales') as $locale) {
             $rules += [$locale . '.title' => ['required', 'string']];

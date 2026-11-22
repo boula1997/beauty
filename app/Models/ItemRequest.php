@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 class ItemRequest extends Model 
 {
     use HasFactory, MorphFile,MorphFiles;
-    protected $table = 'itemRequests';
+    protected $table = 'itemrequests';
     protected $guarded = [];
     public $timestamps = true;
 

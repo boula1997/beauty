@@ -72,6 +72,42 @@ class Admin extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    /*
+     * The admins table has a `permissions` column (JSON list of tables, used by the API),
+     * which shadows Spatie's `permissions` relationship: `$this->permissions` returns that
+     * string instead of a Collection and every @can check crashes. These overrides make
+     * Spatie read the relationship explicitly; the column keeps working as before.
+     */
+    protected function spatiePermissions(): \Illuminate\Support\Collection
+    {
+        return $this->getRelationValue('permissions');
+    }
+
+    public function hasDirectPermission($permission): bool
+    {
+        $permission = $this->filterPermission($permission);
+
+        return $this->spatiePermissions()->contains($permission->getKeyName(), $permission->getKey());
+    }
+
+    public function getDirectPermissions(): \Illuminate\Support\Collection
+    {
+        return $this->spatiePermissions();
+    }
+
+    public function getAllPermissions(): \Illuminate\Support\Collection
+    {
+        return $this->spatiePermissions()
+            ->merge($this->getPermissionsViaRoles())
+            ->sort()
+            ->values();
+    }
+
+    public function getPermissionNames(): \Illuminate\Support\Collection
+    {
+        return $this->spatiePermissions()->pluck('name');
+    }
+
     public function getImageAttribute()
     {
         return  $this->file?asset($this->file->url): asset('default.jpg');

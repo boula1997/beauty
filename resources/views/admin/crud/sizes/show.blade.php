@@ -53,12 +53,6 @@
                     <div class="card-body">
                         <div class="digital-add needs-validation">
                             <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <h5 class="font-weight-bolder text-dark">{{__('general.store')}}:</h5>
-                                        <p style="margin: 0; color: inherit; font-weight: normal;">{{ $size->store->title }}</p>
-                                    </div>
-                                </div>
 
                             </div>
                         </div>

@@ -19,8 +19,11 @@ class ProductVariationResource extends JsonResource
 
         return [
             // "image" => $this->image,
-            "color" => $this->color->title,
+            "color" => $this->color?->title,
+            "colorHex" => $this->color?->hexCode,
             "color_id" => $this->color_id,
+            "size" => optional($this->size)->title,
+            "size_id" => $this->size_id,
 
             // 'variations'=>ChildVariationResource::collection($variations),
         ];

@@ -16,11 +16,11 @@ class OrderProductResource extends JsonResource
     {  
         return [
             "id" => $this->id,
-            "image" => $this->product->image,
-            "title" => $this->product->title,
+            "image" => $this->product?->image ?? asset('default.jpg'),
+            "title" => $this->product?->title,
             "count" => $this->count,
             "total" => $this->total,
-            "variation" => new ProductVariationResource($this->variation),
+            "variation" => $this->variation ? new ProductVariationResource($this->variation) : null,
         ];
     }
 }

@@ -56,7 +56,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <h5 class="font-weight-bolder text-dark">{{__('general.category')}}:</h5>
-                                        <p style="margin: 0; color: inherit; font-weight: normal;">{{ $subcategory->category->title }}</p>
+                                        <p style="margin: 0; color: inherit; font-weight: normal;">{{ $subcategory->category?->title }}</p>
                                     </div>
                                 </div>
 

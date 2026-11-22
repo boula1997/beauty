@@ -24,6 +24,7 @@ use App\Http\Controllers\API\ProjectController;
 use App\Http\Controllers\Admin\ProductSizeController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\ShippingController;
+use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\SizeController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\StoreController;
@@ -76,7 +77,6 @@ Route::group(
                 Route::resource('contacts', ContactController::class);
                 Route::resource('faqs', FaqController::class);
                 Route::resource('sizes', SizeController::class);
-                Route::resource('sizes', SizeController::class);
                 Route::resource('colors', ColorController::class);
                 Route::resource('subcategories', SubcategoryController::class);
                 Route::resource('stores', StoreController::class);
@@ -102,6 +102,7 @@ Route::group(
                 Route::resource('orders', OrderController::class);
                 Route::resource('messages', MessageController::class);
                 Route::resource('shippings', ShippingController::class);
+                Route::resource('coupons', CouponController::class);
                 Route::resource('merchantRequests', MerchantRequestController::class);
                 
                 Route::get('/merchantRequest/reject/{id}', [MerchantRequestController::class, 'reject'])->name('merchantRequests.reject');

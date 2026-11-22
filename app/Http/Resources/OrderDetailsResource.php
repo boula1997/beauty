@@ -21,7 +21,12 @@ class OrderDetailsResource extends JsonResource
             "created_at"=>$this->created_at,
 
             "orderproducts"=>OrderProductResource::collection($this->orderproducts),
-            "address" => $this->address_id,
+            "address" => $this->address,
+            "name" => $this->name,
+            "phone" => $this->phone,
+            "payment_method" => $this->payment_method,
+            "payment_status" => $this->payment_status,
+            "cancelReason" => $this->cancelReason,
             "paymentDetails"=>orderCheckoutData($this),
           
         ];

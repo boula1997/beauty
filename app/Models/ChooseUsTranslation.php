@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class ChooseUsTranslation extends Model
 {
     use HasFactory;
-    protected $table = 'chooseUs_translations';
+    protected $table = 'chooseus_translations';
     protected $guarded = [];
 
     public function getDescriptionAttribute($value)

@@ -47,9 +47,8 @@ class HomeController extends Controller
         try {
 
             $products = $this->product
-                ->whereHas('productVariations')  // must have at least one variation
-                ->whereDoesntHave('productVariations', function ($q) {
-                    $q->where('quantity', '<=', 0);  // none of them can be 0 or less
+                ->whereHas('productVariations', function ($q) {
+                    $q->where('quantity', '>', 0);  // show it while any color / size is in stock
                 })
                 ->latest()
                 ->paginate(12);

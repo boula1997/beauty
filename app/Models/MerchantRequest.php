@@ -13,7 +13,7 @@ use Illuminate\Notifications\Notifiable;
 class MerchantRequest extends Model 
 {
     use HasFactory, MorphFile,Notifiable;
-    protected $table = 'merchantRequests';
+    protected $table = 'merchantrequests';
     protected $guarded = [];
     public $timestamps = true;
 

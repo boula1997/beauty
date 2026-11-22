@@ -59,6 +59,24 @@ class ProductVariation extends Model implements TranslatableContract
         return $this->belongsTo(Color::class, 'color_id');
     }
 
+    /**
+     * Variation matching a cart item's options. Size is only applied when the item has one,
+     * so cart items added before sizes existed still resolve by color as before.
+     */
+    public function scopeForCartOptions($query, $productId, $options)
+    {
+        $options = (array) $options;
+
+        $query->where('product_id', $productId)
+            ->where('color_id', $options['color'] ?? null);
+
+        if (!empty($options['size'])) {
+            $query->where('size_id', $options['size']);
+        }
+
+        return $query;
+    }
+
 
 
     

@@ -65,7 +65,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <h5 class="font-weight-bolder text-dark">{{__('general.store')}}:</h5>
-                                        <p style="margin: 0; color: inherit; font-weight: normal;">{{ $itemRequest->store->title }}</p>
+                                        <p style="margin: 0; color: inherit; font-weight: normal;">{{ $itemRequest->store?->title }}</p>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -77,7 +77,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <h5 class="font-weight-bolder text-dark">{{__('general.category')}}:</h5>
-                                        <p style="margin: 0; color: inherit; font-weight: normal;">{{ $itemRequest->category->title }}</p>
+                                        <p style="margin: 0; color: inherit; font-weight: normal;">{{ $itemRequest->category?->title }}</p>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -121,8 +121,8 @@
                                                         @foreach($itemRequest->itemRequestVariations as $variation)
                                                             <tr>
                                                                 <td>{{ $variation->id }}</td>
-                                                                <td>{{ $variation->color->title }}</td>
-                                                                <td>{{ $variation->size->title }}</td>
+                                                                <td>{{ $variation->color?->title }}</td>
+                                                                <td>{{ $variation->size?->title }}</td>
                                                                 <td>{{ $variation->price }}</td>
                                                                 <td>{{ $variation->quantity }}</td>
                                                             

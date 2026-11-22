@@ -71,6 +71,7 @@
                     </li>
                 @endcan
 
+                @unless(in_array('itemRequests', config('dashboard.hidden_sections', [])))
                 {{-- itemRequests --}}
                 @canany('itemRequest-list')  
                     <li>
@@ -88,6 +89,7 @@
                         </ul>
                     </li>
                 @endcan
+                @endunless
 
                 {{-- categories, subcategories --}}
                 @canany(['category-list','subcategory-list']) 
@@ -146,6 +148,38 @@
                 @endcan
 
 
+                {{-- product options: colors, sizes --}}
+                @canany(['color-list','size-list'])
+                    <li>
+                        <a class="sidebar-header" href="javascript:void(0)"><i data-feather="droplet"></i><span>{{ __('general.product_options') }}</span><i
+                                class="fa fa-angle-right pull-right {{ app()->getLocale()=="ar"?"rotate":"" }}"></i></a>
+                        <ul class="sidebar-submenu">
+                            @can('color-list')
+                                <li><a href="{{ route('colors.index') }}"><i class="fa fa-circle"></i>{{ __('general.colors') }}</a></li>
+                            @endcan
+                            @can('size-list')
+                                <li><a href="{{ route('sizes.index') }}"><i class="fa fa-circle"></i>{{ __('general.sizes') }}</a></li>
+                            @endcan
+                        </ul>
+                    </li>
+                @endcanany
+
+                {{-- shipping & coupons --}}
+                @can('shipping-list')
+                    <li>
+                        <a class="sidebar-header" href="{{ route('shippings.index') }}">
+                            <i data-feather="truck"></i><span>{{ __('general.shippings') }}</span>
+                        </a>
+                    </li>
+                @endcan
+                @can('coupon-list')
+                    <li>
+                        <a class="sidebar-header" href="{{ route('coupons.index') }}">
+                            <i data-feather="tag"></i><span>{{ __('general.coupons') }}</span>
+                        </a>
+                    </li>
+                @endcan
+
                 {{-- sliders --}}
                 @can('slider-list') 
                     <li>
@@ -166,6 +200,7 @@
                     </li>
                 @endcan
 
+                @unless(in_array('services', config('dashboard.hidden_sections', [])))
                 {{-- services --}}
                 @can('service-list') 
                     <li>
@@ -185,6 +220,7 @@
                         </ul>
                     </li>
                 @endcan
+                @endunless
 
                 {{-- pages --}}
                 @can('page-list') 
@@ -230,7 +266,7 @@
                     <li>
                         <a class="sidebar-header" href="javascript:void(0)">
                             <i data-feather="archive"></i>
-                            <span>Orders</span>
+                            <span>{{ __('general.orders') }}</span>
                             <i class="fa fa-angle-right pull-right {{ app()->getLocale()=="ar"?"rotate":"" }}"></i>
                         </a>
 
@@ -238,7 +274,7 @@
                             <li>
                                 <a href="{{ route('orders.index') }}">
                                     <i class="fa fa-circle"></i>
-                                    <span>Order List</span>
+                                    <span>{{ __('general.order_list') }}</span>
                                 </a>
                             </li>
 
@@ -259,7 +295,8 @@
                     </li>   
                 @endcan
 
-                  {{-- contacts --}}
+                  @unless(in_array('contacts', config('dashboard.hidden_sections', [])))
+                {{-- contacts --}}
                 @can('contact-list') 
                     <li>
                         <a class="sidebar-header" href="javascript:void(0)">
@@ -278,7 +315,9 @@
                         </ul>
                     </li>
                 @endcan
+                @endunless
 
+                @unless(in_array('newsletters', config('dashboard.hidden_sections', [])))
                 {{-- newsletters --}}
                 @can('newsletter-list') 
                     <li>
@@ -298,6 +337,7 @@
                         </ul>
                     </li>
                 @endcan
+                @endunless
 
                 {{-- messages --}}
                 @can('message-list') 

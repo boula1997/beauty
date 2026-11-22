@@ -117,14 +117,12 @@ class OrderController extends Controller
             foreach (cart()->getItems() as $item) {
                 $product = Product::find($item->getId());
 
-                $variation = ProductVariation::where('color_id', $item->get('options')["color"])
-              
-                ->where('product_id', $product->id)
-                ->first();
+                $variation = $product ? ProductVariation::forCartOptions($product->id, $item->get('options'))->first() : null;
 
-                // Check if item is out of stock
-                if ($item->get('quantity') > $variation->quantity) {
-                    //  return failedResponse (__('general.out_of_stock_items'));
+                // Block the order if a line is no longer available in the requested quantity
+                if (!$product || !$variation || $item->get('quantity') > $variation->quantity) {
+                    $name = $product?->title ?? $item->get('title');
+                    return failedResponse(__('general.out_of_stock_items') . ($name ? ": {$name}" : ''));
                 }
 
                 // Check if the offer has already ended

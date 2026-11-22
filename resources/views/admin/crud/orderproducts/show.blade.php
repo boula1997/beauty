@@ -60,7 +60,8 @@
                                     <div class="form-group">
                                         <label class="col-form-label d-block">{{__('general.product')}}</label>
                                         <br>
-                                        <p style="margin: 0; color: inherit; font-weight: normal;">{{ $orderproduct->product->title }}</p>
+                                        <p style="margin: 0; color: inherit; font-weight: normal;">{{ $orderproduct->product?->title }}</p>
+                                        @include('admin.components.variation-badge', ['variation' => $orderproduct->variation])
                                     </div>
                                 </div>
                                 <div class="col-md-3">

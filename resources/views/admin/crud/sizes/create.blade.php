@@ -53,24 +53,6 @@
                 <div class="card-body">
                     <div class="row">
 
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="" class="form-label">{{ __('general.stores') }}</label>
-                                <select class="form-select form-select-lg" name="store_id" id="store">
-                                    <option value="">{{ __('general.select_store') }}</option>
-                                    @foreach ($stores as $store)
-                                        <option value="{{ $store->id }}"
-                                            {{ old('store_id') == $store->id ? 'selected' : '' }}>
-                                            {{ $store->title }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            @error('store_id')
-                                <span class="text-danger" >
-                                    {{ $message }}
-                                </span>
-                            @enderror
-                        </div>
                     </div>
                 </div>
                 <div class="card-footer mb-5">

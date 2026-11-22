@@ -53,8 +53,7 @@ trait HandlesOrders
                 $productId = strtok($item->getId(), '-'); 
                 $product = Product::find($productId);
 
-                $variation = ProductVariation::where('color_id', $item->get('options')["color"])
-                ->where('product_id', strtok($item->getId(), '-'))
+                $variation = ProductVariation::forCartOptions($productId, $item->get('options'))
                 ->first();
 
                 $quantity = $item->get('quantity');

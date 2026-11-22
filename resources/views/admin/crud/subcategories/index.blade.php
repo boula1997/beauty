@@ -34,7 +34,7 @@
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $subcategory->title }}</td>              
-                                            <td>{{ $subcategory->category->title }}</td>
+                                            <td>{{ $subcategory->category?->title }}</td>
                                             <td>
                                                 @include('admin.components.controls', [
                                                     'route' => 'subcategories',

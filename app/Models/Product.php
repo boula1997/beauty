@@ -85,6 +85,7 @@ class Product extends Model implements TranslatableContract
     public function getColors()
     {
         return $this->productVariations
+            ->loadMissing(['color', 'size'])
             ->groupBy('color_id')
             ->map(function ($variations) {
                 $color = $variations->first()->color;
@@ -94,6 +95,16 @@ class Product extends Model implements TranslatableContract
                     'title'    => $color->title,
                     'hexCode'  => $color->hexCode,
                     'quantity' => $variations->sum('quantity'),
+                    // Sizes available for this color (empty when the product is not sold in sizes)
+                    'sizes'    => $variations
+                        ->filter(fn ($variation) => $variation->size_id && $variation->size)
+                        ->sortBy('size_id')
+                        ->map(fn ($variation) => [
+                            'id'       => $variation->size_id,
+                            'title'    => $variation->size->title,
+                            'quantity' => $variation->quantity,
+                        ])
+                        ->values(),
                 ];
             })
             ->values();

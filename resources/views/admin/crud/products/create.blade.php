@@ -16,7 +16,7 @@
             <div class="col-xl-12">
                 <div class="card">
                     <div class="card-header">
-                        <h5>General</h5>
+                        <h5>{{ __('general.general_info') }}</h5>
                     </div>
                     <div class="card-toolbar px-3">
                         <ul class="nav nav-tabs nav-bold nav-tabs-line">
@@ -120,44 +120,8 @@
                                 @enderror
                             </div>
                            
-                            <div class="col-md-6">
-                                <div class="col-form-label pt-0">
-                                    <label>{{ __('general.SKU') }}<span class="text-danger"> * </span></label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fas fa-pen"></i></span>
-                                        </div>
-                                        <input type="text" name="SKU" placeholder="{{ __('general.SKU') }}"
-                                            class="form-control"
-                                            value="{{ old('SKU') }}">
-                                    </div>
-                                </div>
-                                @error('SKU')
-                                    <span class="text-danger" >
-                                        {{ $message }}
-                                    </span>
-                                @enderror
-                            </div>
 
                             
-                            <div class="col-md-6">
-                                <div class="col-form-label pt-0">
-                                    <label>{{ __('general.rate') }}<span class="text-danger"> * </span></label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fas fa-pen"></i></span>
-                                        </div>
-                                        <input type="text" name="rate" placeholder="{{ __('general.rate') }}"
-                                            class="form-control"
-                                            value="{{ old('rate') }}">
-                                    </div>
-                                </div>
-                                @error('rate')
-                                    <span class="text-danger" >
-                                        {{ $message }}
-                                    </span>
-                                @enderror
-                            </div>
 
                             <div class="col-md-6">
                                 <div class="col-form-label pt-0">
@@ -178,30 +142,8 @@
                                 @enderror
                             </div>
 
-                            <div class="col-md-6">
-                                <div class="col-form-label pt-0">
-                                    <label>{{ __('general.quantity') }}<span class="text-danger"> * </span></label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fas fa-pen"></i></span>
-                                        </div>
-                                        <input type="text" name="quantity" placeholder="{{ __('general.quantity') }}"
-                                            class="form-control"
-                                            value="{{ old('quantity') }}">
-                                    </div>
-                                </div>
-                                @error('quantity')
-                                    <span class="text-danger" >
-                                        {{ $message }}
-                                    </span>
-                                @enderror
-                            </div>
 
                             
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="is_addition" name="is_addition" value="1" {{ old('is_addition') ? 'checked' : '' }}>
-                                <label class="form-check-label" for="is_addition"> {{ __('general.is_addition') }}</label>
-                            </div>
 
                            
                                {{-- images --}}
@@ -230,7 +172,8 @@
         </div>
         <div class="row product-adding">
             <div class="col-xl-12">
-             
+                @include('admin.crud.products._variations')
+
                 <div class="card">
                     <div class="card-body">
                         <div class="digital-add needs-validation">

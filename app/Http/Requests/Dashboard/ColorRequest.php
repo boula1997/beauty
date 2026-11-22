@@ -23,7 +23,6 @@ class ColorRequest extends FormRequest
 
 
         $rules = [
-            'store_id' => 'required|exists:stores,id',
             'hexCode'  => 'required|regex:/^#([A-Fa-f0-9]{6})$/',
         ];
         foreach (config('translatable.locales') as $locale) {

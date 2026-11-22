@@ -25,7 +25,6 @@
                                     <tr>
                                         <th>#</th>
                                         <th>{{__('general.title')}}</th>
-                                        <th>{{__('general.store')}}</th>
                                         <th>{{__('general.controls')}}</th>
                                     </tr>
                                 </thead>
@@ -33,8 +32,7 @@
                                     @foreach ($colors as $color)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $color->title }}</td>              
-                                            <td>{{ $color->store->title }}</td>
+                                            <td>{{ $color->title }}</td>
                                             <td>
                                                 @include('admin.components.controls', [
                                                     'route' => 'colors',

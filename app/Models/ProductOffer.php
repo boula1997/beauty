@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Relations\MorphOne;
 class ProductOffer extends Model
 {
     use HasFactory, MorphFile;
-    protected $table = 'productOffers';
+    protected $table = 'productoffers';
     public $translatedAttributes = [];
     protected $guarded = [];
     public $timestamps = true;

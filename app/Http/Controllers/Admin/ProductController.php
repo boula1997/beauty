@@ -11,6 +11,7 @@ use App\Models\Color;
 use App\Models\Company;
 use Illuminate\Support\Facades\File;
 use App\Models\Product;
+use App\Models\Orderproduct;
 use Illuminate\Http\Request;
 use App\Models\File as ModelsFile;
 use App\Models\ProductOffer;
@@ -44,7 +45,7 @@ class ProductController extends Controller
     public function index()
     {
         try {
-            $products = $this->product->latest()->paginate(10);
+            $products = $this->product->with(['productVariations.color', 'productVariations.size', 'category', 'subcategory'])->latest()->paginate(10);
             return view('admin.crud.products.index', compact('products'))
                 ->with('i', (request()->input('product', 1) - 1) * 5);
         } catch (Exception $e) {
@@ -63,7 +64,10 @@ class ProductController extends Controller
         $categories=Category::get();
         $subcategories=Subcategory::get();
 
-        return view('admin.crud.products.create',compact('categories','subcategories',));
+        $colors = Color::with('translations')->get();
+        $sizes = Size::with('translations')->orderBy('id')->get();
+
+        return view('admin.crud.products.create',compact('categories','subcategories','colors','sizes'));
     }
 
     /**
@@ -78,13 +82,9 @@ public function store(ProductRequest $request)
     DB::beginTransaction();
 
     try {
-        $data = $request->except('image','images','profile_avatar_remove');
-
-        // flag
-        $data['is_addition'] = $request->has('is_addition') ? true : false;
-
         // create product
-        $product = $this->product->create($data);
+        $product = $this->product->create($this->productData($request));
+        $this->syncVariations($product, $request->input('variations', []));
 
         // handle single + multiple images
         $product->uploadFile();
@@ -98,7 +98,7 @@ public function store(ProductRequest $request)
     } catch (\Exception $e) {
         DB::rollBack();
         \Log::error($e->getMessage());
-        return redirect()->back()->with('error', __('general.something_wrong'));
+        return redirect()->back()->with('error', __('general.something_wrong'))->withInput();
     }
 }
 
@@ -126,7 +126,10 @@ public function store(ProductRequest $request)
         $subcategories=Subcategory::get();
         $images = $product->images;
        
-        return view('admin.crud.products.edit', compact('product','categories','subcategories','images',));
+        $colors = Color::with('translations')->get();
+        $sizes = Size::with('translations')->orderBy('id')->get();
+
+        return view('admin.crud.products.edit', compact('product','categories','subcategories','images','colors','sizes'));
     }
     /**
      * Update the specified resource in storage.
@@ -140,10 +143,8 @@ public function store(ProductRequest $request)
         DB::beginTransaction();
         try {
             // dd($request->all());
-            $data = $request->except('image','images','profile_avatar_remove');
-            $data['is_addition'] = $request->has('is_addition') ? true : false;
-
-            $product->update($data);
+            $product->update($this->productData($request));
+            $this->syncVariations($product, $request->input('variations', []));
             $product->updateFile();
             $product->uploadFiles();
       
@@ -153,6 +154,7 @@ public function store(ProductRequest $request)
                 ->with('success', trans('general.update_successfully'));
         } catch (Exception $e) {
             DB::rollBack();
+            \Log::error($e->getMessage());
             return redirect()->back()->with(['error' => __('general.something_wrong')])->withInput();
         }
     }
@@ -162,6 +164,60 @@ public function store(ProductRequest $request)
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
+    /** Only real product columns (+ translations); the form must not write fields the table doesn't have. */
+    private function productData(ProductRequest $request): array
+    {
+        $data = $request->only(['price', 'category_id', 'subcategory_id']);
+        $data['subcategory_id'] = $request->filled('subcategory_id') ? $request->input('subcategory_id') : null;
+        foreach (config('translatable.locales') as $locale) {
+            if ($request->has($locale)) {
+                $data[$locale] = $request->input($locale);
+            }
+        }
+        return $data;
+    }
+
+    /**
+     * Save the "colors, sizes & stock" rows. Rows are matched by color + size: existing ones are updated,
+     * new ones created, removed ones deleted. A removed row that appears in past orders is kept with
+     * stock 0 instead, so those orders keep showing their color / size.
+     */
+    private function syncVariations(Product $product, array $rows): void
+    {
+        $existing = $product->productVariations()->get()
+            ->keyBy(fn ($v) => $v->color_id . '|' . ($v->size_id ?? ''));
+        $seen = [];
+
+        foreach ($rows as $row) {
+            $colorId = (int) $row['color_id'];
+            $sizeId = !empty($row['size_id']) ? (int) $row['size_id'] : null;
+            $key = $colorId . '|' . ($sizeId ?? '');
+            $seen[$key] = true;
+
+            if ($variation = $existing->get($key)) {
+                $variation->update(['quantity' => (int) $row['quantity']]);
+            } else {
+                $product->productVariations()->create([
+                    'color_id' => $colorId,
+                    'size_id' => $sizeId,
+                    'quantity' => (int) $row['quantity'],
+                    'price' => $product->getRawOriginal('price') ?? 0,
+                ]);
+            }
+        }
+
+        foreach ($existing as $key => $variation) {
+            if (isset($seen[$key])) {
+                continue;
+            }
+            if (Orderproduct::where('productvariation_id', $variation->id)->exists()) {
+                $variation->update(['quantity' => 0]);
+            } else {
+                $variation->delete();
+            }
+        }
+    }
+
     public function destroy(Product $product)
     {
         try {

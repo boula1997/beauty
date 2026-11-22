@@ -43,6 +43,7 @@ class CartController extends Controller
             $cartItems = [];
             foreach ($cartData as $hash => $item) {
                 $product = Product::find($item['id']);
+                $item = $this->decorateItem($item, $product);
                 $cartItems[] = array_merge(['hash' => $hash,
                 'image' => $product ? $product->image : null,
                 ], $item);
@@ -74,19 +75,52 @@ class CartController extends Controller
             
             $product = $this->product->findorfail($id);
 
+            $options = [
+                'color' => $request->color_id,
+            ];
+            $quantity = max(1, (int) ($request->quantity ?? 1));
 
-            
-             
+            // If this color is sold in sizes, the customer must pick one that exists for it.
+            $sizedVariations = ProductVariation::where('product_id', $product->id)
+                ->where('color_id', $request->color_id)
+                ->whereNotNull('size_id');
+
+            if ($sizedVariations->exists()) {
+                $variation = $request->filled('size_id')
+                    ? (clone $sizedVariations)->where('size_id', $request->size_id)->first()
+                    : null;
+
+                if (!$variation) {
+                    return response()->json(['error' => __('general.select_size'), 'message' => __('general.select_size')]);
+                }
+
+                $options['size'] = $variation->size_id;
+            } else {
+                $variation = ProductVariation::where('product_id', $product->id)
+                    ->where('color_id', $request->color_id)
+                    ->first();
+            }
+
+            // Never let more into the cart than is in stock for this color / size.
+            if ($variation) {
+                $alreadyInCart = $this->quantityInCart($product->id, $options);
+                if ($variation->quantity <= 0) {
+                    return response()->json(['error' => __('general.out_of_stock'), 'message' => __('general.out_of_stock')]);
+                }
+                if ($alreadyInCart + $quantity > $variation->quantity) {
+                    $msg = __('general.only_left_in_stock', ['count' => $variation->quantity]);
+                    return response()->json(['error' => $msg, 'message' => $msg]);
+                }
+            }
+
             $item = $this->cart->addItem([
                 'model' => $product,
-                'id' => $product->id, 
+                'id' => $product->id,
                 'title' => isset($product)?$product->title:'',
                 'price' => $product->price,
-                'quantity' => $request->quantity ?? 1,
-                'options' => [
-                    'color' => $request->color_id,
-                ],
-              
+                'quantity' => $quantity,
+                'options' => $options,
+
             ]);
 
             updateUserCart();
@@ -103,6 +137,45 @@ class CartController extends Controller
         } catch (Exception $e) {
             return response()->json(['error' => __($e->getMessage())]);
         }
+    }
+
+    /** Total quantity already in the cart for a product with the given color / size. */
+    private function quantityInCart($productId, array $options): int
+    {
+        return (int) collect(cart()->getItems())
+            ->filter(function ($item) use ($productId, $options) {
+                $o = (array) $item->get('options');
+                return $item->get('id') == $productId
+                    && ($o['color'] ?? null) == ($options['color'] ?? null)
+                    && ($o['size'] ?? null) == ($options['size'] ?? null);
+            })
+            ->sum(fn ($item) => $item->get('quantity'));
+    }
+
+    /**
+     * Fill in display data in the request's language: product title, color / size names,
+     * color hex and remaining stock. Stored cart rows only need the ids.
+     */
+    private function decorateItem(array $item, ?Product $product): array
+    {
+        $options = (array) ($item['options'] ?? []);
+        $color = !empty($options['color']) ? Color::find($options['color']) : null;
+        $size = !empty($options['size']) ? Size::find($options['size']) : null;
+        $variation = $product
+            ? ProductVariation::forCartOptions($product->id, $options)->first()
+            : null;
+
+        $options['colorTitle'] = $color?->title;
+        $options['colorHex'] = $color?->hexCode;
+        $options['sizeTitle'] = $size?->title;
+
+        if ($product) {
+            $item['title'] = $product->title;
+        }
+        $item['options'] = $options;
+        $item['stock'] = $variation?->quantity;
+
+        return $item;
     }
 
     public function removeItemCart(Request $request)
@@ -139,6 +212,14 @@ class CartController extends Controller
 
 
             if($request->query('action')=="increment"){
+                $cartItem = collect(cart()->getItems())->first(fn ($i) => $i->getHash() == $hash);
+                $variation = $cartItem
+                    ? ProductVariation::forCartOptions($cartItem->get('id'), $cartItem->get('options'))->first()
+                    : null;
+                if ($variation && getHashQuantity($hash) + 1 > $variation->quantity) {
+                    $msg = __('general.only_left_in_stock', ['count' => $variation->quantity]);
+                    return response()->json(['error' => $msg, 'message' => $msg, 'quantity' => getHashQuantity($hash), 'total' => cart()->getTotal()]);
+                }
                 $updatedItem = $this->cart->updateItem($hash, [
                     'quantity'      =>   getHashQuantity($hash)+1,
                 ]);

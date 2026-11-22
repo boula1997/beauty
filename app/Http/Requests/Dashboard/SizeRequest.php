@@ -23,7 +23,6 @@ class SizeRequest extends FormRequest
 
 
         $rules = [
-            'store_id' => 'required|exists:stores,id',
         ];
         foreach (config('translatable.locales') as $locale) {
             $rules += [$locale . '.title' => ['required', 'string']];

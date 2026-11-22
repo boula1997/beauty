@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Relations\MorphOne;
 class ChooseUs extends Model implements TranslatableContract
 {
     use HasFactory, Translatable, MorphFile;
-    protected $table = 'chooseUss';
+    protected $table = 'chooseuss';
     public $translatedAttributes = ['title','description'];
     protected $guarded = [];
     public $timestamps = true;

@@ -1386,4 +1386,6 @@ return [
 
     'is_addition' => 'Ce produit est-il un supplément ?',
 
+    'out_of_stock' => 'Cet article est en rupture de stock',
+    'only_left_in_stock' => 'Plus que :count en stock',
 ];

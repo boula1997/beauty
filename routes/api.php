@@ -159,18 +159,13 @@ Route::post('/newsletter', [NewsletterController::class, 'store']);
 Route::post('/products', [ProductController::class, 'store']);
 Route::post('/products', [ProductController::class, 'store']);
 Route::post('/message', [MessageController::class, 'store']);
-    Route::get('/showEditCreate/{table}/{itemId}', [GeneralController::class, 'showEditCreate']);
-    Route::post('/storeUpdate/{table}/{itemId}', [GeneralController::class, 'storeUpdate']);
-    Route::get('/deleteItem/{table}/{itemId}', [GeneralController::class, 'deleteItem']);
-    Route::get('/index/{table}', [GeneralController::class, 'index']);
-    Route::get('/tables', [GeneralController::class, 'tableNames']);
 
 
 // routes/api.php
-Route::post('auth/guest-login', [AuthController::class, 'guestLogin']);
+Route::post('auth/guest-login', [AuthController::class, 'guestLogin'])->middleware('apiLocalization');
 
 Route::group([
-    'middleware' => 'api',
+    'middleware' => ['api', 'apiLocalization'],
     'prefix' => 'auth'
 ], function ($router) {
     Route::post('/login', [AuthController::class, 'login']);

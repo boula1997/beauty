@@ -401,7 +401,7 @@ if (!function_exists('orderCheckoutData()')) {
     function orderCheckoutData($order)
     {
         $discount = 0;
-        $delivery = $order->shipping->fee;
+        $delivery = $order->shipping?->fee ?? 0;
         $allTotal=0;
         $subTotal = 0;
         $orderDiscount = $order->discount;

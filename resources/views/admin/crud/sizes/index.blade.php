@@ -25,7 +25,6 @@
                                     <tr>
                                         <th>#</th>
                                         <th>{{__('general.title')}}</th>
-                                        <th>{{__('general.store')}}</th>
                                         <th>{{__('general.controls')}}</th>
                                     </tr>
                                 </thead>
@@ -33,8 +32,7 @@
                                     @foreach ($sizes as $size)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $size->title }}</td>              
-                                            <td>{{ $size->store->title }}</td>
+                                            <td>{{ $size->title }}</td>
                                    
                                             <td>
                                                 @include('admin.components.controls', [

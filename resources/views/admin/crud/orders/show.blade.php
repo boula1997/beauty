@@ -20,7 +20,7 @@
                                         <div class="row g-4">
                                             <div class="col-xl-8">
                                                 <div class="card-details-title">
-                                                    <h3>Order Number <span>{{ $order->id }}</span></h3>
+                                                    <h3>{{ __('general.order_number') }} <span>{{ $order->id }}</span></h3>
                                                 </div>
                                                 <div class="table-responsive table-details">
                                                     <table class="table cart-table table-borderless">
@@ -40,20 +40,21 @@
                                                                 <tr class="table-order">
                                                                     <td>
                                                                         <a href="javascript:void(0)">
-                                                                            <img src="{{ asset(isset($orderproduct->variation->image)?$orderproduct->variation->image:'default.jpg') }}"
+                                                                            <img src="{{ $orderproduct->product?->image ?? asset('default.jpg') }}"
                                                                                 class="img-fluid blur-up lazyload" alt="">
                                                                         </a>
                                                                     </td>
                                                                     <td>
-                                                                        <p>{{ $orderproduct->product->title }}</p>
-                                                                        <h5>{{ $orderproduct->product->category->title }}</h5>
+                                                                        <p>{{ $orderproduct->product?->title }}</p>
+                                                                        <h5>{{ $orderproduct->product?->category?->title }}</h5>
+                                                                        @include('admin.components.variation-badge', ['variation' => $orderproduct->variation])
                                                                     </td>
                                                                     <td>
-                                                                        <p>Quantity</p>
+                                                                        <p>{{ __('general.quantity') }}</p>
                                                                         <h5>{{ $orderproduct->count }}</h5>
                                                                     </td>
                                                                     <td>
-                                                                        <p>Price</p>
+                                                                        <p>{{ __('general.price') }}</p>
                                                                         <h5>{{ $orderproduct->total }}</h5>
                                                                     </td>
                                                                 </tr>
@@ -263,7 +264,7 @@
                             @foreach ($order->orderproducts as $orderproduct)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $orderproduct->product->title }}</td>
+                                    <td>{{ $orderproduct->product?->title }}</td>
                                     <td>{{ $orderproduct->count }}</td>
                                     <td>{{ $orderproduct->total }} {{ __('general.pound')}}</td>
                                     <td>
