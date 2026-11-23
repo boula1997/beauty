@@ -34,6 +34,7 @@ class ProductResource extends JsonResource
                 : ($this->byOneGetOne ? 'Buy 1 Get 1' : null),
             "price" => $this->price,
             "colors" => $this->getColors(),
+            "sizes" => $this->getSizes(),
             "category" => $this->category,
             "isFavourite" => $user ? $this->isFavoritedByUser($user->id) : false,
 

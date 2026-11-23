@@ -1734,4 +1734,7 @@ Looking for the latest trends in clothing, shoes and accessories? Welcome to our
     'fill_row' => 'Same for all sizes',
     'not_sold' => '—',
     'variation_mixed_existing' => 'Some colors were saved without a size while others have sizes. Re-enter their stock in the grid before saving:',
+    'none' => 'None',
+    'variation_exists' => 'A variation with this color and size already exists for this product.',
+    'shipping_address' => 'Shipping address',
 ];

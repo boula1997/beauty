@@ -22,9 +22,10 @@ use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\MerchantRequestController;
 use App\Http\Controllers\API\ProjectController;
 use App\Http\Controllers\Admin\ProductSizeController;
+use App\Http\Controllers\Admin\ProductVariationController;
+use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\ShippingController;
-use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\SizeController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\StoreController;
@@ -68,7 +69,7 @@ Route::group(
                 })->name('dashboard');
                 
                 Route::resource('roles', RoleController::class);
-                Route::resource('reviews', ReviewController::class);
+                Route::resource('reviews', ReviewController::class)->only(['index', 'show', 'destroy']);
                 Route::resource('categories', CategoryController::class);
                 Route::resource('offers', OfferController::class);                
                 Route::resource('services', ServiceController::class);                
@@ -98,11 +99,12 @@ Route::group(
                 Route::resource('users', UserController::class);
                 Route::resource('admins', AdminController::class);
                 Route::resource('products', ProductController::class);
+                Route::resource('products.variations', ProductVariationController::class)->except(['show']);
+                Route::resource('coupons', CouponController::class);
                 Route::resource('productRequests', ProductController::class);
                 Route::resource('orders', OrderController::class);
                 Route::resource('messages', MessageController::class);
                 Route::resource('shippings', ShippingController::class);
-                Route::resource('coupons', CouponController::class);
                 Route::resource('merchantRequests', MerchantRequestController::class);
                 
                 Route::get('/merchantRequest/reject/{id}', [MerchantRequestController::class, 'reject'])->name('merchantRequests.reject');

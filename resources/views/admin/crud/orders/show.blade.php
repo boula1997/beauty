@@ -133,12 +133,15 @@
 
                                                     <div class="col-12">
                                                         <div class="order-success">
-                                                            <h4>shipping address</h4>
+                                                            <h4>{{ __('general.shipping_address') }}</h4>
+                                                            {{-- orders.address is plain text; name / phone live on the order itself --}}
                                                             <ul class="order-details">
-                                                                <li>{{ $order->address->title }}</li>
-                                                                <li>{{ $order->address->fullName }}</li>
-                                                                <li>{{ $order->address->fullAddress }}</li>
-                                                                <li>{{ $order->address->phone }}</li>
+                                                                <li>{{ $order->name }}</li>
+                                                                <li dir="ltr" style="unicode-bidi: isolate">{{ $order->phone }}</li>
+                                                                <li>{{ is_string($order->address) ? $order->address : ($order->address->fullAddress ?? '') }}</li>
+                                                                @if ($order->shipping)
+                                                                    <li>{{ $order->shipping->title }}</li>
+                                                                @endif
                                                             </ul>
                                                         </div>
                                                     </div>
