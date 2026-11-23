@@ -1,21 +1,19 @@
-<IfModule mod_rewrite.c>
-    <IfModule mod_negotiation.c>
-        Options -MultiViews -Indexes
-    </IfModule>
+# This folder is the project root (code, storage/logs, .env, vendor...). Nothing here may be served
+# directly: the app is served from /public. Every request is redirected to the same path under
+# /public, e.g. /dashboard/en/dashboard/admin/login -> /dashboard/public/en/dashboard/admin/login.
+# (/public has its own .htaccess, so requests already under /public never reach these rules.)
 
+Options -MultiViews -Indexes
+
+<IfModule mod_rewrite.c>
     RewriteEngine On
 
-    # Handle Authorization Header
-    RewriteCond %{HTTP:Authorization} .
-    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+    # %1 = the URL path of this folder (e.g. "/dashboard/"), however the site is mounted.
+    RewriteCond %{REQUEST_URI}::$1 ^(.*?/)(.*)::\2$
+    RewriteRule ^(.*)$ %1public/$1 [R=302,L]
+</IfModule>
 
-    # Redirect Trailing Slashes If Not A Folder...
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteCond %{REQUEST_URI} (.+)/$
-    RewriteRule ^ %1 [L,R=301]
-
-    # Send Requests To Front Controller...
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteRule ^ index.php [L]
+# Without mod_rewrite, refuse everything rather than expose project files.
+<IfModule !mod_rewrite.c>
+    Require all denied
 </IfModule>
