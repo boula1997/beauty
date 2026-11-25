@@ -1,5 +1,3 @@
-
-@@dd(50)
 @extends('admin.components.form')
 @section('form_action', route('sliders.store'))
 @section('form_type', 'POST')

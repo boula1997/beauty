@@ -64,9 +64,7 @@ Route::group(
             Route::post('/admin/register', [App\Http\Controllers\Auth\RegisterController::class, 'createAdmin'])->name('admin.register');           
             Route::group(['middleware' => ['auth:admin']], function () {
     
-                Route::get('/', function () {
-                    return view('dashboard');
-                })->name('dashboard');
+                Route::get('/', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
                 
                 Route::resource('roles', RoleController::class);
                 Route::resource('reviews', ReviewController::class)->only(['index', 'show', 'destroy']);

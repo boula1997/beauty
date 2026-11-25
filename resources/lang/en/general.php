@@ -604,7 +604,7 @@ return [
     'total'=>'Total',
     'profile'=>'Profile',
     'account'=>'My Account',
-    'pound'=>'ر.س',
+    'pound'=>'EGP',
     'checkout'=>'Checkout',
     'add_to_cart'=>'Add to Cart',
     'add_to_favourite'=>'Add to Favourite',
@@ -1737,4 +1737,9 @@ Looking for the latest trends in clothing, shoes and accessories? Welcome to our
     'none' => 'None',
     'variation_exists' => 'A variation with this color and size already exists for this product.',
     'shipping_address' => 'Shipping address',
+    'delivered_sales' => 'Delivered orders sales',
+    'latest_orders' => 'Latest orders',
+    'emoji' => 'Emoji',
+    'color_title_not_numeric' => 'The color name must be a name, not a number.',
+    'size_title_repeated' => 'Invalid size label: do not repeat the same letter more than 3 times.',
 ];

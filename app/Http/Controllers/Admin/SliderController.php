@@ -66,7 +66,7 @@ class SliderController extends Controller
             return redirect()->route('sliders.index')
                 ->with('success', trans('general.created_successfully'));
         } catch (Exception $e) {
-            dd($e->getMessage());
+            report($e);
             return redirect()->back()->with(['error' => __('general.something_wrong')]);
         }
     }

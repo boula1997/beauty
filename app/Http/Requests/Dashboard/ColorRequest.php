@@ -26,9 +26,19 @@ class ColorRequest extends FormRequest
             'hexCode'  => 'required|regex:/^#([A-Fa-f0-9]{6})$/',
         ];
         foreach (config('translatable.locales') as $locale) {
-            $rules += [$locale . '.title' => ['required', 'string']];
+            // A color name must be a real name, not just a number (e.g. "2").
+            $rules += [$locale . '.title' => ['required', 'string', 'max:50', 'not_regex:/^\s*[\d\x{0660}-\x{0669}]+\s*$/u']];
         }
         return  $rules;
+    }
+
+    public function messages()
+    {
+        $messages = [];
+        foreach (config('translatable.locales') as $locale) {
+            $messages[$locale . '.title.not_regex'] = __('general.color_title_not_numeric');
+        }
+        return $messages;
     }
 
 }

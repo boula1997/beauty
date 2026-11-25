@@ -33,7 +33,7 @@
                                         <input type="text" name="{{ $locale . '[title]' }}"
                                             placeholder="{{__('general.title')}}"
                                             class="form-control @error('') invalid @enderror  pl-1 min-h-40px @error($locale . '.title') is-invalid @enderror"
-                                            value="{{ old($locale . '.title', $setting->translate($locale)->title) }}">
+                                            value="{{ old($locale . '.title', $setting->translate($locale)?->title) }}">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -45,7 +45,7 @@
                                         <input type="text" name="{{ $locale . '[address]' }}"
                                             placeholder="{{__('general.address')}}"
                                             class="form-control @error('') invalid @enderror  pl-1 min-h-40px @error($locale . '.address') is-invalid @enderror"
-                                            value="{{ old($locale . '.address', $setting->translate($locale)->address) }}">
+                                            value="{{ old($locale . '.address', $setting->translate($locale)?->address) }}">
                                     </div>
                                 </div>
                               
@@ -59,7 +59,7 @@
                                         <input type="text" name="{{ $locale . '[appointment]' }}"
                                             placeholder="{{__('general.appointment')}}"
                                             class="form-control @error('') invalid @enderror  pl-1 min-h-40px @error($locale . '.appointment') is-invalid @enderror"
-                                            value="{{ old($locale . '.appointment', $setting->translate($locale)->appointment) }}">
+                                            value="{{ old($locale . '.appointment', $setting->translate($locale)?->appointment) }}">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -72,7 +72,7 @@
                                         <input type="text" name="{{ $locale . '[copyright]' }}"
                                             placeholder="{{__('general.copyright')}}"
                                             class="form-control @error('') invalid @enderror  pl-1 min-h-40px @error($locale . '.copyright') is-invalid @enderror"
-                                            value="{{ old($locale . '.copyright', $setting->translate($locale)->copyright) }}">
+                                            value="{{ old($locale . '.copyright', $setting->translate($locale)?->copyright) }}">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -85,7 +85,7 @@
                                         <input type="text" name="{{ $locale . '[meta_data]' }}"
                                             placeholder="{{__('general.meta_data')}}"
                                             class="form-control @error('') invalid @enderror  pl-1 min-h-40px @error($locale . '.meta_data') is-invalid @enderror"
-                                            value="{{ old($locale . '.meta_data', $setting->translate($locale)->meta_data) }}">
+                                            value="{{ old($locale . '.meta_data', $setting->translate($locale)?->meta_data) }}">
                                     </div>
                                 </div>
 
@@ -95,7 +95,7 @@
                                     <label>{{__('general.description')}}(@lang('general.' . $locale))<span class="text-danger">*</span></label>
                                     <textarea rows="100" class="summernote @error($locale . '.description') is-invalid @enderror"
                                         name="{{ $locale . '[description]' }}">
-                                        {!! old($locale . '.description', $setting->translate($locale)->description) !!} 
+                                        {!! old($locale . '.description', $setting->translate($locale)?->description) !!} 
                                     </textarea>
                                 </div>
                             </div>

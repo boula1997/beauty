@@ -543,7 +543,7 @@ return [
 'total' => 'Total',
 'profile' => 'Profil',
 'account' => 'Mon compte',
-'pound' => 'ر.س',
+'pound' => 'EGP',
 'checkout' => 'Commander',
 'add_to_cart' => 'Ajouter au panier',
 'add_to_favourite' => 'Ajouter aux favoris',

@@ -21,16 +21,6 @@
                 <div class="nav-right col">
                     <ul class="nav-menus">
                         <li>
-                            <form class="form-inline search-form">
-                                <div class="form-group">
-                                    <input class="form-control-plaintext" type="search" placeholder="Search..">
-                                    <span class="d-sm-none mobile-search">
-                                        <i data-feather="search"></i>
-                                    </span>
-                                </div>
-                            </form>
-                        </li>
-                        <li>
                             <a class="text-dark" href="#!" onclick="javascript:toggleFullScreen()">
                                 <i data-feather="maximize-2"></i>
                             </a>
@@ -55,91 +45,45 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="onhover-dropdown">
-                            <i data-feather="bell"></i>
-                            <span class="badge badge-pill badge-primary pull-right notification-badge">3</span>
-                            <span class="dot"></span>
-                            <ul class="notification-dropdown onhover-show-div p-0">
-                                <li  class="m-10">Notification <span class="badge badge-pill badge-primary pull-right">3</span></li>
-                                <li  class="m-5">
-                                    <div class="media">
-                                        <div class="media-body">
-                                            <h6 class="mt-0">
-                                                <span>
-                                                    <i class="shopping-color" data-feather="shopping-bag"></i>
-                                                </span>Your order ready for Ship..!
-                                            </h6>
-                                            <p class="mb-0">Lorem ipsum dolor sit amet, consectetuer.</p>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li  class="m-5">
-                                    <div class="media">
-                                        <div class="media-body">
-                                            <h6 class="mt-0 txt-success">
-                                                <span>
-                                                    <i class="download-color font-success" data-feather="download"></i>
-                                                </span>Download Complete
-                                            </h6>
-                                            <p class="mb-0">Lorem ipsum dolor sit amet, consectetuer.</p>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li  class="m-5">
-                                    <div class="media">
-                                        <div class="media-body">
-                                            <h6 class="mt-0 txt-danger">
-                                                <span>
-                                                    <i class="alert-color font-danger" data-feather="alert-circle"></i>
-                                                </span>250 MB trash files
-                                            </h6>
-                                            <p class="mb-0">Lorem ipsum dolor sit amet, consectetuer.</p>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li   class="txt-dark m-5"><a href="javascript:void(0)">All</a> notification</li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)">
-                                <i class="right_side_toggle" data-feather="message-square"></i>
-                                <span class="dot"></span>
-                            </a>
-                        </li>
+                        @can('message-list')
+                            <li>
+                                <a class="text-dark" href="{{ route('messages.index') }}" title="{{ __('general.messages') }}">
+                                    <i data-feather="message-square"></i>
+                                </a>
+                            </li>
+                        @endcan
                         <li class="onhover-dropdown">
                             <div class="media align-items-center">
-                                <img class="align-self-center pull-right img-50 blur-up lazyloaded"
-                                    src="{{asset("admin/assets/images/dashboard/user3.jpg")}}" alt="header-user">
-                                <div class="dotted-animation">
-                                    <span class="animate-circle"></span>
-                                    <span class="main-circle"></span>
-                                </div>
+                                <img class="align-self-center pull-right img-50 blur-up lazyloaded rounded-circle"
+                                    src="{{ auth('admin')->user()?->image ?? asset('default.jpg') }}" alt="{{ auth('admin')->user()?->name }}">
                             </div>
-                            <ul class="profile-dropdown onhover-show-div p-20 profile-dropdown-hover"  class="m-5">
+                            <ul class="profile-dropdown onhover-show-div p-20 profile-dropdown-hover">
                                 <li>
-                                    <a href="javascript:void(0)">
-                                        <i data-feather="user" class="m-5"></i>Edit Profile
+                                    <a href="{{ route('edit.profile') }}">
+                                        <i data-feather="user" class="m-5"></i>{{ __('general.profile') }}
                                     </a>
                                 </li>
+                                @can('message-list')
+                                    <li>
+                                        <a href="{{ route('messages.index') }}">
+                                            <i data-feather="mail" class="m-5"></i>{{ __('general.messages') }}
+                                        </a>
+                                    </li>
+                                @endcan
+                                @can('setting-edit')
+                                    <li>
+                                        <a href="{{ route('edit.setting') }}">
+                                            <i data-feather="settings" class="m-5"></i>{{ __('general.setting') }}
+                                        </a>
+                                    </li>
+                                @endcan
                                 <li>
-                                    <a href="javascript:void(0)">
-                                        <i data-feather="mail" class="m-5"></i>Inbox
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)">
-                                        <i data-feather="lock" class="m-5"></i>Lock Screen
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)">
-                                        <i data-feather="settings" class="m-5"></i>Settings
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)">
-                                        <i data-feather="log-out" class="m-5"></i>Logout
-                                    </a>
+                                    <form action="{{ route('logout') }}" method="POST" class="m-0">
+                                        @csrf
+                                        <button type="submit" class="btn btn-link p-0 text-reset text-decoration-none">
+                                            <i data-feather="log-out" class="m-5"></i>{{ __('general.logout') }}
+                                        </button>
+                                    </form>
                                 </li>
                             </ul>
                         </li>
