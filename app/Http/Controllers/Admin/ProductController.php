@@ -21,6 +21,7 @@ use App\Models\Store;
 use App\Models\Subcategory;
 use Exception;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Http\UploadedFile;
 
 
@@ -97,8 +98,8 @@ public function store(ProductRequest $request)
 
     } catch (\Exception $e) {
         DB::rollBack();
-        \Log::error($e->getMessage());
-        return redirect()->back()->with('error', __('general.something_wrong'))->withInput();
+        \Log::error($e);
+        return redirect()->back()->with('error', __('general.something_wrong') . ': ' . $e->getMessage())->withInput();
     }
 }
 
@@ -154,8 +155,8 @@ public function store(ProductRequest $request)
                 ->with('success', trans('general.update_successfully'));
         } catch (Exception $e) {
             DB::rollBack();
-            \Log::error($e->getMessage());
-            return redirect()->back()->with(['error' => __('general.something_wrong')])->withInput();
+            \Log::error($e);
+            return redirect()->back()->with(['error' => __('general.something_wrong') . ': ' . $e->getMessage()])->withInput();
         }
     }
     /**
@@ -197,12 +198,16 @@ public function store(ProductRequest $request)
             if ($variation = $existing->get($key)) {
                 $variation->update(['quantity' => (int) $row['quantity']]);
             } else {
-                $product->productVariations()->create([
+                $attributes = [
                     'color_id' => $colorId,
                     'size_id' => $sizeId,
                     'quantity' => (int) $row['quantity'],
-                    'price' => $product->getRawOriginal('price') ?? 0,
-                ]);
+                ];
+                // Older databases may not have productvariations.price yet (migration 2026_11_22_000000 adds it).
+                if (Schema::hasColumn('productvariations', 'price')) {
+                    $attributes['price'] = $product->getRawOriginal('price') ?? 0;
+                }
+                $product->productVariations()->create($attributes);
             }
         }
 
