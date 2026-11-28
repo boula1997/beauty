@@ -59,4 +59,21 @@ class LoginController extends Controller
         return redirect()->back()->with(['error' => __('general.credentials_error')]);
 
     }
+
+    /**
+     * Log the admin out and send them back to the dashboard login page
+     * (the default redirects to "/", which is the storefront, not the dashboard).
+     */
+    public function logout(Request $request)
+    {
+        \Auth::guard('admin')->logout();
+        \Auth::guard('web')->logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return $request->wantsJson()
+            ? response()->json([], 204)
+            : redirect()->route('admin.login-view');
+    }
 }
